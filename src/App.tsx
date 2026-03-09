@@ -7,7 +7,7 @@ function App() {
   return (
     <button
       className='border-2 border-indigo-400 rounded-sm py-3 px-4 uppercase font-bold'
-      onClick={() => setCount((count) => count + 1)}
+      onClick={() => setCount((prevCount) => prevCount + 1)}
     >
       count is {count}
     </button>

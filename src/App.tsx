@@ -1,16 +1,29 @@
-import { useState } from 'react'
+import SidebarItem from "./components/ui/SidebarItem";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <button
-      className='border-2 border-indigo-400 rounded-sm py-3 px-4 uppercase font-bold'
-      onClick={() => setCount((prevCount) => prevCount + 1)}
-    >
-      count is {count}
-    </button>
-  )
-}
+    <>
+      <SidebarItem
+        type='simple'
+        sectionLabel='Simple Opt'
+        iconName='camera'
+        sectionMethod={() => {}}
+        isActive={false}
+      />
 
-export default App
+      <SidebarItem
+        type='expandable'
+        sectionLabel='Expandable Opt'
+        iconName='camera'
+        sectionMethod={() => {}}
+        isActive={true}
+        optLabels={['Opt 1', 'Opt 2']}
+        isExpanded={true}
+        optMethod={() => {}}
+        activeOpt={'Opt 1Expandable Opt'}
+      />
+    </>
+  )
+};
+
+export default App;

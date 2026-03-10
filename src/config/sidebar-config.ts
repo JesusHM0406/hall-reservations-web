@@ -1,12 +1,12 @@
 import { type IconName } from 'lucide-react/dynamic';
 
-type SimpleItemConfig = {
+interface SimpleItemConfig {
   type: 'simple';
   sectionLabel: string;
   iconName: IconName;
 }
 
-type ExpandableItemConfig = {
+interface ExpandableItemConfig {
   type: 'expandable';
   sectionLabel: string;
   iconName: IconName;

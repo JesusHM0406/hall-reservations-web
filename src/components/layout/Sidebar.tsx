@@ -1,6 +1,6 @@
-import { SIDEBAR_ITEMS } from "../../config/sidebar-config";
-import Button from "../common/Button";
-import SidebarItem from "../ui/SidebarItem";
+import { SIDEBAR_ITEMS } from '../../config/sidebar-config';
+import Button from '../common/Button';
+import SidebarItem from '../ui/SidebarItem';
 
 const Sidebar = () => {
   return (

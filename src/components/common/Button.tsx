@@ -1,5 +1,5 @@
-import { DynamicIcon, type IconName } from "lucide-react/dynamic";
-import type { FC } from "react";
+import { DynamicIcon, type IconName } from 'lucide-react/dynamic';
+import type { FC } from 'react';
 
 interface ButtonProps {
   label: string;

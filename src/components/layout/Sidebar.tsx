@@ -40,7 +40,7 @@ const Sidebar: FC<SidebarProps> = ({ isSidebarOpen, closeMethod }) => {
 
   return (
     <>
-      <aside className={`shrink-0 w-70 px-4 flex flex-col py-8 transition-[margin] overflow-hidden ${isSidebarOpen ? 'ml-0' : '-ml-70'} md:ml-0 z-10 bg-neutral-900`}>
+      <aside className={`shrink-0 w-70 px-4 flex flex-col py-8 transition-[margin] overflow-hidden ${isSidebarOpen ? 'ml-0' : '-ml-70'} md:ml-0 z-50 bg-neutral-900`}>
         <div className='grow'>
           {SIDEBAR_ITEMS.map(item => {
             if (item.type === 'expandable') {
@@ -73,7 +73,7 @@ const Sidebar: FC<SidebarProps> = ({ isSidebarOpen, closeMethod }) => {
           <Button label='Log In' iconName='log-in' primary={false} clickMethod={handleButtonClick} />
         </div>
       </aside>
-      <div className={`bg-black/50 w-dvw h-dvh fixed inset-0 ${isSidebarOpen ? 'block' : 'hidden'} md:hidden`} onClick={closeMethod}></div>
+      <div className={`bg-black/50 w-dvw h-dvh fixed inset-0 z-40 ${isSidebarOpen ? 'block' : 'hidden'} md:hidden`} onClick={closeMethod}></div>
     </>
   )
 };

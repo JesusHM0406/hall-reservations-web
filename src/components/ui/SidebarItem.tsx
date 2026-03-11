@@ -30,7 +30,7 @@ const SidebarItem: FC<SidebarItemProps> = (props: SidebarItemProps) => {
     const { isExpanded, optLabels, optMethod, activeOpt }: ExpandableItemProps = props
 
     return (
-      <div className='flex flex-col my-3'>
+      <div className='flex flex-col mb-3'>
         <button className={`text-start p-0.5 cursor-pointer flex items-center gap-2 transition-colors duration-100 ${isActive ? 'text-white' : 'text-slate-400'}`} onClick={sectionMethod}>
           <DynamicIcon name={iconName} size={18} />
           <span className='grow font-bold'>{sectionLabel}</span>

@@ -8,7 +8,7 @@ function MainLayout() {
   return (
     <div className='flex min-h-dvh w-full overflow-x-hidden'>
       <Sidebar isSidebarOpen={isSidebarOpen} closeMethod={() => setIsSidebarOpen(false)} />
-      <div className='min-w-full'>
+      <div className='min-w-full px-6 py-8'>
         <button
           type="button"
           aria-label="Open sidebar"

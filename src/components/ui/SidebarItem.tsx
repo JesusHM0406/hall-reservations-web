@@ -36,7 +36,7 @@ const SidebarItem: FC<SidebarItemProps> = (props: SidebarItemProps) => {
           <span className='grow font-bold'>{sectionLabel}</span>
           <ChevronRight size={18} className={`transition-transform duration-150 ${isExpanded ? 'rotate-90' : ''}`} />
         </button>
-        <div className={`mt-0.5 grid transition-[grid-template-rows] duration-200 grid-rows-[0fr] ${isExpanded ? 'grid-rows-[1fr]' : ''}`}>
+        <div className={`mt-0.5 grid transition-[grid-template-rows] duration-150 grid-rows-[0fr] ${isExpanded ? 'grid-rows-[1fr]' : ''}`}>
           <div className='overflow-hidden flex flex-col gap-1'>
             {optLabels.map((optLabel, index) => {
               return (

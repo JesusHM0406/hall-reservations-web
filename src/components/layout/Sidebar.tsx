@@ -73,7 +73,7 @@ const Sidebar: FC<SidebarProps> = ({ isSidebarOpen, closeMethod }) => {
           <Button label='Log In' iconName='log-in' primary={false} clickMethod={handleButtonClick} />
         </div>
       </aside>
-      <div className={`bg-black/50 w-dvw h-dvh absolute z-0 ${!isSidebarOpen ? 'hidden' : ''} md:hidden`} onClick={closeMethod}></div>
+      <div className={`bg-black/50 w-dvw h-dvh fixed inset-0 ${isSidebarOpen ? 'block' : 'hidden'} md:hidden`} onClick={closeMethod}></div>
     </>
   )
 };

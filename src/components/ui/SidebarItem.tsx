@@ -31,22 +31,22 @@ const SidebarItem: FC<SidebarItemProps> = (props: SidebarItemProps) => {
 
     return (
       <div className='flex flex-col my-3'>
-        <div className={`p-0.5 cursor-pointer flex items-center gap-2 transition-colors duration-100 ${isActive ? 'text-white' : 'text-slate-400'}`} onClick={sectionMethod}>
+        <button className={`text-start p-0.5 cursor-pointer flex items-center gap-2 transition-colors duration-100 ${isActive ? 'text-white' : 'text-slate-400'}`} onClick={sectionMethod}>
           <DynamicIcon name={iconName} size={18} />
           <span className='grow font-bold'>{sectionLabel}</span>
-          <ChevronRight size={18} className={`transition-transform duration-200 ${isExpanded ? 'rotate-90' : ''}`} />
-        </div>
+          <ChevronRight size={18} className={`transition-transform duration-150 ${isExpanded ? 'rotate-90' : ''}`} />
+        </button>
         <div className={`mt-0.5 grid transition-[grid-template-rows] duration-200 grid-rows-[0fr] ${isExpanded ? 'grid-rows-[1fr]' : ''}`}>
           <div className='overflow-hidden flex flex-col gap-1'>
             {optLabels.map((optLabel, index) => {
               return (
-                <div
+                <button
                   key={index}
-                  className={`cursor-pointer ml-8 px-0.5 text-slate-400 ${activeOpt === optLabel + sectionLabel && 'text-white'}`}
+                  className={`cursor-pointer ml-8 px-0.5 text-start text-slate-400 ${activeOpt === optLabel + sectionLabel && 'text-white'}`}
                   onClick={() => optMethod(optLabel)}
                 >
                   {optLabel}
-                </div>
+                </button>
               )
               })}
           </div>
@@ -57,10 +57,10 @@ const SidebarItem: FC<SidebarItemProps> = (props: SidebarItemProps) => {
 
   // If is not 'expandable' then it is necessarily 'simple'
   return (
-    <div className={`cursor-pointer p-0.5 flex items-center gap-2 ${isActive ? 'text-white' : 'text-slate-400'}`} onClick={sectionMethod}>
+    <button className={`cursor-pointer p-0.5 flex text-start items-center gap-2 ${isActive ? 'text-white' : 'text-slate-400'}`} onClick={sectionMethod}>
       <DynamicIcon name={iconName} size={18} />
       <span className='grow font-bold'>{sectionLabel}</span>
-    </div>
+    </button>
   );
 }
 

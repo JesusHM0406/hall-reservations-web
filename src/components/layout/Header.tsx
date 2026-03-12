@@ -1,6 +1,6 @@
 import { Menu, Sun, Moon, Monitor } from "lucide-react";
 import type { FC } from "react";
-import type { ThemeType } from "../../config/themes-config";
+import { THEMES, type ThemeType } from "../../config/themes-config";
 
 interface HeaderProps {
   menuMethod: () => void;
@@ -23,24 +23,24 @@ const Header: FC<HeaderProps> = ({ menuMethod, theme, themeToggleMethod }) => {
       <div className='rounded-xl border-2 border-indigo-400 text-slate-400'>
         <button
           type='button'
-          className={`cursor-pointer py-3 px-4 transition-colors duration-150 ${theme === 'light' ? 'text-white bg-indigo-400' : 'hover:bg-indigo-400/25'}`}
-          onClick={() => themeToggleMethod('light')}
+          className={`cursor-pointer py-3 px-4 transition-colors duration-150 ${theme === THEMES.LIGHT ? 'text-white bg-indigo-400' : 'hover:bg-indigo-400/25'}`}
+          onClick={() => themeToggleMethod(THEMES.LIGHT)}
         >
           <Sun size={14} />
         </button>
         
         <button
           type='button'
-          className={`cursor-pointer py-3 px-4 transition-colors duration-150 ${theme === 'dark' ? 'text-white bg-indigo-400' : 'hover:bg-indigo-400/25'}`}
-          onClick={() => themeToggleMethod('dark')}
+          className={`cursor-pointer py-3 px-4 transition-colors duration-150 ${theme === THEMES.DARK ? 'text-white bg-indigo-400' : 'hover:bg-indigo-400/25'}`}
+          onClick={() => themeToggleMethod(THEMES.DARK)}
         >
           <Moon size={14} />
         </button>
 
         <button
           type='button'
-          className={`cursor-pointer py-3 px-4 transition-colors duration-150 ${theme === 'system' ? 'text-white bg-indigo-400' : 'hover:bg-indigo-400/25'}`}
-          onClick={() => themeToggleMethod('system')}
+          className={`cursor-pointer py-3 px-4 transition-colors duration-150 ${theme === THEMES.SYSTEM ? 'text-white bg-indigo-400' : 'hover:bg-indigo-400/25'}`}
+          onClick={() => themeToggleMethod(THEMES.SYSTEM)}
         >
           <Monitor size={14} />
         </button>

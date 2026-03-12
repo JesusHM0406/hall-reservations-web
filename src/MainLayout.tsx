@@ -4,9 +4,9 @@ import Header from './components/layout/Header';
 import { Outlet } from 'react-router';
 import { THEMES, type ThemeType } from './config/themes-config';
 
-const savedTheme = localStorage.getItem('theme') as ThemeType ||'system';
-const shouldBeDark = savedTheme === 'dark' ||
-  (savedTheme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+const savedTheme = localStorage.getItem('theme') as ThemeType ||THEMES.SYSTEM;
+const shouldBeDark = savedTheme === THEMES.DARK ||
+  (savedTheme === THEMES.SYSTEM && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
 document.documentElement.classList.toggle(THEMES.DARK, shouldBeDark);
 
@@ -15,7 +15,7 @@ function MainLayout() {
   const [currentTheme, setCurrentTheme] = useState<ThemeType>(savedTheme);
 
   useEffect(()=> {
-    if (currentTheme !== 'system') return;
+    if (currentTheme !== THEMES.SYSTEM) return;
 
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
@@ -31,14 +31,14 @@ function MainLayout() {
   const toggleTheme = (theme: ThemeType) => {
     setCurrentTheme(theme);
 
-    if (theme === 'system') {
+    if (theme === THEMES.SYSTEM) {
       localStorage.removeItem('theme');
     } else {
       localStorage.theme = theme;
     }
 
-    const isDark = theme === 'dark' || 
-      (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    const isDark = theme === THEMES.DARK || 
+      (theme === THEMES.SYSTEM && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
     document.documentElement.classList.toggle(THEMES.DARK, isDark);
   };

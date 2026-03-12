@@ -1,4 +1,4 @@
-import { useState, type FC } from 'react';
+import { useState } from 'react';
 import { SIDEBAR_ITEMS } from '../../config/sidebar-config';
 import Button from '../common/Button';
 import SidebarItem from '../ui/SidebarItem';
@@ -10,7 +10,7 @@ interface SidebarProps {
   closeMethod: () => void;
 }
 
-const Sidebar: FC<SidebarProps> = ({ isSidebarOpen, closeMethod }) => {
+const Sidebar = ({ isSidebarOpen, closeMethod }: SidebarProps) => {
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
   const location = useLocation();
   const pathName = location.pathname;

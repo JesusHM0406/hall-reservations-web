@@ -1,5 +1,4 @@
 import { Menu, Sun, Moon, Monitor } from "lucide-react";
-import type { FC } from "react";
 import { THEMES, type ThemeType } from "../../config/themes-config";
 
 interface HeaderProps {
@@ -8,7 +7,7 @@ interface HeaderProps {
   themeToggleMethod: (theme: ThemeType) => void;
 }
 
-const Header: FC<HeaderProps> = ({ menuMethod, theme, themeToggleMethod }) => {
+const Header = ({ menuMethod, theme, themeToggleMethod }: HeaderProps) => {
   return (
     <header className='bg-slate-900 w-fit p-3 rounded-2xl flex items-center gap-5 fixed border border-transparent dark:border-slate-600'>      
       <button

@@ -1,5 +1,4 @@
 import { DynamicIcon, type IconName } from 'lucide-react/dynamic';
-import type { FC } from 'react';
 import { Link } from 'react-router';
 
 interface BaseProps {
@@ -20,7 +19,7 @@ interface LinkProps extends BaseProps {
 
 type ItemProps = ButtonProps | LinkProps
 
-const Button: FC<ItemProps> = (props) => {
+const Button = (props: ItemProps) => {
   const { label, iconName, primary, clickMethod }: BaseProps = props
   const classes = `cursor-pointer text-white w-fit font-semibold rounded-xl py-2.5 px-4 border-2 transition-all ${primary ? 'bg-indigo-400 border-transparent' : 'bg-transparent border-indigo-400'} flex gap-2 hover:shadow-lg hover:shadow-indigo-400/45`
 

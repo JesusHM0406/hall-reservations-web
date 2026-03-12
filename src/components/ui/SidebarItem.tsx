@@ -1,6 +1,5 @@
 import { ChevronRight } from 'lucide-react';
-import { DynamicIcon, type IconName } from 'lucide-react/dynamic'
-import type { FC } from 'react';
+import { DynamicIcon, type IconName } from 'lucide-react/dynamic';
 import type { OptionsConfig } from '../../config/sidebar-config';
 import { NavLink } from 'react-router';
 
@@ -25,7 +24,7 @@ interface ExpandableItemProps extends BaseItemProps {
 
 type SidebarItemProps = SimpleItemProps | ExpandableItemProps;
 
-const SidebarItem: FC<SidebarItemProps> = (props: SidebarItemProps) => {
+const SidebarItem = (props: SidebarItemProps) => {
   const { sectionLabel, iconName, sectionMethod, isSectionActive, rootPath }: BaseItemProps = props
   
   if (props.type === 'expandable') {

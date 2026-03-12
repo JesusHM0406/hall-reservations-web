@@ -1,6 +1,6 @@
 import { createBrowserRouter, Navigate } from "react-router";
-import MainLayout from "../MainLayout";
-import { PATHS } from "../paths";
+import MainLayout from "./MainLayout";
+import { PATHS } from "./paths";
 import {
   SearchHallsPage,
   AllHallsPage,
@@ -15,7 +15,7 @@ import {
   DeleteUserPage,
   UserByIDPage,
   MyAccountPage
-} from '../pages'
+} from './pages'
 
 const router = createBrowserRouter([
   {

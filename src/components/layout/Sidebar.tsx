@@ -2,7 +2,7 @@ import { useState, type FC } from 'react';
 import { SIDEBAR_ITEMS } from '../../config/sidebar-config';
 import Button from '../common/Button';
 import SidebarItem from '../ui/SidebarItem';
-import { Link, useLocation } from 'react-router';
+import { useLocation } from 'react-router';
 import { PATHS } from '../../paths';
 
 interface SidebarProps {
@@ -60,13 +60,23 @@ const Sidebar: FC<SidebarProps> = ({ isSidebarOpen, closeMethod }) => {
           })}
         </div>
         <div className='flex flex-col gap-4 items-center'>
-          <Link to={`/${PATHS.auth.root}/${PATHS.auth.register}`}>
-            <Button label='Register' iconName='plus' primary={true} clickMethod={handleButtonClick} />
-          </Link>
+          <Button 
+            iType='link'
+            label='Register'
+            iconName='plus'
+            primary={true}
+            clickMethod={handleButtonClick}
+            link={`/${PATHS.auth.root}/${PATHS.auth.register}`}
+          />
           
-          <Link to={`/${PATHS.auth.root}/${PATHS.auth.login}`}>
-            <Button label='Log In' iconName='log-in' primary={false} clickMethod={handleButtonClick} />
-          </Link>
+          <Button
+            iType='link'
+            label='Log In'
+            iconName='log-in'
+            primary={false}
+            clickMethod={handleButtonClick}
+            link={`/${PATHS.auth.root}/${PATHS.auth.login}`}
+          />
         </div>
       </aside>
       <div className={`bg-black/50 w-dvw h-dvh fixed inset-0 z-40 ${isSidebarOpen ? 'block' : 'hidden'} md:hidden`} onClick={closeMethod}></div>

@@ -46,15 +46,15 @@ function MainLayout() {
   return (
     <div className='flex min-h-dvh w-full overflow-hidden'>
       <Sidebar isSidebarOpen={isSidebarOpen} closeMethod={() => setIsSidebarOpen(false)} />
-      <div className='min-w-full h-dvh px-6 py-8 flex flex-col gap-8 md:min-w-[calc(100%-17.5rem)]! overflow-y-auto bg-slate-100 dark:bg-neutral-900 dark:text-slate-50'>
+      <div className='min-w-full h-dvh px-6 flex flex-col gap-8 md:min-w-[calc(100%-17.5rem)]! overflow-y-auto bg-slate-100 dark:bg-neutral-900 dark:text-slate-50'>
         <Header
           menuMethod={() => setIsSidebarOpen(true)}
           theme={currentTheme}
           themeToggleMethod={toggleTheme}
         />
-        <div>
+        <main>
           <Outlet />
-        </div>
+        </main>
       </div>
     </div>
   );

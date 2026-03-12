@@ -9,7 +9,7 @@ interface HeaderProps {
 
 const Header = ({ menuMethod, theme, themeToggleMethod }: HeaderProps) => {
   return (
-    <header className='bg-slate-900 w-fit p-3 rounded-2xl flex items-center gap-5 fixed border border-transparent dark:border-slate-600'>      
+    <header className='bg-slate-900 w-fit p-3 mt-8 rounded-2xl flex items-center gap-5 fixed border border-transparent dark:border-slate-600'>      
       <button
         type='button'
         aria-label='Open sidebar'

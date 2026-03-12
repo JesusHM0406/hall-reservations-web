@@ -9,7 +9,7 @@ interface HeaderProps {
 
 const Header: FC<HeaderProps> = ({ isDarkMode, menuMethod, darkModeMethod }) => {
   return (
-    <header className='bg-slate-900 w-fit p-3 rounded-2xl flex items-center gap-5 fixed'>      
+    <header className='bg-slate-900 w-fit p-3 rounded-2xl flex items-center gap-5 fixed border border-slate-600'>      
       <button
         type='button'
         aria-label='Open sidebar'

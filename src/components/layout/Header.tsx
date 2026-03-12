@@ -1,11 +1,11 @@
 import { Menu, Sun, Moon, Monitor } from "lucide-react";
 import type { FC } from "react";
-import type { ThemesType } from "../../config/themes-config";
+import type { ThemeType } from "../../config/themes-config";
 
 interface HeaderProps {
   menuMethod: () => void;
-  theme: ThemesType;
-  themeToggleMethod: (theme: ThemesType) => void;
+  theme: ThemeType;
+  themeToggleMethod: (theme: ThemeType) => void;
 }
 
 const Header: FC<HeaderProps> = ({ menuMethod, theme, themeToggleMethod }) => {

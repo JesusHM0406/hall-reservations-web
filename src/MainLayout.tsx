@@ -2,9 +2,9 @@ import { useState } from 'react';
 import Sidebar from './components/layout/Sidebar';
 import Header from './components/layout/Header';
 import { Outlet } from 'react-router';
-import { THEMES, type ThemesType } from './config/themes-config';
+import { THEMES, type ThemeType } from './config/themes-config';
 
-const savedTheme = localStorage.getItem('theme') as ThemesType ||'system';
+const savedTheme = localStorage.getItem('theme') as ThemeType ||'system';
 const shouldBeDark = savedTheme === 'dark' ||
   (savedTheme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
@@ -12,9 +12,9 @@ document.documentElement.classList.toggle(THEMES.DARK, shouldBeDark);
 
 function MainLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
-  const [currentTheme, setCurrentTheme] = useState<ThemesType>(savedTheme);
+  const [currentTheme, setCurrentTheme] = useState<ThemeType>(savedTheme);
 
-  const toggleTheme = (theme: ThemesType) => {
+  const toggleTheme = (theme: ThemeType) => {
     setCurrentTheme(theme);
 
     if (theme === 'system') {

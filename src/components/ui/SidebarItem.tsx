@@ -20,6 +20,7 @@ interface ExpandableItemProps extends BaseItemProps {
   type: 'expandable';
   isExpanded: boolean;
   options: OptionsConfig[];
+  closeSidebarMethod: () => void;
 }
 
 type SidebarItemProps = SimpleItemProps | ExpandableItemProps;
@@ -28,7 +29,7 @@ const SidebarItem: FC<SidebarItemProps> = (props: SidebarItemProps) => {
   const { sectionLabel, iconName, sectionMethod, isSectionActive, rootPath }: BaseItemProps = props
   
   if (props.type === 'expandable') {
-    const { isExpanded, options }: ExpandableItemProps = props
+    const { isExpanded, options, closeSidebarMethod }: ExpandableItemProps = props
 
     return (
       <div className='flex flex-col mb-3'>
@@ -44,6 +45,7 @@ const SidebarItem: FC<SidebarItemProps> = (props: SidebarItemProps) => {
                 <button
                   key={index}
                   className='cursor-pointer ml-8 px-0.5 text-start text-slate-400'
+                  onClick={closeSidebarMethod}
                 >
                   <NavLink className={({ isActive }) => isActive ? 'text-white' : ''} to={`/${rootPath}/${option.path}`} >
                     {option.label}

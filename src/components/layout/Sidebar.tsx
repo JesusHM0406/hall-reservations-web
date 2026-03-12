@@ -40,6 +40,7 @@ const Sidebar: FC<SidebarProps> = ({ isSidebarOpen, closeMethod }) => {
                   {...item}
                   isSectionActive={activeSection === item.sectionLabel}
                   sectionMethod={() => handleSectionClick(item.sectionLabel, true)}
+                  closeSidebarMethod={closeMethod}
                   isExpanded={expandedSection === item.sectionLabel}
                   key={item.sectionLabel}
                 />

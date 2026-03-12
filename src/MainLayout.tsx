@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Sidebar from './components/layout/Sidebar';
 import Header from './components/layout/Header';
 import { Outlet } from 'react-router';
@@ -13,6 +13,20 @@ document.documentElement.classList.toggle(THEMES.DARK, shouldBeDark);
 function MainLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
   const [currentTheme, setCurrentTheme] = useState<ThemeType>(savedTheme);
+
+  useEffect(()=> {
+    if (currentTheme !== 'system') return;
+
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+    const handleChange = () => {
+      document.documentElement.classList.toggle(THEMES.DARK, mediaQuery.matches);
+    };
+
+    mediaQuery.addEventListener('change', handleChange);
+
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, [currentTheme]);
 
   const toggleTheme = (theme: ThemeType) => {
     setCurrentTheme(theme);

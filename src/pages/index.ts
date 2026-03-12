@@ -11,6 +11,8 @@ import UpdateUserPage from "../pages/users/UpdateUserPage";
 import DeleteUserPage from "../pages/users/DeleteUserPage";
 import UserByIDPage from "../pages/users/UserByIDPage";
 import MyAccountPage from "../pages/my-account/MyAccountPage";
+import RegisterPage from "./auth/RegisterPage";
+import LoginPage from "./auth/LoginPage";
 
 export {
   SearchHallsPage,
@@ -25,5 +27,7 @@ export {
   UpdateUserPage,
   DeleteUserPage,
   UserByIDPage,
-  MyAccountPage
+  MyAccountPage,
+  RegisterPage,
+  LoginPage
 };

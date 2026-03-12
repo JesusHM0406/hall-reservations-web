@@ -20,6 +20,11 @@ const PATHS = {
     delete: 'delete',
     byId: 'by-id'
   },
+  auth: {
+    root: 'auth',
+    register: 'register',
+    login: 'login'
+  },
   myAccount: 'my-account'
 };
 

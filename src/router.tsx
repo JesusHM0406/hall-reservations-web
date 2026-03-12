@@ -14,7 +14,9 @@ import {
   UpdateUserPage,
   DeleteUserPage,
   UserByIDPage,
-  MyAccountPage
+  MyAccountPage,
+  RegisterPage,
+  LoginPage
 } from './pages'
 
 const router = createBrowserRouter([
@@ -41,6 +43,14 @@ const router = createBrowserRouter([
           { path: PATHS.reservations.me, Component: MyReservationsPage },
           { path: PATHS.reservations.all, Component: AllReservationsPage },
           { path: PATHS.reservations.byId, Component: ReservationByIDPage }
+        ]
+      },
+      {
+        path: PATHS.auth.root,
+        children: [
+          { index: true, element: <Navigate to={PATHS.auth.login} /> },
+          { path: PATHS.auth.login, Component: LoginPage },
+          { path: PATHS.auth.register, Component: RegisterPage }
         ]
       },
       {

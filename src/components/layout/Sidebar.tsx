@@ -2,7 +2,7 @@ import { useState, type FC } from 'react';
 import { SIDEBAR_ITEMS } from '../../config/sidebar-config';
 import Button from '../common/Button';
 import SidebarItem from '../ui/SidebarItem';
-import { Link } from 'react-router';
+import { Link, useLocation } from 'react-router';
 import { PATHS } from '../../paths';
 
 interface SidebarProps {
@@ -12,7 +12,8 @@ interface SidebarProps {
 
 const Sidebar: FC<SidebarProps> = ({ isSidebarOpen, closeMethod }) => {
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
-  const [activeSection, setActiveSection] = useState<string |null>(null);
+  const location = useLocation();
+  const pathName = location.pathname;
 
   const handleSectionClick = (sectionLabel: string, hasOptions: boolean) => {
     if (hasOptions) {
@@ -21,12 +22,10 @@ const Sidebar: FC<SidebarProps> = ({ isSidebarOpen, closeMethod }) => {
     }
 
     setExpandedSection(null);
-    setActiveSection(sectionLabel);
     closeMethod();
   };
 
   const handleButtonClick = () => {
-    setActiveSection(null);
     setExpandedSection(null);
     closeMethod();
   };
@@ -40,7 +39,7 @@ const Sidebar: FC<SidebarProps> = ({ isSidebarOpen, closeMethod }) => {
               return (
                 <SidebarItem
                   {...item}
-                  isSectionActive={activeSection === item.sectionLabel}
+                  isSectionActive={pathName.startsWith(`/${item.rootPath}`)}
                   sectionMethod={() => handleSectionClick(item.sectionLabel, true)}
                   closeSidebarMethod={closeMethod}
                   isExpanded={expandedSection === item.sectionLabel}
@@ -52,7 +51,7 @@ const Sidebar: FC<SidebarProps> = ({ isSidebarOpen, closeMethod }) => {
             return (
               <SidebarItem
                 {...item}
-                isSectionActive={activeSection === item.sectionLabel}
+                isSectionActive={pathName.startsWith(`/${item.rootPath}`)}
                 sectionMethod={() => handleSectionClick(item.sectionLabel, false)}
                 key={item.sectionLabel}
               />

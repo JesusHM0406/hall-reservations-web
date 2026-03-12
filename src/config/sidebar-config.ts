@@ -1,4 +1,5 @@
 import { type IconName } from 'lucide-react/dynamic';
+import { PATHS } from '../paths';
 
 interface SimpleItemConfig {
   type: 'simple';
@@ -23,24 +24,24 @@ interface OptionsConfig {
 }
 
 const HALL_OPTIONS: OptionsConfig[] = [
-  { label: 'Search Halls', path: 'search' },
-  { label: 'All Halls', path: 'all' },
-  { label: 'New Hall', path: 'new' },
-  { label: 'Update Hall', path: 'update' }
+  { label: 'Search Halls', path: PATHS.halls.search },
+  { label: 'All Halls', path: PATHS.halls.all },
+  { label: 'New Hall', path: PATHS.halls.new },
+  { label: 'Update Hall', path: PATHS.halls.update }
 ];
 
 const RESERVATION_OPTIONS: OptionsConfig[] = [
-  { label: 'New Reservation', path: 'new' },
-  { label: 'My Reservations', path: 'reservations' },
-  { label: 'All Reservations', path: 'all' },
-  { label: 'By ID', path: 'by-id' }
+  { label: 'New Reservation', path: PATHS.reservations.new },
+  { label: 'My Reservations', path: PATHS.reservations.me },
+  { label: 'All Reservations', path: PATHS.reservations.all },
+  { label: 'By ID', path: PATHS.reservations.byId }
 ];
 
 const USERS_OPTIONS: OptionsConfig[] = [
-  { label: 'All Users', path: 'all' },
-  { label: 'Update User', path: 'update' },
-  { label: 'Delete User', path: 'delete' },
-  { label: 'By ID', path: 'by-id' }
+  { label: 'All Users', path: PATHS.users.all },
+  { label: 'Update User', path: PATHS.users.update },
+  { label: 'Delete User', path: PATHS.users.delete },
+  { label: 'By ID', path: PATHS.users.byId }
 ];
 
 const SIDEBAR_ITEMS: ItemConfig[] = [
@@ -48,28 +49,28 @@ const SIDEBAR_ITEMS: ItemConfig[] = [
     type: 'expandable',
     sectionLabel: 'Halls',
     iconName: 'house',
-    rootPath: 'halls',
+    rootPath: PATHS.halls.root,
     options: HALL_OPTIONS
   },
   {
     type: 'expandable',
     sectionLabel: 'Reservations',
     iconName: 'calendar',
-    rootPath: 'reservations',
+    rootPath: PATHS.reservations.root,
     options: RESERVATION_OPTIONS
   },
   {
     type: 'expandable',
     sectionLabel: 'Users',
     iconName: 'users',
-    rootPath: 'users',
+    rootPath: PATHS.users.root,
     options: USERS_OPTIONS
   },
   {
     type: 'simple',
     sectionLabel: 'My Account',
     iconName: 'user',
-    rootPath: 'my-account'
+    rootPath: PATHS.myAccount
   }
 ];
 

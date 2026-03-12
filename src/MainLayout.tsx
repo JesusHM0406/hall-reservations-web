@@ -1,23 +1,63 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Sidebar from './components/layout/Sidebar';
 import Header from './components/layout/Header';
 import { Outlet } from 'react-router';
+import { THEMES, type ThemeType } from './config/themes-config';
+
+const savedTheme = localStorage.getItem('theme') as ThemeType ||THEMES.SYSTEM;
+const shouldBeDark = savedTheme === THEMES.DARK ||
+  (savedTheme === THEMES.SYSTEM && window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+document.documentElement.classList.toggle(THEMES.DARK, shouldBeDark);
 
 function MainLayout() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false)
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(false)
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
+  const [currentTheme, setCurrentTheme] = useState<ThemeType>(savedTheme);
+
+  useEffect(()=> {
+    if (currentTheme !== THEMES.SYSTEM) return;
+
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+    const handleChange = () => {
+      document.documentElement.classList.toggle(THEMES.DARK, mediaQuery.matches);
+    };
+
+    mediaQuery.addEventListener('change', handleChange);
+
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, [currentTheme]);
+
+  const toggleTheme = (theme: ThemeType) => {
+    setCurrentTheme(theme);
+
+    if (theme === THEMES.SYSTEM) {
+      localStorage.removeItem('theme');
+    } else {
+      localStorage.theme = theme;
+    }
+
+    const isDark = theme === THEMES.DARK || 
+      (theme === THEMES.SYSTEM && window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+    document.documentElement.classList.toggle(THEMES.DARK, isDark);
+  };
 
   return (
     <div className='flex min-h-dvh w-full overflow-hidden'>
       <Sidebar isSidebarOpen={isSidebarOpen} closeMethod={() => setIsSidebarOpen(false)} />
-      <div className='min-w-full h-dvh px-6 py-8 flex flex-col gap-8 md:min-w-[calc(100%-17.5rem)]! overflow-y-auto bg-slate-100'>
-        <Header isDarkMode={isDarkMode} menuMethod={() => setIsSidebarOpen(true)} darkModeMethod={() => setIsDarkMode(prev => !prev)} />
+      <div className='min-w-full h-dvh px-6 py-8 flex flex-col gap-8 md:min-w-[calc(100%-17.5rem)]! overflow-y-auto bg-slate-100 dark:bg-neutral-900 dark:text-slate-50'>
+        <Header
+          menuMethod={() => setIsSidebarOpen(true)}
+          theme={currentTheme}
+          themeToggleMethod={toggleTheme}
+        />
         <div>
           <Outlet />
         </div>
       </div>
     </div>
-  )
+  );
 };
 
 export default MainLayout;

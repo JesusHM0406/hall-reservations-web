@@ -40,17 +40,18 @@ const SidebarItem: FC<SidebarItemProps> = (props: SidebarItemProps) => {
         </button>
         <div className={`mt-0.5 grid transition-[grid-template-rows] duration-150 grid-rows-[0fr] ${isExpanded ? 'grid-rows-[1fr]' : ''}`}>
           <div className='overflow-hidden flex flex-col gap-1'>
-            {options.map((option, index) => {
+            {options.map(option => {
               return (
-                <button
-                  key={index}
-                  className='cursor-pointer ml-8 px-0.5 text-start text-slate-400'
+                <NavLink
+                  key={`/${rootPath}/${option.path}`}
+                  to={`/${rootPath}/${option.path}`}
+                  className={({ isActive }) => {
+                    return `cursor-pointer ml-8 px-0.5 text-start text-slate-400 ${isActive ? 'text-white' : ''}`
+                  }}
                   onClick={closeSidebarMethod}
                 >
-                  <NavLink className={({ isActive }) => isActive ? 'text-white' : ''} to={`/${rootPath}/${option.path}`} >
-                    {option.label}
-                  </NavLink>
-                </button>
+                  {option.label}
+                </NavLink>
               )
               })}
           </div>
@@ -61,12 +62,14 @@ const SidebarItem: FC<SidebarItemProps> = (props: SidebarItemProps) => {
 
   // If is not 'expandable' then it is necessarily 'simple'
   return (
-    <button className='cursor-pointer p-0.5 text-slate-400' onClick={sectionMethod}>
-      <NavLink className={({ isActive }) => `flex text-start items-center gap-2 ${isActive ? 'text-white' : ''}`} to={`/${rootPath}`}>
-        <DynamicIcon name={iconName} size={18} />
-        <span className='grow font-bold'>{sectionLabel}</span>
-      </NavLink>
-    </button>
+    <NavLink 
+      to={`/${rootPath}`}
+      className={({ isActive }) => `cursor-pointer p-0.5 text-slate-400 flex text-start items-center gap-2 ${isActive ? 'text-white' : ''}`}
+      onClick={sectionMethod}
+    >
+      <DynamicIcon name={iconName} size={18} />
+      <span className='grow font-bold'>{sectionLabel}</span>
+    </NavLink>
   );
 }
 

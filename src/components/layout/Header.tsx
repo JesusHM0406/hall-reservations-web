@@ -20,8 +20,16 @@ const Header: FC<HeaderProps> = ({ menuMethod, theme, themeToggleMethod }) => {
         <Menu size={14} />
       </button>
 
-      <div className='rounded-xl border-2 border-indigo-400 text-slate-400'>
+      <div
+        role='tablist'
+        aria-label='Select theme'
+        className='rounded-xl border-2 border-indigo-400 text-slate-400'
+      >
         <button
+          role='tab'
+          aria-label='Toggle light mode'
+          aria-selected={theme === THEMES.LIGHT}
+          id='theme-light'
           type='button'
           className={`cursor-pointer py-3 px-4 transition-colors duration-150 ${theme === THEMES.LIGHT ? 'text-white bg-indigo-400' : 'hover:bg-indigo-400/25'}`}
           onClick={() => themeToggleMethod(THEMES.LIGHT)}
@@ -30,6 +38,10 @@ const Header: FC<HeaderProps> = ({ menuMethod, theme, themeToggleMethod }) => {
         </button>
         
         <button
+          role='tab'
+          aria-label='Toggle dark mode'
+          aria-selected={theme === THEMES.DARK}
+          id='theme-dark'
           type='button'
           className={`cursor-pointer py-3 px-4 transition-colors duration-150 ${theme === THEMES.DARK ? 'text-white bg-indigo-400' : 'hover:bg-indigo-400/25'}`}
           onClick={() => themeToggleMethod(THEMES.DARK)}
@@ -38,6 +50,10 @@ const Header: FC<HeaderProps> = ({ menuMethod, theme, themeToggleMethod }) => {
         </button>
 
         <button
+          role='tab'
+          aria-label='Toggle system mode'
+          aria-selected={theme === THEMES.SYSTEM}
+          id='theme-system'
           type='button'
           className={`cursor-pointer py-3 px-4 transition-colors duration-150 ${theme === THEMES.SYSTEM ? 'text-white bg-indigo-400' : 'hover:bg-indigo-400/25'}`}
           onClick={() => themeToggleMethod(THEMES.SYSTEM)}

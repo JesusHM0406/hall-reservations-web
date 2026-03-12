@@ -10,12 +10,12 @@ interface HeaderProps {
 
 const Header: FC<HeaderProps> = ({ menuMethod, theme, themeToggleMethod }) => {
   return (
-    <header className='bg-slate-900 w-fit p-3 rounded-2xl flex items-center gap-5 fixed border border-slate-600'>      
+    <header className='bg-slate-900 w-fit p-3 rounded-2xl flex items-center gap-5 fixed border border-transparent dark:border-slate-600'>      
       <button
         type='button'
         aria-label='Open sidebar'
         onClick={menuMethod}
-        className='cursor-pointer p-3 rounded-xl border-2 border-indigo-400 transition-colors duration-150 text-white hover:bg-indigo-400 md:hidden'
+        className='cursor-pointer p-3 rounded-xl border-2 border-indigo-400 transition-colors duration-150 text-slate-400 hover:bg-indigo-400 hover:text-white md:hidden'
       >
         <Menu size={14} />
       </button>

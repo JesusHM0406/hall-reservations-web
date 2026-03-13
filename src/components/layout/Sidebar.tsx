@@ -32,7 +32,7 @@ const Sidebar = ({ isSidebarOpen, closeMethod }: SidebarProps) => {
 
   return (
     <>
-      <aside className={`shrink-0 w-70 px-4 flex flex-col py-8 transition-[margin] overflow-hidden ${isSidebarOpen ? 'ml-0' : '-ml-70'} md:ml-0 z-50 bg-neutral-900 border-r dark:border-slate-600`}>
+      <aside className={`shrink-0 w-70 px-4 flex flex-col py-8 transition-[margin] overflow-hidden ${isSidebarOpen ? 'ml-0' : '-ml-70'} md:ml-0 z-50 bg-dark border-r dark:border-slate-gray`}>
         <div className='grow'>
           {SIDEBAR_ITEMS.map(item => {
             if (item.type === 'expandable') {

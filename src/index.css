@@ -4,4 +4,13 @@
 
 @theme {
   --font-sans: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+  
+  --color-inactive: var(--color-slate-400);
+  
+  --color-brand: var(--color-indigo-400);
+  --color-white: var(--color-slate-100);
+  
+  --color-slate-gray: var(--color-slate-700);
+  --color-dark: var(--color-neutral-900);
+  --color-slate-dark: var(--color-slate-900);
 }

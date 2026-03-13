@@ -32,7 +32,7 @@ const SidebarItem = (props: SidebarItemProps) => {
 
     return (
       <div className='flex flex-col mb-3'>
-        <button className={`text-start p-0.5 cursor-pointer flex items-center gap-2 transition-colors duration-100 ${isSectionActive ? 'text-white' : 'text-slate-400'}`} onClick={sectionMethod}>
+        <button className={`text-start p-0.5 cursor-pointer flex items-center gap-2 transition-colors duration-150 ${isSectionActive ? 'text-white' : 'text-inactive'}`} onClick={sectionMethod}>
           <DynamicIcon name={iconName} size={18} />
           <span className='grow font-bold'>{sectionLabel}</span>
           <ChevronRight size={18} className={`transition-transform duration-150 ${isExpanded ? 'rotate-90' : ''}`} />
@@ -45,7 +45,7 @@ const SidebarItem = (props: SidebarItemProps) => {
                   key={`/${rootPath}/${option.path}`}
                   to={`/${rootPath}/${option.path}`}
                   className={({ isActive }) => {
-                    return `cursor-pointer ml-8 px-0.5 text-start text-slate-400 ${isActive ? 'text-white' : ''}`
+                    return `cursor-pointer ml-8 px-0.5 text-start text-inactive ${isActive ? 'text-white' : ''}`
                   }}
                   onClick={closeSidebarMethod}
                 >
@@ -63,7 +63,7 @@ const SidebarItem = (props: SidebarItemProps) => {
   return (
     <NavLink 
       to={`/${rootPath}`}
-      className={({ isActive }) => `cursor-pointer p-0.5 text-slate-400 flex text-start items-center gap-2 ${isActive ? 'text-white' : ''}`}
+      className={({ isActive }) => `cursor-pointer p-0.5 text-inactive flex text-start items-center gap-2 ${isActive ? 'text-white' : ''}`}
       onClick={sectionMethod}
     >
       <DynamicIcon name={iconName} size={18} />

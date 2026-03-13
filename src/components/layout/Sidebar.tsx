@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { SIDEBAR_ITEMS } from '../../config/sidebar-config';
 import Button from '../common/Button';
 import SidebarItem from '../ui/SidebarItem';
-import { useLocation } from 'react-router';
+import { Link, useLocation } from 'react-router';
 import { PATHS } from '../../paths';
+import { LogIn, UserPlus } from 'lucide-react';
 
 interface SidebarProps {
   isSidebarOpen: boolean;
@@ -25,7 +26,7 @@ const Sidebar = ({ isSidebarOpen, closeMethod }: SidebarProps) => {
     closeMethod();
   };
 
-  const handleButtonClick = () => {
+  const handleAuthButtonClick = () => {
     setExpandedSection(null);
     closeMethod();
   };
@@ -60,23 +61,25 @@ const Sidebar = ({ isSidebarOpen, closeMethod }: SidebarProps) => {
           })}
         </div>
         <div className='flex flex-col gap-4 items-center'>
-          <Button 
-            iType='link'
-            label='Register'
-            iconName='plus'
-            primary={true}
-            clickMethod={handleButtonClick}
-            link={`/${PATHS.auth.root}/${PATHS.auth.register}`}
-          />
+          <Button primary asChild>
+            <Link
+              to={`/${PATHS.auth.root}/${PATHS.auth.register}`}
+              onClick={handleAuthButtonClick}
+            >
+              <UserPlus size={18} />
+              <span>Register</span>
+            </Link>
+          </Button>
           
-          <Button
-            iType='link'
-            label='Log In'
-            iconName='log-in'
-            primary={false}
-            clickMethod={handleButtonClick}
-            link={`/${PATHS.auth.root}/${PATHS.auth.login}`}
-          />
+          <Button primary={false} asChild>
+            <Link
+              to={`/${PATHS.auth.root}/${PATHS.auth.login}`}
+              onClick={handleAuthButtonClick}
+            >
+              <LogIn size={18} />
+              <span>Log In</span>
+            </Link>
+          </Button>
         </div>
       </aside>
       <div className={`bg-black/50 w-dvw h-dvh fixed inset-0 z-40 ${isSidebarOpen ? 'block' : 'hidden'} md:hidden`} onClick={closeMethod}></div>

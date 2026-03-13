@@ -1,44 +1,19 @@
-import { DynamicIcon, type IconName } from 'lucide-react/dynamic';
-import { Link } from 'react-router';
+import { Slot } from '@radix-ui/react-slot';
+import type { ReactNode } from 'react';
 
-interface BaseProps {
-  label: string;
-  iconName?: IconName;
+interface ButtonProps {
   primary: boolean;
-  clickMethod: () => void;
+  asChild: boolean;
+  children: ReactNode;
 }
 
-interface ButtonProps extends BaseProps {
-  iType: 'button';
-}
-
-interface LinkProps extends BaseProps {
-  iType: 'link';
-  link: string;
-}
-
-type ItemProps = ButtonProps | LinkProps
-
-const Button = (props: ItemProps) => {
-  const { label, iconName, primary, clickMethod }: BaseProps = props
-  const classes = `cursor-pointer text-white w-fit font-semibold rounded-xl py-2.5 px-4 border-2 transition-all ${primary ? 'bg-brand border-transparent' : 'bg-transparent border-brand'} flex gap-2 hover:shadow-lg hover:shadow-brand/45`
-
-  if (props.iType === 'link') {
-    const { link }: LinkProps = props
-
-    return (
-      <Link to={link} className={classes} onClick={clickMethod} >
-        {iconName && <DynamicIcon name={iconName} size={18} />}
-        {label}
-      </Link>
-    )
-  }
+const Button = ({ primary, asChild, children }: ButtonProps) => {
+  const Comp = asChild ? Slot : 'button';
 
   return (
-    <button type='button' className={classes} onClick={clickMethod}>
-      {iconName && <DynamicIcon name={iconName} size={18} />}
-      {label}
-    </button>
+    <Comp className={`cursor-pointer text-white flex justify-center items-center gap-2.5 font-semibold rounded-xl py-3 px-4 border-2 transition-shadow ${primary ? 'bg-brand border-transparent' : 'bg-transparent border-brand'} shadow-lg shadow-transparent hover:shadow-brand/45`} >
+      {children}
+    </Comp>
   )
 };
 

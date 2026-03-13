@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Sidebar from './components/layout/Sidebar';
 import Header from './components/layout/Header';
 import { Outlet } from 'react-router';
-import { THEMES, type ThemeType } from './config/themes-config';
+import { THEMES, type ThemeType } from './constants/ui.constants';
 
 const savedTheme = localStorage.getItem('theme') as ThemeType ||THEMES.SYSTEM;
 const shouldBeDark = savedTheme === THEMES.DARK ||

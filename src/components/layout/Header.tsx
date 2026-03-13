@@ -1,5 +1,5 @@
 import { Menu, Sun, Moon, Monitor } from "lucide-react";
-import { THEMES, type ThemeType } from "../../config/themes-config";
+import { THEMES, type ThemeType } from "../../constants/ui.constants";
 import { ICON_SIZE } from "../../constants/ui.constants";
 
 interface HeaderProps {

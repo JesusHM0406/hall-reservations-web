@@ -1,5 +1,6 @@
 import { Menu, Sun, Moon, Monitor } from "lucide-react";
 import { THEMES, type ThemeType } from "../../config/themes-config";
+import { ICON_SIZE } from "../../constants/ui.constants";
 
 interface HeaderProps {
   menuMethod: () => void;
@@ -16,7 +17,7 @@ const Header = ({ menuMethod, theme, themeToggleMethod }: HeaderProps) => {
         onClick={menuMethod}
         className='cursor-pointer p-3 rounded-xl border-2 border-brand transition-colors duration-150 text-inactive hover:bg-brand hover:text-white md:hidden'
       >
-        <Menu size={14} />
+        <Menu size={ICON_SIZE.SM} />
       </button>
 
       <div
@@ -33,7 +34,7 @@ const Header = ({ menuMethod, theme, themeToggleMethod }: HeaderProps) => {
           className={`cursor-pointer py-3 px-4 transition-colors duration-150 ${theme === THEMES.LIGHT ? 'text-white bg-brand' : 'hover:bg-brand/25'}`}
           onClick={() => themeToggleMethod(THEMES.LIGHT)}
         >
-          <Sun size={14} />
+          <Sun size={ICON_SIZE.SM} />
         </button>
         
         <button
@@ -45,7 +46,7 @@ const Header = ({ menuMethod, theme, themeToggleMethod }: HeaderProps) => {
           className={`cursor-pointer py-3 px-4 transition-colors duration-150 ${theme === THEMES.DARK ? 'text-white bg-brand' : 'hover:bg-brand/25'}`}
           onClick={() => themeToggleMethod(THEMES.DARK)}
         >
-          <Moon size={14} />
+          <Moon size={ICON_SIZE.SM} />
         </button>
 
         <button
@@ -57,7 +58,7 @@ const Header = ({ menuMethod, theme, themeToggleMethod }: HeaderProps) => {
           className={`cursor-pointer py-3 px-4 transition-colors duration-150 ${theme === THEMES.SYSTEM ? 'text-white bg-brand' : 'hover:bg-brand/25'}`}
           onClick={() => themeToggleMethod(THEMES.SYSTEM)}
         >
-          <Monitor size={14} />
+          <Monitor size={ICON_SIZE.SM} />
         </button>
       </div>
       

@@ -5,6 +5,7 @@ import SidebarItem from '../ui/SidebarItem';
 import { Link, useLocation } from 'react-router';
 import { PATHS } from '../../paths';
 import { LogIn, UserPlus } from 'lucide-react';
+import { ICON_SIZE } from '../../constants/ui.constants';
 
 interface SidebarProps {
   isSidebarOpen: boolean;
@@ -66,7 +67,7 @@ const Sidebar = ({ isSidebarOpen, closeMethod }: SidebarProps) => {
               to={`/${PATHS.auth.root}/${PATHS.auth.register}`}
               onClick={handleAuthButtonClick}
             >
-              <UserPlus size={18} />
+              <UserPlus size={ICON_SIZE.MD} />
               <span>Register</span>
             </Link>
           </Button>
@@ -76,7 +77,7 @@ const Sidebar = ({ isSidebarOpen, closeMethod }: SidebarProps) => {
               to={`/${PATHS.auth.root}/${PATHS.auth.login}`}
               onClick={handleAuthButtonClick}
             >
-              <LogIn size={18} />
+              <LogIn size={ICON_SIZE.MD} />
               <span>Log In</span>
             </Link>
           </Button>

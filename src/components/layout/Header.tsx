@@ -1,6 +1,7 @@
-import { Menu, Sun, Moon, Monitor } from "lucide-react";
-import { THEMES, type ThemeType } from "../../constants/ui.constants";
+import { Menu } from "lucide-react";
+import { type ThemeType } from "../../constants/ui.constants";
 import { ICON_SIZE } from "../../constants/ui.constants";
+import ThemeSwitcher from "../ui/ThemeSwitcher";
 
 interface HeaderProps {
   menuMethod: () => void;
@@ -20,47 +21,7 @@ const Header = ({ menuMethod, theme, themeToggleMethod }: HeaderProps) => {
         <Menu size={ICON_SIZE.SM} />
       </button>
 
-      <div
-        role='tablist'
-        aria-label='Select theme'
-        className='rounded-xl border-2 border-brand text-inactive flex'
-      >
-        <button
-          role='tab'
-          aria-label='Toggle light mode'
-          aria-selected={theme === THEMES.LIGHT}
-          id='theme-light'
-          type='button'
-          className={`cursor-pointer py-3 px-4 transition-colors duration-150 ${theme === THEMES.LIGHT ? 'text-white bg-brand' : 'hover:bg-brand/25'}`}
-          onClick={() => themeToggleMethod(THEMES.LIGHT)}
-        >
-          <Sun size={ICON_SIZE.SM} />
-        </button>
-        
-        <button
-          role='tab'
-          aria-label='Toggle dark mode'
-          aria-selected={theme === THEMES.DARK}
-          id='theme-dark'
-          type='button'
-          className={`cursor-pointer py-3 px-4 transition-colors duration-150 ${theme === THEMES.DARK ? 'text-white bg-brand' : 'hover:bg-brand/25'}`}
-          onClick={() => themeToggleMethod(THEMES.DARK)}
-        >
-          <Moon size={ICON_SIZE.SM} />
-        </button>
-
-        <button
-          role='tab'
-          aria-label='Toggle system mode'
-          aria-selected={theme === THEMES.SYSTEM}
-          id='theme-system'
-          type='button'
-          className={`cursor-pointer py-3 px-4 transition-colors duration-150 ${theme === THEMES.SYSTEM ? 'text-white bg-brand' : 'hover:bg-brand/25'}`}
-          onClick={() => themeToggleMethod(THEMES.SYSTEM)}
-        >
-          <Monitor size={ICON_SIZE.SM} />
-        </button>
-      </div>
+      <ThemeSwitcher theme={theme} setCurrentTheme={themeToggleMethod} />
       
     </header>
   );

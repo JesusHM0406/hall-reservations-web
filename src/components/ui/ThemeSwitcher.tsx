@@ -61,6 +61,7 @@ const ThemeSwitcher = ({ theme, setCurrentTheme }: ThemeSwitcherProps) => {
           aria-label={label} 
           tabIndex={ theme === themeName ? 0 : -1 }
           key={themeName} 
+          type='button'
           className={`cursor-pointer py-3 px-4 transition-colors ${ theme === themeName ? 'bg-brand text-white' : 'bg-transparent hover:bg-brand/20' }`} 
           onClick={() => setCurrentTheme(themeName)}
         >

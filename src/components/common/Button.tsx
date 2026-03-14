@@ -4,12 +4,12 @@ import type { ButtonHTMLAttributes, ReactNode } from 'react';
 import { cn } from '../../lib/utils';
 
 const buttonVariants = cva(
-  'cursor-pointer text-white flex justify-center items-center gap-2.5 font-semibold rounded-xl py-3 px-4 border-2 transition-colors transition-shadow',
+  'cursor-pointer text-white flex justify-center items-center gap-2.5 font-semibold rounded-xl py-3 px-4 border-2 transition',
   {
     variants: {
       intent: {
-        brand: 'brand',
-        gray: 'gray'
+        brand: '',
+        gray: ''
       },
       filled: {
         false: 'bg-transparent',

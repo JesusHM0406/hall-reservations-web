@@ -23,7 +23,7 @@ const Header = ({ menuMethod, theme, themeToggleMethod }: HeaderProps) => {
       <div
         role='tablist'
         aria-label='Select theme'
-        className='rounded-xl border-2 border-brand text-inactive'
+        className='rounded-xl border-2 border-brand text-inactive flex'
       >
         <button
           role='tab'

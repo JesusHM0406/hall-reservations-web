@@ -62,14 +62,14 @@ const Sidebar = ({ isSidebarOpen, closeMethod }: SidebarProps) => {
           })}
         </div>
         <div className='flex flex-col gap-4 items-center'>
-          <Button primary asChild onClick={handleAuthButtonClick}>
+          <Button asChild onClick={handleAuthButtonClick}>
             <Link to={`/${PATHS.auth.root}/${PATHS.auth.register}`}>
               <UserPlus size={ICON_SIZE.MD} />
               <span>Register</span>
             </Link>
           </Button>
           
-          <Button asChild onClick={handleAuthButtonClick}>
+          <Button asChild onClick={handleAuthButtonClick} filled={false} >
             <Link to={`/${PATHS.auth.root}/${PATHS.auth.login}`}>
               <LogIn size={ICON_SIZE.MD} />
               <span>Log In</span>

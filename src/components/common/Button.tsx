@@ -1,17 +1,58 @@
 import { Slot } from '@radix-ui/react-slot';
+import { cva, type VariantProps } from 'class-variance-authority';
 import type { ButtonHTMLAttributes, ReactNode } from 'react';
+import { cn } from '../../lib/utils';
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  primary?: boolean;
+const buttonVariants = cva(
+  'cursor-pointer text-white flex justify-center items-center gap-2.5 font-semibold rounded-xl py-3 px-4 border-2 transition-colors transition-shadow',
+  {
+    variants: {
+      intent: {
+        brand: 'brand',
+        gray: 'gray'
+      },
+      filled: {
+        false: 'bg-transparent',
+        true: 'border-transparent'
+      },
+      shadow: {
+        false: 'shadow-none',
+        true: 'shadow-lg'
+      }
+    },
+    compoundVariants: [
+      // Outlined variants
+      { intent: 'brand', filled: false, className: 'border-brand' },
+      { intent: 'gray', filled: false, className: 'border-inactive' },
+
+      // Filled variants
+      { intent: 'brand', filled: true, className: 'bg-brand' },
+      { intent: 'gray', filled: true, className: 'bg-gray' },
+
+      // Shadow variants
+      { intent: 'brand', shadow: true, className: 'hover:shadow-brand/50' },
+      { intent: 'gray', shadow: true, className: 'hover:shadow-gray/50' }
+    ],
+    defaultVariants: {
+      intent: 'brand',
+      filled: true,
+      shadow: true
+    }
+  }
+)
+
+type ButtonVariantProps = VariantProps<typeof buttonVariants>;
+
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>, ButtonVariantProps {
   asChild?: boolean;
   children: ReactNode;
 }
 
-const Button = ({ primary = false, asChild = false, children, ...props }: ButtonProps) => {
+const Button = ({ asChild = false, children, intent, filled, shadow, ...props }: ButtonProps) => {
   const Comp = asChild ? Slot : 'button';
 
   return (
-    <Comp className={`cursor-pointer text-white flex justify-center items-center gap-2.5 font-semibold rounded-xl py-3 px-4 border-2 transition-shadow ${primary ? 'bg-brand border-transparent' : 'bg-transparent border-brand'} shadow-lg shadow-transparent hover:shadow-brand/45`} {...props} >
+    <Comp className={cn(buttonVariants({ intent, filled, shadow }))} {...props} >
       {children}
     </Comp>
   )

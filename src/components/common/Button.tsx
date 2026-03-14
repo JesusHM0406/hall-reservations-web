@@ -48,14 +48,27 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>, ButtonVar
   children: ReactNode;
 }
 
-const Button = ({ asChild = false, children, intent, filled, shadow, className, ...props }: ButtonProps) => {
-  const Comp = asChild ? Slot : 'button';
+const Button = ({ asChild = false, children, intent, filled, shadow, className, type, ...props }: ButtonProps) => {
+  if (asChild) {
+    return (
+      <Slot
+        className={cn(buttonVariants({ intent, filled, shadow }), className)}
+        {...props}
+      >
+        {children}
+      </Slot>
+    );
+  }
 
   return (
-    <Comp className={cn(buttonVariants({ intent, filled, shadow }), className)} {...props} >
+    <button
+      type={type ?? 'button'}
+      className={cn(buttonVariants({ intent, filled, shadow }), className)}
+      {...props}
+    >
       {children}
-    </Comp>
-  )
+    </button>
+  );
 };
 
 export default Button;

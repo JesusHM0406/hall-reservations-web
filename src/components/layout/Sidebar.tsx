@@ -1,16 +1,18 @@
-import { useState, type FC } from 'react';
+import { useState } from 'react';
 import { SIDEBAR_ITEMS } from '../../config/sidebar-config';
 import Button from '../common/Button';
 import SidebarItem from '../ui/SidebarItem';
-import { useLocation } from 'react-router';
+import { Link, useLocation } from 'react-router';
 import { PATHS } from '../../paths';
+import { LogIn, UserPlus } from 'lucide-react';
+import { ICON_SIZE } from '../../constants/ui.constants';
 
 interface SidebarProps {
   isSidebarOpen: boolean;
   closeMethod: () => void;
 }
 
-const Sidebar: FC<SidebarProps> = ({ isSidebarOpen, closeMethod }) => {
+const Sidebar = ({ isSidebarOpen, closeMethod }: SidebarProps) => {
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
   const location = useLocation();
   const pathName = location.pathname;
@@ -25,14 +27,14 @@ const Sidebar: FC<SidebarProps> = ({ isSidebarOpen, closeMethod }) => {
     closeMethod();
   };
 
-  const handleButtonClick = () => {
+  const handleAuthButtonClick = () => {
     setExpandedSection(null);
     closeMethod();
   };
 
   return (
     <>
-      <aside className={`shrink-0 w-70 px-4 flex flex-col py-8 transition-[margin] overflow-hidden ${isSidebarOpen ? 'ml-0' : '-ml-70'} md:ml-0 z-50 bg-neutral-900 border-r dark:border-slate-600`}>
+      <aside className={`shrink-0 w-70 px-4 flex flex-col py-8 transition-[margin] overflow-hidden ${isSidebarOpen ? 'ml-0' : '-ml-70'} md:ml-0 z-50 bg-dark border-r dark:border-slate-gray`}>
         <div className='grow'>
           {SIDEBAR_ITEMS.map(item => {
             if (item.type === 'expandable') {
@@ -60,23 +62,19 @@ const Sidebar: FC<SidebarProps> = ({ isSidebarOpen, closeMethod }) => {
           })}
         </div>
         <div className='flex flex-col gap-4 items-center'>
-          <Button 
-            iType='link'
-            label='Register'
-            iconName='plus'
-            primary={true}
-            clickMethod={handleButtonClick}
-            link={`/${PATHS.auth.root}/${PATHS.auth.register}`}
-          />
+          <Button asChild onClick={handleAuthButtonClick}>
+            <Link to={`/${PATHS.auth.root}/${PATHS.auth.register}`}>
+              <UserPlus size={ICON_SIZE.MD} />
+              <span>Register</span>
+            </Link>
+          </Button>
           
-          <Button
-            iType='link'
-            label='Log In'
-            iconName='log-in'
-            primary={false}
-            clickMethod={handleButtonClick}
-            link={`/${PATHS.auth.root}/${PATHS.auth.login}`}
-          />
+          <Button asChild onClick={handleAuthButtonClick} filled={false} >
+            <Link to={`/${PATHS.auth.root}/${PATHS.auth.login}`}>
+              <LogIn size={ICON_SIZE.MD} />
+              <span>Log In</span>
+            </Link>
+          </Button>
         </div>
       </aside>
       <div className={`bg-black/50 w-dvw h-dvh fixed inset-0 z-40 ${isSidebarOpen ? 'block' : 'hidden'} md:hidden`} onClick={closeMethod}></div>

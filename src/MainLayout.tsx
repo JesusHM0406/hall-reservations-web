@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Sidebar from './components/layout/Sidebar';
 import Header from './components/layout/Header';
 import { Outlet } from 'react-router';
-import { THEMES, type ThemeType } from './config/themes-config';
+import { THEMES, type ThemeType } from './constants/ui.constants';
 
 const savedTheme = localStorage.getItem('theme') as ThemeType ||THEMES.SYSTEM;
 const shouldBeDark = savedTheme === THEMES.DARK ||
@@ -46,15 +46,15 @@ function MainLayout() {
   return (
     <div className='flex min-h-dvh w-full overflow-hidden'>
       <Sidebar isSidebarOpen={isSidebarOpen} closeMethod={() => setIsSidebarOpen(false)} />
-      <div className='min-w-full h-dvh px-6 py-8 flex flex-col gap-8 md:min-w-[calc(100%-17.5rem)]! overflow-y-auto bg-slate-100 dark:bg-neutral-900 dark:text-slate-50'>
+      <div className='min-w-full h-dvh px-6 flex flex-col gap-8 md:min-w-[calc(100%-17.5rem)]! overflow-y-auto bg-white dark:bg-dark dark:text-white'>
         <Header
           menuMethod={() => setIsSidebarOpen(true)}
           theme={currentTheme}
           themeToggleMethod={toggleTheme}
         />
-        <div>
+        <main>
           <Outlet />
-        </div>
+        </main>
       </div>
     </div>
   );

@@ -1,46 +1,74 @@
-import { DynamicIcon, type IconName } from 'lucide-react/dynamic';
-import type { FC } from 'react';
-import { Link } from 'react-router';
+import { Slot } from '@radix-ui/react-slot';
+import { cva, type VariantProps } from 'class-variance-authority';
+import type { ButtonHTMLAttributes, ReactNode } from 'react';
+import { cn } from '../../lib/utils';
 
-interface BaseProps {
-  label: string;
-  iconName?: IconName;
-  primary: boolean;
-  clickMethod: () => void;
+const buttonVariants = cva(
+  'cursor-pointer text-white flex justify-center items-center gap-2.5 font-semibold rounded-xl py-3 px-4 border-2 transition',
+  {
+    variants: {
+      intent: {
+        brand: '',
+        gray: ''
+      },
+      filled: {
+        false: 'bg-transparent',
+        true: 'border-transparent'
+      },
+      shadow: {
+        false: 'shadow-none',
+        true: 'shadow-lg'
+      }
+    },
+    compoundVariants: [
+      // Outlined variants
+      { intent: 'brand', filled: false, className: 'border-brand' },
+      { intent: 'gray', filled: false, className: 'border-inactive' },
+
+      // Filled variants
+      { intent: 'brand', filled: true, className: 'bg-brand' },
+      { intent: 'gray', filled: true, className: 'bg-gray' },
+
+      // Shadow variants
+      { intent: 'brand', shadow: true, className: 'hover:shadow-brand/50' },
+      { intent: 'gray', shadow: true, className: 'hover:shadow-gray/50' }
+    ],
+    defaultVariants: {
+      intent: 'brand',
+      filled: true,
+      shadow: true
+    }
+  }
+)
+
+type ButtonVariantProps = VariantProps<typeof buttonVariants>;
+
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>, ButtonVariantProps {
+  asChild?: boolean;
+  children: ReactNode;
 }
 
-interface ButtonProps extends BaseProps {
-  iType: 'button';
-}
-
-interface LinkProps extends BaseProps {
-  iType: 'link';
-  link: string;
-}
-
-type ItemProps = ButtonProps | LinkProps
-
-const Button: FC<ItemProps> = (props) => {
-  const { label, iconName, primary, clickMethod }: BaseProps = props
-  const classes = `cursor-pointer text-white w-fit font-semibold rounded-xl py-2.5 px-4 border-2 transition-all ${primary ? 'bg-indigo-400 border-transparent' : 'bg-transparent border-indigo-400'} flex gap-2 hover:shadow-lg hover:shadow-indigo-400/45`
-
-  if (props.iType === 'link') {
-    const { link }: LinkProps = props
-
+const Button = ({ asChild = false, children, intent, filled, shadow, className, type, ...props }: ButtonProps) => {
+  if (asChild) {
     return (
-      <Link to={link} className={classes} onClick={clickMethod} >
-        {iconName && <DynamicIcon name={iconName} size={18} />}
-        {label}
-      </Link>
-    )
+      <Slot
+        className={cn(buttonVariants({ intent, filled, shadow }), className)}
+        {...props}
+      >
+        {children}
+      </Slot>
+    );
   }
 
   return (
-    <button type='button' className={classes} onClick={clickMethod}>
-      {iconName && <DynamicIcon name={iconName} size={18} />}
-      {label}
+    <button
+      type={type ?? 'button'}
+      className={cn(buttonVariants({ intent, filled, shadow }), className)}
+      {...props}
+    >
+      {children}
     </button>
-  )
+  );
 };
 
 export default Button;

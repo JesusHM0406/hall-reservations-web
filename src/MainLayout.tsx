@@ -46,13 +46,13 @@ function MainLayout() {
   return (
     <div className='flex min-h-dvh w-full overflow-hidden'>
       <Sidebar isSidebarOpen={isSidebarOpen} closeMethod={() => setIsSidebarOpen(false)} />
-      <div className='min-w-full h-dvh px-6 flex flex-col gap-8 md:min-w-[calc(100%-17.5rem)]! overflow-y-auto bg-white dark:bg-dark dark:text-white'>
+      <div className='min-w-full h-dvh md:min-w-[calc(100%-17.5rem)]! overflow-y-auto  bg-white dark:bg-dark dark:text-white'>
         <Header
           menuMethod={() => setIsSidebarOpen(true)}
           theme={currentTheme}
           themeToggleMethod={toggleTheme}
         />
-        <main>
+        <main className='pt-20 px-6 min-h-dvh flex flex-col pb-10'>
           <Outlet />
         </main>
       </div>

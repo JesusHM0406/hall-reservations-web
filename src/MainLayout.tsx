@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Sidebar from './components/layout/Sidebar';
 import Header from './components/layout/Header';
 import { Outlet } from 'react-router';
 import { THEMES, type ThemeType } from './constants/ui.constants';
+import { useMediaQuery } from './hooks/useMediaQuery';
 
 const savedTheme = localStorage.getItem('theme') as ThemeType ||THEMES.SYSTEM;
 const shouldBeDark = savedTheme === THEMES.DARK ||
@@ -14,6 +15,15 @@ function MainLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
   const [currentTheme, setCurrentTheme] = useState<ThemeType>(savedTheme);
   
+  const isDesktop = useMediaQuery('(min-width: 48em)'); // 768px Tailwind md breakpoint;
+
+  const mainRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(()=> {
+    if (isSidebarOpen && !isDesktop) mainRef.current?.setAttribute('inert', '');
+    else mainRef.current?.removeAttribute('inert');
+  }, [isDesktop, isSidebarOpen]);
+
   useEffect(()=> {
     if (currentTheme !== THEMES.SYSTEM) return;
 
@@ -44,19 +54,23 @@ function MainLayout() {
   };
 
   const sidebarId = 'main-navigation-sidebar';
+  const isSidebarDesktopOrOpen = isDesktop || isSidebarOpen;
 
   return (
     <div className='flex min-h-dvh w-full overflow-hidden'>
       <Sidebar 
         id={sidebarId} 
-        isSidebarOpen={isSidebarOpen} 
+        isSidebarOpen={isSidebarDesktopOrOpen} 
         closeMethod={() => setIsSidebarOpen(false)} 
+        isDesktop={isDesktop} 
+        {...(isSidebarDesktopOrOpen ? {} : { inert: true })}
       />
-      <div
+      <div 
+        ref={mainRef} 
         className='min-w-full h-dvh md:min-w-[calc(100%-17.5rem)]! overflow-y-auto bg-white dark:bg-dark dark:text-white'
       >
         <Header 
-          isSidebarOpen={isSidebarOpen} 
+          isSidebarOpen={isSidebarDesktopOrOpen} 
           sidebarId={sidebarId}
           menuMethod={() => setIsSidebarOpen(true)} 
           theme={currentTheme} 

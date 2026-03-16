@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type HTMLAttributes } from 'react';
+import { useEffect, useRef, useState, type HTMLAttributes, type KeyboardEvent } from 'react';
 import { SIDEBAR_ITEMS } from '../../config/sidebar-config';
 import Button from '../common/Button';
 import SidebarItem from '../ui/SidebarItem';
@@ -13,7 +13,7 @@ interface SidebarProps extends HTMLAttributes<HTMLElement> {
   closeMethod: () => void;
 }
 
-const Sidebar = ({ isSidebarOpen, closeMethod, className, ...props }: SidebarProps) => {
+const Sidebar = ({ isSidebarOpen, closeMethod, className, onKeyDown, ...props }: SidebarProps) => {
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
   
   const location = useLocation();
@@ -49,16 +49,31 @@ const Sidebar = ({ isSidebarOpen, closeMethod, className, ...props }: SidebarPro
     closeMethod();
   };
 
+  const handleKeyDown = (e: KeyboardEvent<HTMLElement>) => {
+    onKeyDown?.(e);
+
+    if (e.defaultPrevented || !isSidebarOpen) return;
+
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      closeMethod();
+      return;
+    }
+
+    if (e.key !== 'Tab') return;
+  };
+
   return (
     <>
       <aside 
-        {...props}
+        {...props} 
         className={cn(
           'shrink-0 w-70 px-4 py-8 flex transition-[margin] overflow-hidden',
           isSidebarOpen ? 'ml-0' : '-ml-70',
           'md:ml-0 z-50 bg-dark border-r dark:border-slate-gray',
           className
-        )}
+        )} 
+        onKeyDown={handleKeyDown}
       >
         <nav className='grow flex flex-col' aria-label='Main navigation sidebar'>
           <button 

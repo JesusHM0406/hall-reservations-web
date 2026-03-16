@@ -1,4 +1,4 @@
-import { useState, type HTMLAttributes } from 'react';
+import { useEffect, useRef, useState, type HTMLAttributes } from 'react';
 import { SIDEBAR_ITEMS } from '../../config/sidebar-config';
 import Button from '../common/Button';
 import SidebarItem from '../ui/SidebarItem';
@@ -18,6 +18,21 @@ const Sidebar = ({ isSidebarOpen, closeMethod, className, ...props }: SidebarPro
   
   const location = useLocation();
   const pathName = location.pathname;
+
+  const closeBtnRef = useRef<HTMLButtonElement | null>(null);
+  const prevFocusRef = useRef<HTMLElement | null>(null);
+  const wasSidebarOpenRef = useRef<boolean>(false);
+
+  useEffect(() =>{
+    if (isSidebarOpen) {
+      prevFocusRef.current = document.activeElement as HTMLElement | null;
+      closeBtnRef.current?.focus();
+    } else if (wasSidebarOpenRef.current) {
+      prevFocusRef.current?.focus();
+    }
+
+    wasSidebarOpenRef.current = isSidebarOpen;
+  }, [isSidebarOpen]);
 
   const handleSectionClick = (sectionLabel: string, hasOptions: boolean) => {
     if (hasOptions) {
@@ -47,6 +62,7 @@ const Sidebar = ({ isSidebarOpen, closeMethod, className, ...props }: SidebarPro
       >
         <nav className='grow flex flex-col' aria-label='Main navigation sidebar'>
           <button 
+            ref={closeBtnRef} 
             aria-label='Close main navigation sidebar'
             className='cursor-pointer p-3 w-fit rounded-xl border-2 border-brand text-inactive mb-6 self-end transition-colors duration-150 hover:bg-brand hover:text-white' 
             onClick={closeMethod}

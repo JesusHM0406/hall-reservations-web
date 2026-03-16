@@ -9,8 +9,8 @@ interface Theme {
 }
 
 const themesInfo: Theme[] = [
-  { themeName: 'light', label: 'toggle light mode', iconName: 'sun' },
-  { themeName: 'dark', label: 'toggle dark mode', iconName: 'moon' },
+  { themeName: 'light', label: 'light mode', iconName: 'sun' },
+  { themeName: 'dark', label: 'dark mode', iconName: 'moon' },
   { themeName: 'system', label: 'use system preferences', iconName: 'monitor' }
 ];
 
@@ -26,9 +26,9 @@ const ThemeSwitcher = ({ theme, setCurrentTheme }: ThemeSwitcherProps) => {
     const currentIndex = themesInfo.findIndex(opt => opt.themeName === theme);
     let nextIndex;
 
-    if (e.key === 'ArrowRight') {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
       nextIndex = (currentIndex + 1) % themesInfo.length;
-    } else if (e.key === 'ArrowLeft') {
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
       nextIndex = (currentIndex - 1 + themesInfo.length) % themesInfo.length;
     } else {
       return;
@@ -38,38 +38,40 @@ const ThemeSwitcher = ({ theme, setCurrentTheme }: ThemeSwitcherProps) => {
     
     const nextTheme = themesInfo[nextIndex].themeName;
 
-    setCurrentTheme(nextTheme);
-
-    const buttons: NodeListOf<HTMLButtonElement> | undefined = containerRef.current?.querySelectorAll('button');
+    const buttons = containerRef.current?.querySelectorAll<HTMLButtonElement>('button');
     
     if (buttons) buttons[nextIndex].focus();
+
+    setCurrentTheme(nextTheme);
   }
 
   return (
     <div
-      className='rounded-xl border-2 border-brand text-inactive flex'
+      className='rounded-xl border-2 border-brand text-inactive flex overflow-hidden'
       role='radiogroup'
       aria-label='visual theme selector'
       onKeyDown={handleKeyDown}
       ref={containerRef}
     >
-      {themesInfo.map(({ themeName, label, iconName }) => (
-        <button
+      {themesInfo.map(({ themeName, label, iconName }) => {
+        const isSelected = theme === themeName;
+
+        return (<button
           id={themeName}
           role='radio' 
-          aria-checked={ theme === themeName } 
+          aria-checked={isSelected } 
           aria-label={label} 
-          tabIndex={ theme === themeName ? 0 : -1 }
+          tabIndex={isSelected ? 0 : -1 }
           key={themeName} 
           type='button'
-          className={`cursor-pointer py-3 px-4 transition-colors ${ theme === themeName ? 'bg-brand text-white' : 'bg-transparent hover:bg-brand/20' }`} 
+          className={`cursor-pointer py-3 px-4 transition-colors outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white ${isSelected ? 'bg-brand text-white' : 'bg-transparent hover:bg-brand/20'}`} 
           onClick={() => setCurrentTheme(themeName)}
         >
           <span aria-hidden>
             <DynamicIcon name={iconName} size={ICON_SIZE.SM} />
           </span>
-        </button>
-      ))}
+        </button>);
+      })}
     </div>
   );
 };

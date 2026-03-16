@@ -67,7 +67,7 @@ function MainLayout() {
       />
       <div 
         ref={mainRef} 
-        className='min-w-full h-dvh md:min-w-[calc(100%-17.5rem)]! overflow-y-auto bg-white dark:bg-dark dark:text-white'
+        className='min-w-full h-dvh md:min-w-[calc(100%-15rem)]! overflow-y-auto bg-white dark:bg-dark dark:text-white'
       >
         <Header 
           isSidebarOpen={isSidebarDesktopOrOpen} 

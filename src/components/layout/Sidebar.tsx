@@ -48,8 +48,8 @@ const Sidebar = ({ isSidebarOpen, closeMethod, isDesktop, className, ...props }:
         {...props} 
         ref={asideRef} 
         className={cn(
-          'shrink-0 w-70 px-4 py-8 flex transition-[margin] overflow-hidden',
-          isSidebarOpen ? 'ml-0' : '-ml-70',
+          'shrink-0 w-60 px-4 py-8 flex transition-[margin] overflow-hidden text-sm',
+          isSidebarOpen ? 'ml-0' : '-ml-60',
           'md:ml-0 z-50 bg-dark border-r dark:border-slate-gray',
           className
         )}

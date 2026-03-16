@@ -16,7 +16,7 @@ const Header = ({ isSidebarOpen, sidebarId, menuMethod, theme, themeToggleMethod
     <header className='bg-slate-dark flex items-center gap-3 border border-transparent dark:border-slate-gray fixed w-fit p-3 ml-6 mt-6 rounded-2xl'>
       <button 
         type='button' 
-        aria-label='Open main navigation menu' 
+        aria-label='Open main navigation sidebar' 
         aria-expanded={isSidebarOpen} 
         aria-controls={sidebarId} 
         onClick={menuMethod} 

@@ -13,6 +13,7 @@ document.documentElement.classList.toggle(THEMES.DARK, shouldBeDark);
 function MainLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
   const [currentTheme, setCurrentTheme] = useState<ThemeType>(savedTheme);
+  
   useEffect(()=> {
     if (currentTheme !== THEMES.SYSTEM) return;
 

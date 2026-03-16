@@ -4,7 +4,7 @@ import Button from '../common/Button';
 import SidebarItem from '../ui/SidebarItem';
 import { Link, useLocation } from 'react-router';
 import { PATHS } from '../../paths';
-import { LogIn, UserPlus } from 'lucide-react';
+import { LogIn, UserPlus, X } from 'lucide-react';
 import { ICON_SIZE } from '../../constants/ui.constants';
 import { cn } from '../../lib/utils';
 
@@ -42,10 +42,17 @@ const Sidebar = ({ isSidebarOpen, closeMethod, className, ...props }: SidebarPro
           'shrink-0 w-70 px-4 py-8 flex transition-[margin] overflow-hidden',
           isSidebarOpen ? 'ml-0' : '-ml-70',
           'md:ml-0 z-50 bg-dark border-r dark:border-slate-gray',
-          className,
+          className
         )}
       >
-        <nav className='grow flex flex-col' aria-label='Main navigation'>
+        <nav className='grow flex flex-col' aria-label='Main navigation sidebar'>
+          <button 
+            aria-label='Close main navigation sidebar'
+            className='cursor-pointer p-3 w-fit rounded-xl border-2 border-brand text-inactive mb-6 self-end transition-colors duration-150 hover:bg-brand hover:text-white' 
+            onClick={closeMethod}
+          >
+            <X size={ICON_SIZE.SM} aria-hidden='true' />
+          </button>
           <ul className='grow'>
             {SIDEBAR_ITEMS.map(item => {
               if (item.type === 'expandable') {

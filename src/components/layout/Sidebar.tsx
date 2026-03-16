@@ -2,7 +2,7 @@ import { useRef, useState, type HTMLAttributes } from 'react';
 import { SIDEBAR_ITEMS } from '../../config/sidebar-config';
 import Button from '../common/Button';
 import SidebarItem from '../ui/SidebarItem';
-import { Link, useLocation } from 'react-router';
+import { NavLink, useLocation } from 'react-router';
 import { PATHS } from '../../paths';
 import { LogIn, UserPlus, X } from 'lucide-react';
 import { ICON_SIZE } from '../../constants/ui.constants';
@@ -94,17 +94,17 @@ const Sidebar = ({ isSidebarOpen, closeMethod, isDesktop, className, ...props }:
           </ul>
           <div className='flex flex-col gap-4 items-center'>
             <Button asChild onClick={handleAuthButtonClick}>
-              <Link to={`/${PATHS.auth.root}/${PATHS.auth.register}`}>
+              <NavLink to={`/${PATHS.auth.root}/${PATHS.auth.register}`}>
                 <UserPlus size={ICON_SIZE.MD} aria-hidden='true' />
                 <span>Register</span>
-              </Link>
+              </NavLink>
             </Button>
             
             <Button asChild onClick={handleAuthButtonClick} filled={false} >
-              <Link to={`/${PATHS.auth.root}/${PATHS.auth.login}`}>
+              <NavLink to={`/${PATHS.auth.root}/${PATHS.auth.login}`}>
                 <LogIn size={ICON_SIZE.MD} aria-hidden='true' />
                 <span>Log In</span>
-              </Link>
+              </NavLink>
             </Button>
           </div>
         </nav>

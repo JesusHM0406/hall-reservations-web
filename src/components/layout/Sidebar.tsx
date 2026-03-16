@@ -12,9 +12,10 @@ import { useFocusTrap } from '../../hooks/useFocusTrap';
 interface SidebarProps extends HTMLAttributes<HTMLElement> {
   isSidebarOpen: boolean;
   closeMethod: () => void;
+  isDesktop: boolean;
 }
 
-const Sidebar = ({ isSidebarOpen, closeMethod, className, ...props }: SidebarProps) => {
+const Sidebar = ({ isSidebarOpen, closeMethod, isDesktop, className, ...props }: SidebarProps) => {
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
   
   const location = useLocation();
@@ -24,7 +25,7 @@ const Sidebar = ({ isSidebarOpen, closeMethod, className, ...props }: SidebarPro
   const closeBtnRef = useRef<HTMLButtonElement | null>(null);
   const wasSidebarOpenRef = useRef<boolean>(false);
 
-  useFocusTrap(asideRef, isSidebarOpen, wasSidebarOpenRef, closeBtnRef, closeMethod);
+  useFocusTrap(asideRef, isSidebarOpen && !isDesktop, wasSidebarOpenRef, closeBtnRef, closeMethod);
 
   const handleSectionClick = (sectionLabel: string, hasOptions: boolean) => {
     if (hasOptions) {

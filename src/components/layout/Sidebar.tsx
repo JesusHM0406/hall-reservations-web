@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type HTMLAttributes, type KeyboardEvent } from 'react';
+import { useRef, useState, type HTMLAttributes } from 'react';
 import { SIDEBAR_ITEMS } from '../../config/sidebar-config';
 import Button from '../common/Button';
 import SidebarItem from '../ui/SidebarItem';
@@ -7,32 +7,24 @@ import { PATHS } from '../../paths';
 import { LogIn, UserPlus, X } from 'lucide-react';
 import { ICON_SIZE } from '../../constants/ui.constants';
 import { cn } from '../../lib/utils';
+import { useFocusTrap } from '../../hooks/useFocusTrap';
 
 interface SidebarProps extends HTMLAttributes<HTMLElement> {
   isSidebarOpen: boolean;
   closeMethod: () => void;
 }
 
-const Sidebar = ({ isSidebarOpen, closeMethod, className, onKeyDown, ...props }: SidebarProps) => {
+const Sidebar = ({ isSidebarOpen, closeMethod, className, ...props }: SidebarProps) => {
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
   
   const location = useLocation();
   const pathName = location.pathname;
 
+  const asideRef = useRef<HTMLElement | null>(null);
   const closeBtnRef = useRef<HTMLButtonElement | null>(null);
-  const prevFocusRef = useRef<HTMLElement | null>(null);
   const wasSidebarOpenRef = useRef<boolean>(false);
 
-  useEffect(() =>{
-    if (isSidebarOpen) {
-      prevFocusRef.current = document.activeElement as HTMLElement | null;
-      closeBtnRef.current?.focus();
-    } else if (wasSidebarOpenRef.current) {
-      prevFocusRef.current?.focus();
-    }
-
-    wasSidebarOpenRef.current = isSidebarOpen;
-  }, [isSidebarOpen]);
+  useFocusTrap(asideRef, isSidebarOpen, wasSidebarOpenRef, closeBtnRef, closeMethod);
 
   const handleSectionClick = (sectionLabel: string, hasOptions: boolean) => {
     if (hasOptions) {
@@ -49,31 +41,17 @@ const Sidebar = ({ isSidebarOpen, closeMethod, className, onKeyDown, ...props }:
     closeMethod();
   };
 
-  const handleKeyDown = (e: KeyboardEvent<HTMLElement>) => {
-    onKeyDown?.(e);
-
-    if (e.defaultPrevented || !isSidebarOpen) return;
-
-    if (e.key === 'Escape') {
-      e.preventDefault();
-      closeMethod();
-      return;
-    }
-
-    if (e.key !== 'Tab') return;
-  };
-
   return (
     <>
       <aside 
         {...props} 
+        ref={asideRef} 
         className={cn(
           'shrink-0 w-70 px-4 py-8 flex transition-[margin] overflow-hidden',
           isSidebarOpen ? 'ml-0' : '-ml-70',
           'md:ml-0 z-50 bg-dark border-r dark:border-slate-gray',
           className
-        )} 
-        onKeyDown={handleKeyDown}
+        )}
       >
         <nav className='grow flex flex-col' aria-label='Main navigation sidebar'>
           <button 

@@ -57,7 +57,7 @@ const Sidebar = ({ isSidebarOpen, closeMethod, className, ...props }: SidebarPro
           <button 
             ref={closeBtnRef} 
             aria-label='Close main navigation sidebar'
-            className='cursor-pointer p-3 w-fit rounded-xl border-2 border-brand text-inactive mb-6 self-end transition-colors duration-150 hover:bg-brand hover:text-white' 
+            className='cursor-pointer p-3 w-fit rounded-xl border-2 border-brand text-inactive mb-6 self-end transition-colors duration-150 hover:bg-brand hover:text-white md:hidden' 
             onClick={closeMethod}
           >
             <X size={ICON_SIZE.SM} aria-hidden='true' />

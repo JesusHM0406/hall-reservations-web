@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type HTMLAttributes } from 'react';
 import { SIDEBAR_ITEMS } from '../../config/sidebar-config';
 import Button from '../common/Button';
 import SidebarItem from '../ui/SidebarItem';
@@ -6,14 +6,16 @@ import { Link, useLocation } from 'react-router';
 import { PATHS } from '../../paths';
 import { LogIn, UserPlus } from 'lucide-react';
 import { ICON_SIZE } from '../../constants/ui.constants';
+import { cn } from '../../lib/utils';
 
-interface SidebarProps {
+interface SidebarProps extends HTMLAttributes<HTMLElement> {
   isSidebarOpen: boolean;
   closeMethod: () => void;
 }
 
-const Sidebar = ({ isSidebarOpen, closeMethod }: SidebarProps) => {
+const Sidebar = ({ isSidebarOpen, closeMethod, className, ...props }: SidebarProps) => {
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
+  
   const location = useLocation();
   const pathName = location.pathname;
 
@@ -34,50 +36,67 @@ const Sidebar = ({ isSidebarOpen, closeMethod }: SidebarProps) => {
 
   return (
     <>
-      <aside className={`shrink-0 w-70 px-4 flex flex-col py-8 transition-[margin] overflow-hidden ${isSidebarOpen ? 'ml-0' : '-ml-70'} md:ml-0 z-50 bg-dark border-r dark:border-slate-gray`}>
-        <div className='grow'>
-          {SIDEBAR_ITEMS.map(item => {
-            if (item.type === 'expandable') {
+      <aside 
+        {...props}
+        className={cn(
+          'shrink-0 w-70 px-4 py-8 flex transition-[margin] overflow-hidden',
+          isSidebarOpen ? 'ml-0' : '-ml-70',
+          'md:ml-0 z-50 bg-dark border-r dark:border-slate-gray',
+          className,
+        )}
+      >
+        <nav className='grow flex flex-col' aria-label='Main navigation'>
+          <ul className='grow'>
+            {SIDEBAR_ITEMS.map(item => {
+              if (item.type === 'expandable') {
+                return (
+                  <li key={item.sectionLabel}>
+                    <SidebarItem
+                      {...item}
+                      isSectionActive={pathName.startsWith(`/${item.rootPath}`)}
+                      sectionMethod={() => handleSectionClick(item.sectionLabel, true)}
+                      closeSidebarMethod={closeMethod}
+                      isExpanded={expandedSection === item.sectionLabel}
+                    />
+                  </li>
+                )
+              }
+
               return (
-                <SidebarItem
-                  {...item}
-                  isSectionActive={pathName.startsWith(`/${item.rootPath}`)}
-                  sectionMethod={() => handleSectionClick(item.sectionLabel, true)}
-                  closeSidebarMethod={closeMethod}
-                  isExpanded={expandedSection === item.sectionLabel}
-                  key={item.sectionLabel}
-                />
+                <li key={item.sectionLabel}>
+                  <SidebarItem
+                    {...item}
+                    isSectionActive={pathName.startsWith(`/${item.rootPath}`)}
+                    sectionMethod={() => handleSectionClick(item.sectionLabel, false)}
+                    key={item.sectionLabel}
+                  />
+                </li>
               )
-            }
 
-            return (
-              <SidebarItem
-                {...item}
-                isSectionActive={pathName.startsWith(`/${item.rootPath}`)}
-                sectionMethod={() => handleSectionClick(item.sectionLabel, false)}
-                key={item.sectionLabel}
-              />
-            )
-
-          })}
-        </div>
-        <div className='flex flex-col gap-4 items-center'>
-          <Button asChild onClick={handleAuthButtonClick}>
-            <Link to={`/${PATHS.auth.root}/${PATHS.auth.register}`}>
-              <UserPlus size={ICON_SIZE.MD} />
-              <span>Register</span>
-            </Link>
-          </Button>
-          
-          <Button asChild onClick={handleAuthButtonClick} filled={false} >
-            <Link to={`/${PATHS.auth.root}/${PATHS.auth.login}`}>
-              <LogIn size={ICON_SIZE.MD} />
-              <span>Log In</span>
-            </Link>
-          </Button>
-        </div>
+            })}
+          </ul>
+          <div className='flex flex-col gap-4 items-center'>
+            <Button asChild onClick={handleAuthButtonClick}>
+              <Link to={`/${PATHS.auth.root}/${PATHS.auth.register}`}>
+                <UserPlus size={ICON_SIZE.MD} aria-hidden='true' />
+                <span>Register</span>
+              </Link>
+            </Button>
+            
+            <Button asChild onClick={handleAuthButtonClick} filled={false} >
+              <Link to={`/${PATHS.auth.root}/${PATHS.auth.login}`}>
+                <LogIn size={ICON_SIZE.MD} aria-hidden='true' />
+                <span>Log In</span>
+              </Link>
+            </Button>
+          </div>
+        </nav>
       </aside>
-      <div className={`bg-black/50 w-dvw h-dvh fixed inset-0 z-40 ${isSidebarOpen ? 'block' : 'hidden'} md:hidden`} onClick={closeMethod}></div>
+      <div
+        aria-hidden='true'
+        className={`bg-black/50 w-dvw h-dvh fixed inset-0 z-40 ${isSidebarOpen ? 'block' : 'hidden'} md:hidden`}
+        onClick={closeMethod}
+      ></div>
     </>
   )
 };

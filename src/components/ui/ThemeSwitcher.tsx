@@ -64,7 +64,7 @@ const ThemeSwitcher = ({ theme, setCurrentTheme }: ThemeSwitcherProps) => {
           tabIndex={isSelected ? 0 : -1 }
           key={themeName} 
           type='button'
-          className={`cursor-pointer py-3 px-4 transition-colors outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white ${isSelected ? 'bg-brand text-white' : 'bg-transparent hover:bg-brand/20'}`} 
+          className={`cursor-pointer py-2.5 px-3.5 transition-colors outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white ${isSelected ? 'bg-brand text-white' : 'bg-transparent hover:bg-brand/20'}`} 
           onClick={() => setCurrentTheme(themeName)}
         >
           <span aria-hidden>

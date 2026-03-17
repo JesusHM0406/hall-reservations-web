@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Sidebar from './components/layout/Sidebar';
 import Header from './components/layout/Header';
 import { Outlet } from 'react-router';
@@ -56,12 +56,15 @@ function MainLayout() {
   const sidebarId = 'main-navigation-sidebar';
   const isSidebarDesktopOrOpen = isDesktop || isSidebarOpen;
 
+  const handleCloseSidebar = useCallback(() => {setIsSidebarOpen(false)}, []);
+  const handleOpenSidebar = useCallback(() => {setIsSidebarOpen(true)}, []);
+
   return (
     <div className='flex min-h-dvh w-full overflow-hidden'>
       <Sidebar 
         id={sidebarId} 
         isSidebarOpen={isSidebarDesktopOrOpen} 
-        closeMethod={() => setIsSidebarOpen(false)} 
+        closeMethod={handleCloseSidebar} 
         isDesktop={isDesktop} 
         {...(isSidebarDesktopOrOpen ? {} : { inert: true })}
       />
@@ -72,7 +75,7 @@ function MainLayout() {
         <Header 
           isSidebarOpen={isSidebarDesktopOrOpen} 
           sidebarId={sidebarId}
-          menuMethod={() => setIsSidebarOpen(true)} 
+          menuMethod={handleOpenSidebar} 
           theme={currentTheme} 
           themeToggleMethod={toggleTheme} 
         />

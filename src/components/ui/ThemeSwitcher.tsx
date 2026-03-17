@@ -24,7 +24,7 @@ const ThemeSwitcher = ({ theme, setCurrentTheme }: ThemeSwitcherProps) => {
 
   const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
     const currentIndex = themesInfo.findIndex(opt => opt.themeName === theme);
-    let nextIndex;
+    let nextIndex: number;
 
     if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
       nextIndex = (currentIndex + 1) % themesInfo.length;

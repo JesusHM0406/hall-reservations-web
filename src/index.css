@@ -2,9 +2,17 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+html {
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
 @theme {
   --font-sans: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
-  
+
   --color-inactive: var(--color-slate-400);
   
   --color-gray: var(--color-slate-500);

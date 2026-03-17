@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Sidebar from './components/layout/Sidebar';
 import Header from './components/layout/Header';
 import { Outlet } from 'react-router';
 import { THEMES, type ThemeType } from './constants/ui.constants';
+import { useMediaQuery } from './hooks/useMediaQuery';
 
 const savedTheme = localStorage.getItem('theme') as ThemeType ||THEMES.SYSTEM;
 const shouldBeDark = savedTheme === THEMES.DARK ||
@@ -13,6 +14,15 @@ document.documentElement.classList.toggle(THEMES.DARK, shouldBeDark);
 function MainLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
   const [currentTheme, setCurrentTheme] = useState<ThemeType>(savedTheme);
+  
+  const isDesktop = useMediaQuery('(min-width: 48em)'); // 768px Tailwind md breakpoint;
+
+  const mainRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(()=> {
+    if (isSidebarOpen && !isDesktop) mainRef.current?.setAttribute('inert', '');
+    else mainRef.current?.removeAttribute('inert');
+  }, [isDesktop, isSidebarOpen]);
 
   useEffect(()=> {
     if (currentTheme !== THEMES.SYSTEM) return;
@@ -43,16 +53,33 @@ function MainLayout() {
     document.documentElement.classList.toggle(THEMES.DARK, isDark);
   };
 
+  const sidebarId = 'main-navigation-sidebar';
+  const isSidebarDesktopOrOpen = isDesktop || isSidebarOpen;
+
+  const handleCloseSidebar = useCallback(() => {setIsSidebarOpen(false)}, []);
+  const handleOpenSidebar = useCallback(() => {setIsSidebarOpen(true)}, []);
+
   return (
     <div className='flex min-h-dvh w-full overflow-hidden'>
-      <Sidebar isSidebarOpen={isSidebarOpen} closeMethod={() => setIsSidebarOpen(false)} />
-      <div className='min-w-full h-dvh px-6 flex flex-col gap-8 md:min-w-[calc(100%-17.5rem)]! overflow-y-auto bg-white dark:bg-dark dark:text-white'>
-        <Header
-          menuMethod={() => setIsSidebarOpen(true)}
-          theme={currentTheme}
-          themeToggleMethod={toggleTheme}
+      <Sidebar 
+        id={sidebarId} 
+        isSidebarOpen={isSidebarDesktopOrOpen} 
+        closeMethod={handleCloseSidebar} 
+        isDesktop={isDesktop} 
+        {...(isSidebarDesktopOrOpen ? {} : { inert: true })}
+      />
+      <div 
+        ref={mainRef} 
+        className='min-w-full h-dvh md:min-w-[calc(100%-15rem)]! overflow-y-auto bg-white dark:bg-dark dark:text-white'
+      >
+        <Header 
+          isSidebarOpen={isSidebarDesktopOrOpen} 
+          sidebarId={sidebarId}
+          menuMethod={handleOpenSidebar} 
+          theme={currentTheme} 
+          themeToggleMethod={toggleTheme} 
         />
-        <main>
+        <main className='pt-20 px-6 min-h-dvh flex flex-col pb-10'>
           <Outlet />
         </main>
       </div>

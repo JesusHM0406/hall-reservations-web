@@ -32,7 +32,7 @@ const SidebarItem = (props: SidebarItemProps) => {
     const { isExpanded, options, closeSidebarMethod }: ExpandableItemProps = props
 
     return (
-      <div className='flex flex-col mb-3'>
+      <div className='flex flex-col mb-2'>
         <button 
           type='button' 
           className={`text-start p-0.5 cursor-pointer flex items-center gap-2 transition-colors duration-150 ${isSectionActive ? 'text-white' : 'text-inactive'}`} 
@@ -44,9 +44,9 @@ const SidebarItem = (props: SidebarItemProps) => {
           <span className='grow font-bold'>{sectionLabel}</span>
           <ChevronRight size={ICON_SIZE.MD} aria-hidden='true' className={`transition-transform duration-150 ${isExpanded ? 'rotate-90' : ''}`} />
         </button>
-        <div className={`mt-0.5 grid transition-[grid-template-rows] duration-150 grid-rows-[0fr] ${isExpanded ? 'grid-rows-[1fr]' : ''}`}>
+        <div className={`mt-2 grid transition-[grid-template-rows] duration-150 grid-rows-[0fr] ${isExpanded ? 'grid-rows-[1fr]' : ''}`}>
           <ul 
-            className='overflow-hidden flex flex-col gap-1' 
+            className='overflow-hidden flex flex-col gap-2' 
             id={`${sectionLabel}-submenu`}
             aria-hidden={!isExpanded}
             {...(isExpanded ? {} : { inert: true })}
@@ -57,7 +57,7 @@ const SidebarItem = (props: SidebarItemProps) => {
                   <NavLink 
                     to={`/${rootPath}/${option.path}`}
                     className={({ isActive }) => {
-                      return `cursor-pointer ml-8 px-0.5 text-start text-inactive ${isActive ? 'text-white' : ''}`
+                      return `cursor-pointer ml-6.5 px-0.5 text-inactive ${isActive ? 'text-white' : ''}`
                     }}
                     onClick={closeSidebarMethod}
                   >

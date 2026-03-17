@@ -13,7 +13,7 @@ interface HeaderProps {
 
 const Header = ({ isSidebarOpen, sidebarId, menuMethod, theme, themeToggleMethod }: HeaderProps) => {
   return (
-    <header className='bg-slate-dark flex items-center gap-3 border border-transparent dark:border-slate-gray fixed w-fit p-2.5 ml-6 mt-6 rounded-2xl'>
+    <header className='bg-slate-dark flex items-center gap-2.5 border border-transparent dark:border-slate-gray fixed w-fit p-2.5 ml-6 mt-6 rounded-2xl'>
       <button 
         type='button' 
         aria-label='Open main navigation sidebar' 

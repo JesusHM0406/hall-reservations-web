@@ -11,6 +11,8 @@ import { registerScheme, type RegisterFormData } from '../../schemes/auth.scheme
 import { zodResolver } from '@hookform/resolvers/zod';
 import SpinerLoader from '../../components/common/SpinerLoader';
 import { authService } from '../../services/auth.service';
+import { toast } from 'sonner';
+import { getErrorMessage } from '../../lib/axios';
 
 const RegisterPage = () => {
   const { 
@@ -30,9 +32,11 @@ const RegisterPage = () => {
   const onSubmit = async (data: RegisterFormData) => {
     try {
       await authService.register(data);
+      // IMPORTANT: Later, i need to redirect to the login page or login directly
+      toast.success('The submit was successful');
     } catch(e) {
-      // NOTE: This is only for testing
-      console.error(e);
+      const msg = getErrorMessage(e);
+      toast.error(msg);
     }
 
     reset();

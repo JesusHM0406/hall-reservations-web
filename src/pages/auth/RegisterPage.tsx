@@ -6,8 +6,30 @@ import Input from '../../components/common/Input';
 import { ICON_SIZE } from '../../constants/ui.constants';
 import { Link } from 'react-router';
 import { PATHS } from '../../paths';
+import { useForm } from 'react-hook-form';
+import { registerScheme, type RegisterFormData } from '../../schemes/auth.scheme';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 const RegisterPage = () => {
+  const { 
+    register, 
+    handleSubmit, 
+    formState: { errors },
+    reset
+  } = useForm<RegisterFormData>({ 
+    resolver: zodResolver(registerScheme),
+    defaultValues: {
+      name: '',
+      password: '',
+      passwordConfirm: ''
+    }
+  });
+
+  const onSubmit = (data: RegisterFormData) => {
+    // This is only for testing, later i will add an api client
+    reset()
+  }
+
   return (
     <div className='grid place-content-center h-full flex-1 gap-6 text-xs'>
       <div className='flex flex-col items-center'>
@@ -18,20 +40,27 @@ const RegisterPage = () => {
         <span className='uppercase font-bold text-inactive tracking-widest text-center'>Join the event venue booking platform</span>
       </div>
       <Container>
-        <form className='flex flex-col gap-5' aria-label='Create an account'>
-          <FormField label='username' required>
+        <form 
+          onSubmit={handleSubmit(onSubmit)}
+          className='flex flex-col gap-5' 
+          aria-label='Create an account' 
+          noValidate 
+        >
+          <FormField label='username' required error={errors.name}>
             {(id) => (
               <Input 
                 id={id} 
                 required
                 iconName='user' 
                 placeholder='John Doe' 
-                intention='brand' 
+                intention={errors.name ? 'danger' : 'brand'} 
+                {...register('name', { required: true })} 
+                {...(errors.name ? { 'aria-invalid': true, 'aria-errormessage': `${id}-error` } : {})}
               />)
             }
           </FormField>
           
-          <FormField label='password' required>
+          <FormField label='password' required error={errors.password}>
             {(id) => (
               <Input 
                 id={id} 
@@ -39,12 +68,14 @@ const RegisterPage = () => {
                 type='password' 
                 iconName='lock' 
                 placeholder='••••••••' 
-                intention='brand' 
+                intention={errors.password ? 'danger' : 'brand'}
+                {...register('password', { required: true })} 
+                {...(errors.password ? { 'aria-invalid': true, 'aria-errormessage': `${id}-error` } : {})}
               />
             )}
           </FormField>
           
-          <FormField label='confirm your password' required>
+          <FormField label='confirm your password' required error={errors.passwordConfirm}>
               {(id) => (
                 <Input 
                   id={id} 
@@ -52,12 +83,14 @@ const RegisterPage = () => {
                   type='password' 
                   iconName='lock' 
                   placeholder='••••••••' 
-                  intention='brand' 
+                  intention={errors.passwordConfirm ? 'danger' : 'brand'}
+                  {...register('passwordConfirm', { required: true })} 
+                  {...(errors.passwordConfirm ? { 'aria-invalid': true, 'aria-errormessage': `${id}-error` } : {})}
                 />
               )}
           </FormField>
 
-          <Button className='mt-3'>
+          <Button className='mt-3' type='submit'>
             <span className='uppercase tracking-widest'>Register Now</span>
             <span>
               <ArrowRight size={ICON_SIZE.MD} />

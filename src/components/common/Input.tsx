@@ -1,6 +1,6 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../../lib/utils';
-import { type InputHTMLAttributes } from 'react';
+import { type InputHTMLAttributes, type Ref } from 'react';
 import { DynamicIcon, type IconName } from 'lucide-react/dynamic';
 import { ICON_SIZE } from '../../constants/ui.constants';
 
@@ -9,7 +9,8 @@ const inputVariants = cva(
   {
     variants: {
       intention: {
-        brand: 'focus-within:ring-brand focus-within:text-brand'
+        brand: 'focus-within:ring-brand focus-within:text-brand',
+        danger: 'border-danger/70! focus-within:ring-danger text-danger/70'
       }
     }
   }
@@ -20,6 +21,7 @@ type inputVariantProps = VariantProps<typeof inputVariants>;
 interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'id'>, inputVariantProps {
   id: string;
   iconName?: IconName;
+  ref?: Ref<HTMLInputElement>;
 };
 
 const Input = ({ intention, type, className, iconName, id, ...props }: InputProps) => {
@@ -31,11 +33,11 @@ const Input = ({ intention, type, className, iconName, id, ...props }: InputProp
       >
         {iconName ? (
           <span className='pointer-events-none pl-4'>
-            <DynamicIcon name={iconName} size={ICON_SIZE.SM} />
+            <DynamicIcon name={iconName} size={ICON_SIZE.SM} aria-hidden />
           </span>
           ) : null
         }
-        <input
+        <input 
           type={type ?? 'text'} 
           id={id} 
           className='outline-none text-dark dark:text-white py-3 text-xs w-full' 

@@ -4,6 +4,7 @@ import Header from './components/layout/Header';
 import { Outlet } from 'react-router';
 import { THEMES, type ThemeType } from './constants/ui.constants';
 import { useMediaQuery } from './hooks/useMediaQuery';
+import { Toaster } from 'sonner';
 
 const savedTheme = localStorage.getItem('theme') as ThemeType ||THEMES.SYSTEM;
 const shouldBeDark = savedTheme === THEMES.DARK ||
@@ -68,6 +69,7 @@ function MainLayout() {
         isDesktop={isDesktop} 
         {...(isSidebarDesktopOrOpen ? {} : { inert: true })}
       />
+      <Toaster theme={currentTheme} position='top-center' />
       <div 
         ref={mainRef} 
         className='min-w-full h-dvh md:min-w-[calc(100%-15rem)]! overflow-y-auto bg-white dark:bg-dark dark:text-white'

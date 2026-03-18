@@ -9,6 +9,7 @@ import { PATHS } from '../../paths';
 import { useForm } from 'react-hook-form';
 import { registerScheme, type RegisterFormData } from '../../schemes/auth.scheme';
 import { zodResolver } from '@hookform/resolvers/zod';
+import SpinerLoader from '../../components/common/SpinerLoader';
 
 const RegisterPage = () => {
   const { 
@@ -91,10 +92,14 @@ const RegisterPage = () => {
           </FormField>
 
           <Button className='mt-3' type='submit' disabled={isSubmitting}>
-            <span className='uppercase tracking-widest'>Register Now</span>
-            <span>
-              <ArrowRight size={ICON_SIZE.MD} />
-            </span>
+            {isSubmitting ? <SpinerLoader size='sm' /> : (
+              <>
+                <span className='uppercase tracking-widest'>Register Now</span>
+                <span>
+                  <ArrowRight size={ICON_SIZE.MD} />
+                </span>
+              </>
+            )}
           </Button>
         </form>
       </Container>

@@ -21,7 +21,7 @@ const FormField = ({ label, required = false, error, children }: FormFieldProps)
         {required && <span className='text-danger ml-1' aria-hidden>*</span>}
       </label>
       {children(inputId)}
-      {error && <span role='alert' id={`${inputId}-error`} className='text-danger/80 mt-2 font-medium text-2xs'>{error.message}</span>}
+      {error && <span id={`${inputId}-error`} className='text-danger/80 mt-2 font-medium text-2xs'>{error.message}</span>}
     </div>
   );
 };

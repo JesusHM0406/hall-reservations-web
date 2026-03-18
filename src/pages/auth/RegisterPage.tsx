@@ -10,6 +10,7 @@ import { useForm } from 'react-hook-form';
 import { registerScheme, type RegisterFormData } from '../../schemes/auth.scheme';
 import { zodResolver } from '@hookform/resolvers/zod';
 import SpinerLoader from '../../components/common/SpinerLoader';
+import { authService } from '../../services/auth.service';
 
 const RegisterPage = () => {
   const { 
@@ -26,9 +27,15 @@ const RegisterPage = () => {
     }
   });
 
-  const onSubmit = (data: RegisterFormData) => {
-    // This is only for testing, later i will add an api client
-    reset()
+  const onSubmit = async (data: RegisterFormData) => {
+    try {
+      await authService.register(data);
+    } catch(e) {
+      // NOTE: This is only for testing
+      console.error(e);
+    }
+
+    reset();
   }
 
   return (

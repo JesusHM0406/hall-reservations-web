@@ -32,4 +32,22 @@ apiClient.interceptors.response.use(
   }
 )
 
-export { apiClient };
+const getErrorMessage = (error: unknown) => {
+  if (!(isAxiosError(error))) return 'Unexpected error';
+
+  const data = error.response?.data;
+
+  // This are Pydantic-specific errors
+  if (data?.detail && Array.isArray(data?.detail)) {
+    return 'Validation error: Please ensure that the values ​​are correct.';
+  }
+
+  // This are the general API errors
+  if (typeof data?.detail === 'string') {
+    return data.detail;
+  }
+  
+  return error.message || 'Network error.';
+}
+
+export { apiClient, getErrorMessage };

@@ -14,7 +14,7 @@ const RegisterPage = () => {
   const { 
     register, 
     handleSubmit, 
-    formState: { errors },
+    formState: { errors, isSubmitting },
     reset
   } = useForm<RegisterFormData>({ 
     resolver: zodResolver(registerScheme),
@@ -90,7 +90,7 @@ const RegisterPage = () => {
               )}
           </FormField>
 
-          <Button className='mt-3' type='submit'>
+          <Button className='mt-3' type='submit' disabled={isSubmitting}>
             <span className='uppercase tracking-widest'>Register Now</span>
             <span>
               <ArrowRight size={ICON_SIZE.MD} />

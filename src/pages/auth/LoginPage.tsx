@@ -10,6 +10,9 @@ import { useForm } from 'react-hook-form';
 import { loginScheme, type LoginFormData } from '../../schemes/auth.scheme';
 import { zodResolver } from '@hookform/resolvers/zod';
 import SpinnerLoader from '../../components/common/SpinnerLoader';
+import { getErrorMessage } from '../../lib/axios';
+import { authService } from '../../services/auth.service';
+import { toast } from 'sonner';
 
 const LoginPage = () => {
   const  {
@@ -21,7 +24,16 @@ const LoginPage = () => {
     resolver: zodResolver(loginScheme)
   });
 
-  const onSubmit = async (data: LoginFormData) => {reset()};
+  const onSubmit = async (data: LoginFormData) => {
+    try {
+      const responseData = await authService.login(data);
+      localStorage.setItem('token', responseData.access_token);
+      reset();
+    } catch(e) {
+      const msg = getErrorMessage(e);
+      toast.error(msg);
+    }
+  };
 
   return (
     <div className='grid place-content-center h-full flex-1 gap-6 text-xs'>

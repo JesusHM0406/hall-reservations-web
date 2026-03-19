@@ -1,5 +1,5 @@
 import { apiClient } from "../lib/axios"
-import type { RegisterFormData } from "../schemes/auth.scheme";
+import type { LoginFormData, RegisterFormData } from "../schemes/auth.scheme";
 
 const authService = {
   async register(creation: RegisterFormData) {
@@ -8,6 +8,16 @@ const authService = {
       password: creation.password,
       password_confirm: creation.passwordConfirm
     });
+  },
+
+  async login(loginData: LoginFormData) {
+    const { data } = await apiClient.post('auth/login', loginData, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    });
+
+    return data;
   }
 };
 

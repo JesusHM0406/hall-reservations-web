@@ -24,7 +24,7 @@ apiClient.interceptors.response.use(
     if (isAxiosError(error)) {
       if (error.status === 401) {
         localStorage.removeItem('token');
-        router.navigate(`${PATHS.auth.root}/${PATHS.auth.login}`);
+        router.navigate(`/${PATHS.auth.root}/${PATHS.auth.login}`);
       }
     }
 

@@ -65,7 +65,7 @@ const RegisterPage = () => {
                 iconName='user' 
                 placeholder='John Doe' 
                 intention={errors.name ? 'danger' : 'brand'} 
-                {...register('name', { required: true })} 
+                {...register('name')} 
                 {...(errors.name ? { 'aria-invalid': true, 'aria-errormessage': `${id}-error` } : {})}
               />)
             }
@@ -80,7 +80,7 @@ const RegisterPage = () => {
                 iconName='lock' 
                 placeholder='••••••••' 
                 intention={errors.password ? 'danger' : 'brand'}
-                {...register('password', { required: true })} 
+                {...register('password')} 
                 {...(errors.password ? { 'aria-invalid': true, 'aria-errormessage': `${id}-error` } : {})}
               />
             )}
@@ -95,7 +95,7 @@ const RegisterPage = () => {
                   iconName='lock' 
                   placeholder='••••••••' 
                   intention={errors.passwordConfirm ? 'danger' : 'brand'}
-                  {...register('passwordConfirm', { required: true })} 
+                  {...register('passwordConfirm')} 
                   {...(errors.passwordConfirm ? { 'aria-invalid': true, 'aria-errormessage': `${id}-error` } : {})}
                 />
               )}

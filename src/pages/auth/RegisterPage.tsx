@@ -34,12 +34,11 @@ const RegisterPage = () => {
       await authService.register(data);
       // IMPORTANT: Later, i need to redirect to the login page or login directly
       toast.success('The submit was successful');
+      reset();
     } catch(e) {
       const msg = getErrorMessage(e);
       toast.error(msg);
     }
-
-    reset();
   }
 
   return (

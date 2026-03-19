@@ -37,12 +37,12 @@ const getErrorMessage = (error: unknown) => {
 
   const data = error.response?.data;
 
-  // This are Pydantic-specific errors
+  // These are Pydantic-specific errors
   if (data?.detail && Array.isArray(data?.detail)) {
     return 'Validation error: Please ensure that the values ​​are correct.';
   }
 
-  // This are the general API errors
+  // These are the general API errors
   if (typeof data?.detail === 'string') {
     return data.detail;
   }

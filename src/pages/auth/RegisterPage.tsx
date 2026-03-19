@@ -9,7 +9,7 @@ import { PATHS } from '../../paths';
 import { useForm } from 'react-hook-form';
 import { registerScheme, type RegisterFormData } from '../../schemes/auth.scheme';
 import { zodResolver } from '@hookform/resolvers/zod';
-import SpinerLoader from '../../components/common/SpinerLoader';
+import SpinnerLoader from '../../components/common/SpinnerLoader';
 import { authService } from '../../services/auth.service';
 import { toast } from 'sonner';
 import { getErrorMessage } from '../../lib/axios';
@@ -102,7 +102,7 @@ const RegisterPage = () => {
           </FormField>
 
           <Button className='mt-3' type='submit' disabled={isSubmitting}>
-            {isSubmitting ? <SpinerLoader size='sm' /> : (
+            {isSubmitting ? <SpinnerLoader size='sm' /> : (
               <>
                 <span className='uppercase tracking-widest'>Register Now</span>
                 <span>

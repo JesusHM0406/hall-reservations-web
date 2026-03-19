@@ -26,8 +26,8 @@ const loaderVariants = cva(
 
 type LoaderVariantProps = VariantProps<typeof loaderVariants>;
 
-const SpinerLoader = ({ intent, size }: LoaderVariantProps) => {
+const SpinnerLoader = ({ intent, size }: LoaderVariantProps) => {
   return <span className={cn(loaderVariants({ intent, size }))}></span>;
 };
 
-export default SpinerLoader;
+export default SpinnerLoader;

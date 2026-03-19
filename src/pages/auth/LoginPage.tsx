@@ -7,11 +7,11 @@ import { ICON_SIZE } from '../../constants/ui.constants';
 import { Link } from 'react-router';
 import { PATHS } from '../../paths';
 import { useForm } from 'react-hook-form';
-import { loginScheme, type LoginFormData } from '../../schemes/auth.scheme';
+import { loginScheme, type LoginFormData } from '../../api/schemes/auth.scheme';
 import { zodResolver } from '@hookform/resolvers/zod';
 import SpinnerLoader from '../../components/common/SpinnerLoader';
-import { getErrorMessage } from '../../lib/axios';
-import { authService } from '../../services/auth.service';
+import { getErrorMessage } from '../../api/axios';
+import { authService } from '../../api/services/auth.service';
 import { toast } from 'sonner';
 
 const LoginPage = () => {

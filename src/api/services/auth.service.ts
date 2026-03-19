@@ -1,4 +1,4 @@
-import { apiClient } from "../lib/axios"
+import { apiClient } from "../axios"
 import type { LoginFormData, RegisterFormData } from "../schemes/auth.scheme";
 
 const authService = {

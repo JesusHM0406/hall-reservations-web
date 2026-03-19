@@ -7,12 +7,12 @@ import { ICON_SIZE } from '../../constants/ui.constants';
 import { Link } from 'react-router';
 import { PATHS } from '../../paths';
 import { useForm } from 'react-hook-form';
-import { registerScheme, type RegisterFormData } from '../../schemes/auth.scheme';
+import { registerScheme, type RegisterFormData } from '../../api/schemes/auth.scheme';
 import { zodResolver } from '@hookform/resolvers/zod';
 import SpinnerLoader from '../../components/common/SpinnerLoader';
-import { authService } from '../../services/auth.service';
+import { authService } from '../../api/services/auth.service';
 import { toast } from 'sonner';
-import { getErrorMessage } from '../../lib/axios';
+import { getErrorMessage } from '../../api/axios';
 
 const RegisterPage = () => {
   const { 

@@ -22,7 +22,7 @@ apiClient.interceptors.response.use(
   (response) => response,
   (error: unknown) => {
     if (isAxiosError(error)) {
-      if (error.status === 401) {
+      if (error.response?.status === 401) {
         localStorage.removeItem('token');
         router.navigate(`/${PATHS.auth.root}/${PATHS.auth.login}`);
       }

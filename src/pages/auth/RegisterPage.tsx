@@ -32,7 +32,7 @@ const RegisterPage = () => {
   const onSubmit = async (data: RegisterFormData) => {
     try {
       await authService.register(data);
-      // IMPORTANT: Later, i need to redirect to the login page or login directly
+      // TODO: Redirect to the login page or log the user in after successful registration
       toast.success('The submit was successful');
       reset();
     } catch(e) {

@@ -2,6 +2,7 @@ import axios, { isAxiosError, type AxiosRequestConfig } from 'axios';
 import { router } from '../router';
 import { PATHS } from '../paths';
 import type { RouteDef } from './endpoints';
+import { ZodParseError } from './parseAPIResponse';
 
 const apiClient = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
@@ -47,19 +48,23 @@ export const apiRequest = async (
 };
 
 export const getErrorMessage = (error: unknown) => {
-  if (!(isAxiosError(error))) return 'Unexpected error';
+  if (error instanceof ZodParseError) return error.message;
 
-  const data = error.response?.data;
+  if (isAxiosError(error)) {
+    const data = error.response?.data;
 
-  // These are Pydantic-specific errors
-  if (data?.detail && Array.isArray(data?.detail)) {
-    return 'Validation error: Please ensure that the values ​​are correct.';
+    // These are Pydantic-specific errors
+    if (data?.detail && Array.isArray(data?.detail)) {
+      return 'Validation error: Please ensure that the values ​​are correct.';
+    }
+
+    // These are the general API errors
+    if (typeof data?.detail === 'string') {
+      return data.detail;
+    }
+    
+    return error.message || 'Network error.';
   }
 
-  // These are the general API errors
-  if (typeof data?.detail === 'string') {
-    return data.detail;
-  }
-  
-  return error.message || 'Network error.';
-}
+  return 'Unexpected error';
+};

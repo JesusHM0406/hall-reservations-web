@@ -3,7 +3,7 @@ import { router } from '../router';
 import { PATHS } from '../paths';
 import type { RouteDef } from './endpoints';
 
-export const apiClient = axios.create({
+const apiClient = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
   headers: {
     'Content-Type': 'application/json'

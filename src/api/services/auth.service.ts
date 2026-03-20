@@ -12,7 +12,7 @@ export const authService = {
     });
   },
 
-  async login(loginData: LoginFormData) {
+  async logIn(loginData: LoginFormData) {
     const rawData = await apiRequest(API_ENDPOINTS.AUTH.LOGIN, {
       data: loginData,
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' }

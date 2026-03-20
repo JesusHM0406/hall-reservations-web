@@ -26,7 +26,7 @@ const LoginPage = () => {
 
   const onSubmit = async (data: LoginFormData) => {
     try {
-      const responseData = await authService.login(data);
+      const responseData = await authService.logIn(data);
       localStorage.setItem('token', responseData.access_token);
       reset();
     } catch(e) {

@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const registerScheme = z
+export const registerScheme = z
   .object({
     name: z
       .string()
@@ -21,9 +21,9 @@ const registerScheme = z
     path: ['passwordConfirm']
   });
 
-type RegisterFormData = z.infer<typeof registerScheme>;
+export type RegisterFormData = z.infer<typeof registerScheme>;
 
-const loginScheme = z
+export const loginScheme = z
   .object({
     username: z
       .string()
@@ -38,7 +38,10 @@ const loginScheme = z
       .regex(/[0-9]/, 'Must contain at least one number')
   });
 
-type LoginFormData = z.infer<typeof loginScheme>;
+export type LoginFormData = z.infer<typeof loginScheme>;
 
-export { registerScheme, loginScheme };
-export type { RegisterFormData, LoginFormData };
+export const loginResponseScheme = z
+  .object({
+    access_token: z.string(),
+    token_type: z.literal('bearer')
+  });

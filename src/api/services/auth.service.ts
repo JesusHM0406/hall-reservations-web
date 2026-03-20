@@ -1,10 +1,11 @@
 import { apiRequest } from "../axios"
 import { API_ENDPOINTS } from "../endpoints";
 import { parseAPIResponse } from "../parseAPIResponse";
-import { loginResponseScheme, type LoginFormData, type RegisterFormData } from "../schemes/auth.scheme";
+import { loginResponseScheme, type LoginFormData } from "../schemes/auth.scheme";
+import type { UserCreate } from "../schemes/user.scheme";
 
 export const authService = {
-  async register(payload: RegisterFormData) {
+  async register(payload: UserCreate) {
     await apiRequest(API_ENDPOINTS.USERS.ADD, {
       data: {
         name: payload.name,

@@ -1,5 +1,6 @@
 import { apiClient, apiRequest } from "../axios"
 import { API_ENDPOINTS } from "../endpoints";
+import { parseAPIResponse } from "../parseAPIResponse";
 import { loginResponseScheme, type LoginFormData, type RegisterFormData } from "../schemes/auth.scheme";
 
 export const authService = {
@@ -17,10 +18,8 @@ export const authService = {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
     });
 
-    const parsedData = loginResponseScheme.safeParse(rawData);
+    const parsedData = parseAPIResponse(loginResponseScheme, rawData);
 
-    if (!parsedData.success) throw new Error('Error loading data: API format has changed');
-
-    return parsedData.data;
+    return parsedData;
   }
 };

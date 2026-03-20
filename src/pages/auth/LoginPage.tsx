@@ -95,7 +95,7 @@ const LoginPage = () => {
       </Container>
 
       <div className='text-center'>
-        <span className='uppercase text-2xs text-inactive font-bold tracking-wider'>Don't have an account yet? <Link to={`/${PATHS.auth.root}/${PATHS.auth.register}`} className='normal-case text-brand text-xs' aria-label='go to register page if dont have an account'>Register</Link></span>
+        <span className='uppercase text-2xs text-inactive font-bold tracking-wider'>Don't have an account yet? <Link to={`/${PATHS.auth.root}/${PATHS.auth.register}`} className='normal-case text-brand text-xs' aria-label="Go to registration page if you don't have an account">Register</Link></span>
       </div>
     </div>
   );

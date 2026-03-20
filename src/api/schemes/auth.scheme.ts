@@ -23,7 +23,7 @@ export const registerScheme = z
 
 export type RegisterFormData = z.infer<typeof registerScheme>;
 
-export const loginScheme = z
+export const loginRequestScheme = z
   .object({
     username: z
       .string()
@@ -38,7 +38,7 @@ export const loginScheme = z
       .regex(/[0-9]/, 'Must contain at least one number')
   });
 
-export type LoginFormData = z.infer<typeof loginScheme>;
+export type LoginFormData = z.infer<typeof loginRequestScheme>;
 
 export const loginResponseScheme = z
   .object({

@@ -1,8 +1,9 @@
-import axios, { isAxiosError } from 'axios';
+import axios, { isAxiosError, type AxiosRequestConfig } from 'axios';
 import { router } from '../router';
 import { PATHS } from '../paths';
+import type { RouteDef } from './endpoints';
 
-const apiClient = axios.create({
+export const apiClient = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
   headers: {
     'Content-Type': 'application/json'
@@ -32,7 +33,20 @@ apiClient.interceptors.response.use(
   }
 )
 
-const getErrorMessage = (error: unknown) => {
+export const apiRequest = async (
+  route: RouteDef,
+  config?: AxiosRequestConfig
+) => {
+  const { data } = await apiClient({
+    url: route.path,
+    method: route.method,
+    ...config
+  });
+
+  return data;
+};
+
+export const getErrorMessage = (error: unknown) => {
   if (!(isAxiosError(error))) return 'Unexpected error';
 
   const data = error.response?.data;
@@ -49,5 +63,3 @@ const getErrorMessage = (error: unknown) => {
   
   return error.message || 'Network error.';
 }
-
-export { apiClient, getErrorMessage };

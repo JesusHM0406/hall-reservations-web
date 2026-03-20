@@ -11,8 +11,8 @@ import { loginRequestScheme, type LoginFormData } from '../../api/schemes/auth.s
 import { zodResolver } from '@hookform/resolvers/zod';
 import SpinnerLoader from '../../components/common/SpinnerLoader';
 import { getErrorMessage } from '../../api/axios';
-import { authService } from '../../api/services/auth.service';
 import { toast } from 'sonner';
+import { useAuth } from '../../hooks/useAuth';
 
 const LoginPage = () => {
   const  {
@@ -24,10 +24,11 @@ const LoginPage = () => {
     resolver: zodResolver(loginRequestScheme)
   });
 
+  const { logIn } = useAuth();
+
   const onSubmit = async (data: LoginFormData) => {
     try {
-      const responseData = await authService.logIn(data);
-      localStorage.setItem('token', responseData.access_token);
+      await logIn(data);
       reset();
     } catch(e) {
       const msg = getErrorMessage(e);
@@ -80,7 +81,7 @@ const LoginPage = () => {
             )}
           </FormField>
           
-          <Button className='mt-3' type='submit'>
+          <Button className='mt-3' type='submit' disabled={isSubmitting}>
             {isSubmitting ? <SpinnerLoader /> : (
               <>
                 <span className='uppercase tracking-widest'>Log in to the platform</span>

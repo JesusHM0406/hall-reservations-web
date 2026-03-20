@@ -7,12 +7,13 @@ import { ICON_SIZE } from '../../constants/ui.constants';
 import { Link } from 'react-router';
 import { PATHS } from '../../paths';
 import { useForm } from 'react-hook-form';
-import { registerScheme, type RegisterFormData } from '../../schemes/auth.scheme';
+import { registerScheme, type LoginFormData, type RegisterFormData } from '../../api/schemes/auth.scheme';
 import { zodResolver } from '@hookform/resolvers/zod';
 import SpinnerLoader from '../../components/common/SpinnerLoader';
-import { authService } from '../../services/auth.service';
+import { authService } from '../../api/services/auth.service';
 import { toast } from 'sonner';
-import { getErrorMessage } from '../../lib/axios';
+import { getErrorMessage } from '../../api/axios';
+import { useAuth } from '../../hooks/useAuth';
 
 const RegisterPage = () => {
   const { 
@@ -29,11 +30,19 @@ const RegisterPage = () => {
     }
   });
 
+  const { logIn } = useAuth();
+
   const onSubmit = async (data: RegisterFormData) => {
     try {
       await authService.register(data);
-      // TODO: Redirect to the login page or log the user in after successful registration
-      toast.success('The submit was successful');
+      
+      const loginData: LoginFormData = {
+        username: data.name,
+        password: data.password
+      };
+      
+      await logIn(loginData);
+
       reset();
     } catch(e) {
       const msg = getErrorMessage(e);

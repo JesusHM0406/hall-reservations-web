@@ -15,8 +15,10 @@ export const authService = {
   },
 
   async logIn(payload: LoginFormData) {
+    const dataToSend = new URLSearchParams({ username: payload.username, password: payload.password });
+
     const rawData = await apiRequest(API_ENDPOINTS.AUTH.LOGIN, {
-      data: payload,
+      data: dataToSend,
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
     });
 

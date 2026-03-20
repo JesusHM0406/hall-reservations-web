@@ -1,7 +1,8 @@
-import { apiClient } from "../axios"
-import type { LoginFormData, RegisterFormData } from "../schemes/auth.scheme";
+import { apiClient, apiRequest } from "../axios"
+import { API_ENDPOINTS } from "../endpoints";
+import { loginResponseScheme, type LoginFormData, type RegisterFormData } from "../schemes/auth.scheme";
 
-const authService = {
+export const authService = {
   async register(creation: RegisterFormData) {
     await apiClient.post('users/', {
       name: creation.name,
@@ -11,14 +12,15 @@ const authService = {
   },
 
   async login(loginData: LoginFormData) {
-    const { data } = await apiClient.post('auth/login', loginData, {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }
+    const rawData = await apiRequest(API_ENDPOINTS.AUTH.LOGIN, {
+      data: loginData,
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
     });
 
-    return data;
+    const parsedData = loginResponseScheme.safeParse(rawData);
+
+    if (!parsedData.success) throw new Error('Error loading data: API format has changed');
+
+    return parsedData.data;
   }
 };
-
-export { authService };

@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const loginRequestScheme = z.object({
+export const loginRequestSchema = z.object({
   username: z
     .string()
     .trim()
@@ -14,10 +14,10 @@ export const loginRequestScheme = z.object({
     .regex(/[0-9]/, 'Must contain at least one number')
 });
 
-export const loginResponseScheme = z.object({
+export const loginResponseSchema = z.object({
   access_token: z.string(),
   token_type: z.literal('bearer')
 });
 
-export type LoginFormData = z.infer<typeof loginRequestScheme>;
-export type LoginResponse = z.infer<typeof loginResponseScheme>;
+export type LoginFormData = z.infer<typeof loginRequestSchema>;
+export type LoginResponse = z.infer<typeof loginResponseSchema>;

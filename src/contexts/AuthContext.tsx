@@ -1,6 +1,6 @@
 import { createContext } from 'react';
-import type { LoginFormData } from '../api/schemes/auth.scheme';
-import type { User } from '../api/schemes/user.scheme';
+import type { LoginFormData } from '../api/schemas/auth.schema';
+import type { User } from '../api/schemas/user.schema';
 
 export interface AuthContextType {
   user: User | null;

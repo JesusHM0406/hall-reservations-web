@@ -7,7 +7,7 @@ import { ICON_SIZE } from '../../constants/ui.constants';
 import { Link } from 'react-router';
 import { PATHS } from '../../paths';
 import { useForm } from 'react-hook-form';
-import { loginRequestScheme, type LoginFormData } from '../../api/schemes/auth.scheme';
+import { loginRequestSchema, type LoginFormData } from '../../api/schemas/auth.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import SpinnerLoader from '../../components/common/SpinnerLoader';
 import { getErrorMessage } from '../../api/axios';
@@ -21,7 +21,7 @@ const LoginPage = () => {
     formState: { errors, isSubmitting },
     reset
   } = useForm<LoginFormData>({
-    resolver: zodResolver(loginRequestScheme)
+    resolver: zodResolver(loginRequestSchema)
   });
 
   const { logIn } = useAuth();

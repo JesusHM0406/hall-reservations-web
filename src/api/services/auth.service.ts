@@ -1,8 +1,8 @@
 import { apiRequest } from "../axios"
 import { API_ENDPOINTS } from "../endpoints";
 import { parseAPIResponse } from "../parseAPIResponse";
-import { loginResponseScheme, type LoginFormData } from "../schemes/auth.scheme";
-import type { UserCreate } from "../schemes/user.scheme";
+import { loginResponseSchema, type LoginFormData } from "../schemas/auth.schema";
+import type { UserCreate } from "../schemas/user.schema";
 
 export const authService = {
   async register(payload: UserCreate) {
@@ -23,7 +23,7 @@ export const authService = {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
     });
 
-    const parsedData = parseAPIResponse(loginResponseScheme, rawData);
+    const parsedData = parseAPIResponse(loginResponseSchema, rawData);
 
     return parsedData;
   }

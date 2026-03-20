@@ -6,7 +6,7 @@ const _userRolesEnum = z.enum(userRoles);
 
 export type UserRole = z.infer<typeof _userRolesEnum>;
 
-export const userScheme = z.object({
+export const userSchema = z.object({
   id: z.number(),
   name: z.string().min(3),
   role: z.enum(userRoles),
@@ -33,5 +33,5 @@ export const userCreateSchema = z.object({
   path: ['passwordConfirm']
 });
 
-export type User = z.infer<typeof userScheme>;
+export type User = z.infer<typeof userSchema>;
 export type UserCreate = z.infer<typeof userCreateSchema>;

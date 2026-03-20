@@ -4,17 +4,17 @@ import { parseAPIResponse } from "../parseAPIResponse";
 import { loginResponseScheme, type LoginFormData, type RegisterFormData } from "../schemes/auth.scheme";
 
 export const authService = {
-  async register(creation: RegisterFormData) {
+  async register(payload: RegisterFormData) {
     await apiClient.post('users/', {
-      name: creation.name,
-      password: creation.password,
-      password_confirm: creation.passwordConfirm
+      name: payload.name,
+      password: payload.password,
+      password_confirm: payload.passwordConfirm
     });
   },
 
-  async logIn(loginData: LoginFormData) {
+  async logIn(payload: LoginFormData) {
     const rawData = await apiRequest(API_ENDPOINTS.AUTH.LOGIN, {
-      data: loginData,
+      data: payload,
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
     });
 

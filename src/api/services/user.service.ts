@@ -1,7 +1,7 @@
 import { apiRequest } from '../axios';
 import { API_ENDPOINTS } from '../endpoints';
 import { parseAPIResponse } from '../parseAPIResponse';
-import { userSchema } from '../schemas/user.schema';
+import { userSchema } from '../schemas/user.schemas';
 
 export const userService = {
   async getCurrent() {

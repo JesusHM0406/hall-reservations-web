@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState, type ReactNode } from 'react';
-import type { LoginFormData } from '../api/schemas/auth.schema';
+import type { LoginFormData } from '../api/schemas/auth.schemas';
 import { authService } from '../api/services/auth.service';
-import type { User } from '../api/schemas/user.schema';
+import type { User } from '../api/schemas/user.schemas';
 import { AuthContext, type AuthContextType } from './AuthContext';
 import { PATHS } from '../paths';
 import { userService } from '../api/services/user.service';

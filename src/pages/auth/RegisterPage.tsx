@@ -7,14 +7,14 @@ import { ICON_SIZE } from '../../constants/ui.constants';
 import { Link } from 'react-router';
 import { PATHS } from '../../paths';
 import { useForm } from 'react-hook-form';
-import { type LoginFormData } from '../../api/schemas/auth.schema';
+import { type LoginFormData } from '../../api/schemas/auth.schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import SpinnerLoader from '../../components/common/SpinnerLoader';
 import { authService } from '../../api/services/auth.service';
 import { toast } from 'sonner';
 import { getErrorMessage } from '../../api/axios';
 import { useAuth } from '../../hooks/useAuth';
-import { userCreateSchema, type UserCreate } from '../../api/schemas/user.schema';
+import { userCreateSchema, type UserCreate } from '../../api/schemas/user.schemas';
 
 const RegisterPage = () => {
   const { 

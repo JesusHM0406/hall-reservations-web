@@ -1,8 +1,8 @@
 import { apiRequest } from "../axios"
 import { API_ENDPOINTS } from "../endpoints";
 import { parseAPIResponse } from "../parseAPIResponse";
-import { loginResponseSchema, type LoginFormData } from "../schemas/auth.schema";
-import type { UserCreate } from "../schemas/user.schema";
+import { loginResponseSchema, type LoginFormData } from "../schemas/auth.schemas";
+import type { UserCreate } from "../schemas/user.schemas";
 
 export const authService = {
   async register(payload: UserCreate) {

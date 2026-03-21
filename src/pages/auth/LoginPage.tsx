@@ -7,7 +7,7 @@ import { ICON_SIZE } from '../../constants/ui.constants';
 import { Link } from 'react-router';
 import { PATHS } from '../../paths';
 import { useForm } from 'react-hook-form';
-import { loginRequestSchema, type LoginFormData } from '../../api/schemas/auth.schema';
+import { loginRequestSchema, type LoginFormData } from '../../api/schemas/auth.schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import SpinnerLoader from '../../components/common/SpinnerLoader';
 import { getErrorMessage } from '../../api/axios';

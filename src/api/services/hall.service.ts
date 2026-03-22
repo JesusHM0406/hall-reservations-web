@@ -1,4 +1,4 @@
-import { apiRequest } from '../axios'
+import { apiRequest } from '../axios';
 import { API_ENDPOINTS } from '../endpoints';
 import type { HallCreate, HallPaginationParams, HallSearchParams, HallUpdate } from '../schemas/hall.schemas';
 
@@ -16,10 +16,10 @@ export const hallService = {
   },
 
   async search(params: HallSearchParams) {
-    await apiRequest(API_ENDPOINTS.HALLS.SEARCH(params));
+    return await apiRequest(API_ENDPOINTS.HALLS.SEARCH(params));
   },
 
   async update(id: number | string, payload: HallUpdate) {
     await apiRequest(API_ENDPOINTS.HALLS.UPDATE(id, payload));
   }
-}
+};

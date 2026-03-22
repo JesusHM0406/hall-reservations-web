@@ -12,17 +12,33 @@ export const hallCreateSchema = z.object({
   name: z
     .string()
     .trim()
-    .min(1, 'The hall name cannot be empty.')
+    .min(5, 'The hall name must contain at least 5 characters.')
     .max(255, 'The hall name cannot contain more than 255 characters.'),
   description: z
     .string()
     .trim()
-    .min(1, 'The hall description cannot be empty.')
+    .min(20, 'The hall description must contain at least 20 characters.')
     .max(2500, 'The description is too long, summarize the details.'),
   is_available: z.boolean()
 });
 
-export const hallUpdateSchema = hallCreateSchema.partial();
+export const hallUpdateSchema = z.object({
+  name: z
+    .string()
+    .trim()
+    .min(5, 'The hall name must contain at least 5 characters.')
+    .max(255, 'The hall name cannot contain more than 255 characters.')
+    .optional()
+    .or(z.literal('')),
+  description: z
+    .string()
+    .trim()
+    .min(20, 'The hall description must contain at least 20 characters.')
+    .max(2500, 'The description is too long, summarize the details.')
+    .optional()
+    .or(z.literal('')),
+  is_available: z.boolean().optional()
+});
 
 export const hallPaginationSchema = createPaginatedSchema(hallSchema);
 
@@ -44,4 +60,5 @@ export interface HallPaginationParams {
   page?: number;
   status?: HallAvailabilityFilter;
 }
+
 export type HallSearchParams = { q: string }

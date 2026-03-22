@@ -1,4 +1,4 @@
-import { useRef, useState, type HTMLAttributes } from 'react';
+import { useRef, type HTMLAttributes } from 'react';
 import { SIDEBAR_ITEMS } from '../../config/sidebar-config';
 import Button from '../common/Button';
 import SidebarItem from '../ui/SidebarItem';
@@ -16,28 +16,13 @@ interface SidebarProps extends HTMLAttributes<HTMLElement> {
 }
 
 const Sidebar = ({ isSidebarOpen, closeMethod, isDesktop, className, ...props }: SidebarProps) => {
-  const [expandedSection, setExpandedSection] = useState<string | null>(null);
-
   const asideRef = useRef<HTMLElement | null>(null);
   const closeBtnRef = useRef<HTMLButtonElement | null>(null);
   const wasSidebarOpenRef = useRef<boolean>(false);
 
   useFocusTrap(asideRef, isSidebarOpen && !isDesktop, wasSidebarOpenRef, closeBtnRef, closeMethod);
 
-  const handleSectionClick = (sectionLabel: string, hasOptions: boolean) => {
-    if (hasOptions) {
-      setExpandedSection(expandedSection === sectionLabel ? null : sectionLabel);
-      return;
-    }
-
-    setExpandedSection(null);
-    closeMethod();
-  };
-
-  const handleAuthButtonClick = () => {
-    setExpandedSection(null);
-    closeMethod();
-  };
+  const handleClick = () => { closeMethod() };
 
   return (
     <>
@@ -67,7 +52,7 @@ const Sidebar = ({ isSidebarOpen, closeMethod, isDesktop, className, ...props }:
                 <li key={item.sectionLabel}>
                   <SidebarItem
                     {...item}
-                    sectionMethod={() => handleSectionClick(item.sectionLabel, false)}
+                    sectionMethod={handleClick}
                     key={item.sectionLabel}
                   />
                 </li>
@@ -76,14 +61,14 @@ const Sidebar = ({ isSidebarOpen, closeMethod, isDesktop, className, ...props }:
             })}
           </ul>
           <div className='flex flex-col gap-4 items-center'>
-            <Button asChild onClick={handleAuthButtonClick}>
+            <Button asChild onClick={handleClick}>
               <NavLink to={`/${PATHS.auth.root}/${PATHS.auth.register}`}>
                 <UserPlus size={ICON_SIZE.MD} aria-hidden='true' />
                 <span>Register</span>
               </NavLink>
             </Button>
             
-            <Button asChild onClick={handleAuthButtonClick} filled={false} >
+            <Button asChild onClick={handleClick} filled={false} >
               <NavLink to={`/${PATHS.auth.root}/${PATHS.auth.login}`}>
                 <LogIn size={ICON_SIZE.MD} aria-hidden='true' />
                 <span>Log In</span>

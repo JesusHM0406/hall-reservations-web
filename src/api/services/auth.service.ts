@@ -1,30 +1,20 @@
-import { apiRequest } from "../axios"
-import { API_ENDPOINTS } from "../endpoints";
-import { parseAPIResponse } from "../parseAPIResponse";
-import { loginResponseSchema, type LoginFormData } from "../schemas/auth.schemas";
-import type { UserCreate } from "../schemas/user.schemas";
+import { apiRequest } from '../axios';
+import { API_ENDPOINTS } from '../endpoints';
+import { type LoginFormData } from '../schemas/auth.schemas';
+import type { UserCreate } from '../schemas/user.schemas';
 
 export const authService = {
   async register(payload: UserCreate) {
-    await apiRequest(API_ENDPOINTS.USERS.ADD, {
-      data: {
-        name: payload.name,
-        password: payload.password,
-        password_confirm: payload.passwordConfirm
-      }
-    });
+    await apiRequest(API_ENDPOINTS.USERS.ADD(payload));
   },
 
   async logIn(payload: LoginFormData) {
     const dataToSend = new URLSearchParams({ username: payload.username, password: payload.password });
 
-    const rawData = await apiRequest(API_ENDPOINTS.AUTH.LOGIN, {
-      data: dataToSend,
+    const data = await apiRequest(API_ENDPOINTS.AUTH.LOGIN(dataToSend), {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
     });
 
-    const parsedData = parseAPIResponse(loginResponseSchema, rawData);
-
-    return parsedData;
+    return data;
   }
 };

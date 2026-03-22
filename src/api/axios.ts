@@ -1,8 +1,8 @@
 import axios, { isAxiosError, type AxiosRequestConfig } from 'axios';
 import { router } from '../router';
 import { PATHS } from '../paths';
-import type { RouteDef } from './endpoints';
-import { ZodParseError } from './parseAPIResponse';
+import { parseAPIResponse, ZodParseError } from './parseAPIResponse';
+import type { Endpoint } from './types';
 
 const apiClient = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
@@ -34,17 +34,23 @@ apiClient.interceptors.response.use(
   }
 )
 
-export const apiRequest = async (
-  route: RouteDef,
-  config?: AxiosRequestConfig
+export const apiRequest = async <TResponse = undefined, TParams = undefined, TData = undefined>(
+  endpoint: Endpoint<TResponse, TParams, TData>,
+  config?: Omit<AxiosRequestConfig, 'url' | 'method' | 'data' | 'params'>
 ) => {
   const { data } = await apiClient({
-    url: route.path,
-    method: route.method,
+    url: endpoint.path,
+    method: endpoint.method,
+    params: endpoint.params,
+    data: endpoint.data,
     ...config
   });
 
-  return data;
+  if (endpoint.schema) {
+    return parseAPIResponse(endpoint.schema, data);
+  }
+
+  return null;
 };
 
 export const getErrorMessage = (error: unknown) => {

@@ -6,7 +6,6 @@ interface BaseItemProps {
   sectionLabel: string;
   iconName: IconName;
   sectionMethod: () => void;
-  isSectionActive: boolean;
   rootPath: string;
 }
 
@@ -17,7 +16,7 @@ interface SimpleItemProps extends BaseItemProps {
 type SidebarItemProps = SimpleItemProps;
 
 const SidebarItem = (props: SidebarItemProps) => {
-  const { sectionLabel, iconName, sectionMethod, isSectionActive, rootPath }: BaseItemProps = props;
+  const { sectionLabel, iconName, sectionMethod, rootPath }: BaseItemProps = props;
 
   return (
     <NavLink 

@@ -2,7 +2,7 @@ import { useRef, useState, type HTMLAttributes } from 'react';
 import { SIDEBAR_ITEMS } from '../../config/sidebar-config';
 import Button from '../common/Button';
 import SidebarItem from '../ui/SidebarItem';
-import { NavLink, useLocation } from 'react-router';
+import { NavLink } from 'react-router';
 import { PATHS } from '../../paths';
 import { LogIn, UserPlus, X } from 'lucide-react';
 import { ICON_SIZE } from '../../constants/ui.constants';
@@ -17,9 +17,6 @@ interface SidebarProps extends HTMLAttributes<HTMLElement> {
 
 const Sidebar = ({ isSidebarOpen, closeMethod, isDesktop, className, ...props }: SidebarProps) => {
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
-  
-  const location = useLocation();
-  const pathName = location.pathname;
 
   const asideRef = useRef<HTMLElement | null>(null);
   const closeBtnRef = useRef<HTMLButtonElement | null>(null);
@@ -70,7 +67,6 @@ const Sidebar = ({ isSidebarOpen, closeMethod, isDesktop, className, ...props }:
                 <li key={item.sectionLabel}>
                   <SidebarItem
                     {...item}
-                    isSectionActive={pathName.startsWith(`/${item.rootPath}`)}
                     sectionMethod={() => handleSectionClick(item.sectionLabel, false)}
                     key={item.sectionLabel}
                   />

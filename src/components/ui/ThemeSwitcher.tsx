@@ -1,6 +1,6 @@
-import { useRef, type KeyboardEvent } from "react";
-import { ICON_SIZE, type ThemeType } from "../../constants/ui.constants";
-import { DynamicIcon, type IconName } from "lucide-react/dynamic";
+import { useRef, type KeyboardEvent } from 'react';
+import { ICON_SIZE, type ThemeType } from '../../constants/ui.constants';
+import { DynamicIcon, type IconName } from 'lucide-react/dynamic';
 
 interface Theme {
   themeName: ThemeType;

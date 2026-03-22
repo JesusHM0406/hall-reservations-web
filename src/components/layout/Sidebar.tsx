@@ -22,8 +22,6 @@ const Sidebar = ({ isSidebarOpen, closeMethod, isDesktop, className, ...props }:
 
   useFocusTrap(asideRef, isSidebarOpen && !isDesktop, wasSidebarOpenRef, closeBtnRef, closeMethod);
 
-  const handleClick = () => { closeMethod() };
-
   return (
     <>
       <aside 
@@ -52,7 +50,7 @@ const Sidebar = ({ isSidebarOpen, closeMethod, isDesktop, className, ...props }:
                 <li key={item.sectionLabel}>
                   <SidebarItem
                     {...item}
-                    sectionMethod={handleClick}
+                    sectionMethod={closeMethod}
                   />
                 </li>
               )
@@ -60,14 +58,14 @@ const Sidebar = ({ isSidebarOpen, closeMethod, isDesktop, className, ...props }:
             })}
           </ul>
           <div className='flex flex-col gap-4 items-center'>
-            <Button asChild onClick={handleClick}>
+            <Button asChild onClick={closeMethod}>
               <NavLink to={`/${PATHS.auth.root}/${PATHS.auth.register}`}>
                 <UserPlus size={ICON_SIZE.MD} aria-hidden='true' />
                 <span>Register</span>
               </NavLink>
             </Button>
             
-            <Button asChild onClick={handleClick} filled={false} >
+            <Button asChild onClick={closeMethod} filled={false} >
               <NavLink to={`/${PATHS.auth.root}/${PATHS.auth.login}`}>
                 <LogIn size={ICON_SIZE.MD} aria-hidden='true' />
                 <span>Log In</span>

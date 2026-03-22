@@ -1,4 +1,4 @@
-import z from 'zod';
+import { z } from 'zod';
 import { createPaginatedSchema } from './common.schemas';
 
 const reservationStatus = ['confirmed', 'cancelled', 'finished'] as const;

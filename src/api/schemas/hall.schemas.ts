@@ -1,4 +1,4 @@
-import z from 'zod';
+import { z } from 'zod';
 import { createPaginatedSchema } from './common.schemas';
 
 export const hallSchema = z.object({

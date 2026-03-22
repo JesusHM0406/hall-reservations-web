@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { createPaginatedSchema } from './common.schemas';
 
 const userRoles = ['user', 'admin', 'superadmin'] as const;
 
@@ -33,5 +34,40 @@ export const userCreateSchema = z.object({
   path: ['passwordConfirm']
 });
 
+export const userUpdateSchema = z.object({
+  name: z
+  .string()
+  .trim()
+  .min(3, 'The name must contain at least 3 characters.')
+  .max(30, 'The name cannot contain more than 30 characters.')
+});
+
+export const userAdminUpdateSchema = z.object({
+  name: z
+    .string()
+    .trim()
+    .min(3, 'The name must contain at least 3 characters.')
+    .max(30, 'The name cannot contain more than 30 characters.')
+    .optional()
+    .or(z.literal('')),
+  role: z.enum(userRoles, `The user's new role must be one of these options: ${userRoles.slice(0, -1).join(', ')} or ${userRoles.slice(-1)}.`
+  ).optional(),
+  is_active: z.boolean().optional()
+});
+
+export const userPaginationSchema = createPaginatedSchema(userSchema);
+
 export type User = z.infer<typeof userSchema>;
 export type UserCreate = z.infer<typeof userCreateSchema>;
+export type UserUpdate = z.infer<typeof userUpdateSchema>;
+export type UserAdminUpdate = z.infer<typeof userAdminUpdateSchema>;
+
+export type UserPagination = z.infer<typeof userPaginationSchema>;
+export type UserRoleFilter = 'user' | 'admin' | 'superadmin' | 'all';
+export type UserStatusFilter = 'active' | 'inactive' | 'deleted' | 'not_deleted' | 'all';
+
+export interface UserPaginationParams {
+  page?: number;
+  role?: UserRoleFilter;
+  status?: UserStatusFilter;
+}

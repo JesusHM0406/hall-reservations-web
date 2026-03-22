@@ -8,11 +8,6 @@ interface ItemConfig {
   rootPath: string;
 }
 
-interface OptionsConfig {
-  label: string;
-  path: string;
-}
-
 const SIDEBAR_ITEMS: ItemConfig[] = [
   {
     type: 'simple',
@@ -40,4 +35,4 @@ const SIDEBAR_ITEMS: ItemConfig[] = [
   }
 ];
 
-export { SIDEBAR_ITEMS, type OptionsConfig };
+export { SIDEBAR_ITEMS };

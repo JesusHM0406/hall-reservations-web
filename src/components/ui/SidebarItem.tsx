@@ -2,22 +2,14 @@ import { DynamicIcon, type IconName } from 'lucide-react/dynamic';
 import { NavLink } from 'react-router';
 import { ICON_SIZE } from '../../constants/ui.constants';
 
-interface BaseItemProps {
+interface SidebarItemProps {
   sectionLabel: string;
   iconName: IconName;
   sectionMethod: () => void;
   rootPath: string;
 }
 
-interface SimpleItemProps extends BaseItemProps {
-  type: 'simple';
-}
-
-type SidebarItemProps = SimpleItemProps;
-
-const SidebarItem = (props: SidebarItemProps) => {
-  const { sectionLabel, iconName, sectionMethod, rootPath }: BaseItemProps = props;
-
+const SidebarItem = ({ sectionLabel, iconName, sectionMethod, rootPath }: SidebarItemProps) => {
   return (
     <NavLink 
       to={`/${rootPath}`} 

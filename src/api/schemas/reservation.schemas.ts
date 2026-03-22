@@ -18,7 +18,7 @@ export const reservationSchema = z.object({
 });
 
 export const reservationCreateSchema = z.object({
-  hall_id: z.number().min(1, 'The hall id must be a number.'),
+  hall_id: z.number().min(1, 'The hall id must be a number greater or equal to 1.'),
   reservation_date: z.iso.date('The date format is invalid.')
 });
 

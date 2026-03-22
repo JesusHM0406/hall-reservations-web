@@ -16,9 +16,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const logIn = useCallback(async (payload: LoginFormData) => {
     const response = await authService.logIn(payload);
-
-    if (response) localStorage.setItem('token', response.access_token);
-
+    localStorage.setItem('token', response.access_token);
     const userResponse = await userService.getCurrent();
     setUser(userResponse);
     

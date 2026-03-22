@@ -50,7 +50,7 @@ export const apiRequest = async <TResponse = undefined, TParams = undefined, TDa
     return parseAPIResponse(endpoint.schema, data);
   }
 
-  return null;
+  return data as TResponse;
 };
 
 export const getErrorMessage = (error: unknown) => {

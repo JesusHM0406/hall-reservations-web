@@ -28,8 +28,8 @@ export const userCreateSchema = z.object({
     .max(72, 'The password cannot contain more than 72 characters')
     .regex(/[A-Z]/, 'Must contain at least one capital letter')
     .regex(/[0-9]/, 'Must contain at least one number'),
-  passwordConfirm: z.string()
-}).refine((data) => data.password === data.passwordConfirm, {
+  password_confirm: z.string()
+}).refine((data) => data.password === data.password_confirm, {
   error: 'The passwords do not match',
   path: ['passwordConfirm']
 });

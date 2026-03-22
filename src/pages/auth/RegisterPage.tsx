@@ -27,7 +27,7 @@ export const RegisterPage = () => {
     defaultValues: {
       name: '',
       password: '',
-      passwordConfirm: ''
+      password_confirm: ''
     }
   });
 
@@ -96,7 +96,7 @@ export const RegisterPage = () => {
             )}
           </FormField>
           
-          <FormField label='confirm your password' required error={errors.passwordConfirm}>
+          <FormField label='confirm your password' required error={errors.password_confirm}>
               {(id) => (
                 <Input 
                   id={id} 
@@ -104,9 +104,9 @@ export const RegisterPage = () => {
                   type='password' 
                   iconName='lock' 
                   placeholder='••••••••' 
-                  intention={errors.passwordConfirm ? 'danger' : 'brand'}
-                  {...register('passwordConfirm')} 
-                  {...(errors.passwordConfirm ? { 'aria-invalid': true, 'aria-errormessage': `${id}-error` } : {})}
+                  intention={errors.password_confirm ? 'danger' : 'brand'}
+                  {...register('password_confirm')} 
+                  {...(errors.password_confirm ? { 'aria-invalid': true, 'aria-errormessage': `${id}-error` } : {})}
                 />
               )}
           </FormField>

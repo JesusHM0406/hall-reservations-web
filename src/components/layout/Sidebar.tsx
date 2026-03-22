@@ -66,20 +66,6 @@ const Sidebar = ({ isSidebarOpen, closeMethod, isDesktop, className, ...props }:
           </button>
           <ul className='grow'>
             {SIDEBAR_ITEMS.map(item => {
-              if (item.type === 'expandable') {
-                return (
-                  <li key={item.sectionLabel}>
-                    <SidebarItem
-                      {...item}
-                      isSectionActive={pathName.startsWith(`/${item.rootPath}`)}
-                      sectionMethod={() => handleSectionClick(item.sectionLabel, true)}
-                      closeSidebarMethod={closeMethod}
-                      isExpanded={expandedSection === item.sectionLabel}
-                    />
-                  </li>
-                )
-              }
-
               return (
                 <li key={item.sectionLabel}>
                   <SidebarItem

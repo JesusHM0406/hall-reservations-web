@@ -13,7 +13,7 @@ const SidebarItem = ({ sectionLabel, iconName, sectionMethod, rootPath }: Sideba
   return (
     <NavLink 
       to={`/${rootPath}`} 
-      className={({ isActive }) => `cursor-pointer p-0.5 text-inactive flex text-start items-center gap-2 ${isActive ? 'text-white' : ''}`} 
+      className={({ isActive }) => `cursor-pointer py-2 px-3 rounded-lg transition-colors hover:bg-inactive/15 text-inactive flex text-start items-center gap-2 ${isActive ? 'text-white' : ''}`} 
       onClick={sectionMethod}
     >
       <DynamicIcon name={iconName} size={ICON_SIZE.MD} aria-hidden='true' />

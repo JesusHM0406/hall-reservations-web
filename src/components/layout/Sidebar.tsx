@@ -61,7 +61,7 @@ const Sidebar = ({ isSidebarOpen, closeMethod, isDesktop, className, ...props }:
           >
             <X size={ICON_SIZE.SM} aria-hidden='true' />
           </button>
-          <ul className='grow'>
+          <ul className='grow flex flex-col gap-1.5'>
             {SIDEBAR_ITEMS.map(item => {
               return (
                 <li key={item.sectionLabel}>

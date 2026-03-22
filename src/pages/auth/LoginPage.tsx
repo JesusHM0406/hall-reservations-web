@@ -14,7 +14,7 @@ import { getErrorMessage } from '../../api/axios';
 import { toast } from 'sonner';
 import { useAuth } from '../../hooks/useAuth';
 
-const LoginPage = () => {
+export const LoginPage = () => {
   const  {
     register, 
     handleSubmit, 
@@ -99,6 +99,4 @@ const LoginPage = () => {
       </div>
     </div>
   );
-}
-
-export default LoginPage;
+};

@@ -16,7 +16,7 @@ import { getErrorMessage } from '../../api/axios';
 import { useAuth } from '../../hooks/useAuth';
 import { userCreateSchema, type UserCreate } from '../../api/schemas/user.schemas';
 
-const RegisterPage = () => {
+export const RegisterPage = () => {
   const { 
     register, 
     handleSubmit, 
@@ -129,6 +129,4 @@ const RegisterPage = () => {
       </div>
     </div>
   );
-}
-
-export default RegisterPage;
+};

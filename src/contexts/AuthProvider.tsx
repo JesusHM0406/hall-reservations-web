@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState, type ReactNode } from 'react';
-import type { LoginFormData } from '../api/schemes/auth.scheme';
+import type { LoginFormData } from '../api/schemas/auth.schemas';
 import { authService } from '../api/services/auth.service';
-import type { User } from '../api/schemes/user.scheme';
+import type { User } from '../api/schemas/user.schemas';
 import { AuthContext, type AuthContextType } from './AuthContext';
 import { PATHS } from '../paths';
 import { userService } from '../api/services/user.service';
@@ -19,6 +19,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     localStorage.setItem('token', response.access_token);
     const userResponse = await userService.getCurrent();
     setUser(userResponse);
+    
     router.navigate('/');
   }, []);
 

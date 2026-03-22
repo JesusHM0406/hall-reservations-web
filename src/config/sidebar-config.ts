@@ -41,6 +41,7 @@ const USERS_OPTIONS: OptionsConfig[] = [
   { label: 'All Users', path: PATHS.users.all },
   { label: 'Update User', path: PATHS.users.update },
   { label: 'Delete User', path: PATHS.users.delete },
+  { label: 'Restore User', path: PATHS.users.restore },
   { label: 'By ID', path: PATHS.users.byId }
 ];
 

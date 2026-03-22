@@ -1,4 +1,4 @@
-const PATHS = {
+export const PATHS = {
   halls: 'halls',
   reservations: 'reservations',
   users: 'users',
@@ -9,5 +9,3 @@ const PATHS = {
   },
   myAccount: 'my-account'
 };
-
-export { PATHS };

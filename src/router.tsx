@@ -5,7 +5,7 @@ import {
   MyAccountPage,
   RegisterPage,
   LoginPage
-} from './pages'
+} from './pages';
 import { HallsPage } from './pages/HallsPage';
 import { ReservationsPage } from './pages/ReservationsPage';
 import { UsersPage } from './pages/UsersPage';
@@ -15,7 +15,7 @@ const router = createBrowserRouter([
     path: '/',
     Component: MainLayout,
     children: [
-      { index: true, element: <Navigate to={`${PATHS.halls}`} /> },
+      { index: true, element: <Navigate to={PATHS.halls} replace /> },
       {
         path: PATHS.halls,
         Component: HallsPage
@@ -27,7 +27,7 @@ const router = createBrowserRouter([
       {
         path: PATHS.auth.root,
         children: [
-          { index: true, element: <Navigate to={PATHS.auth.login} /> },
+          { index: true, element: <Navigate to={PATHS.auth.login} replace /> },
           { path: PATHS.auth.login, Component: LoginPage },
           { path: PATHS.auth.register, Component: RegisterPage }
         ]

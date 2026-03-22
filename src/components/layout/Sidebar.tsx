@@ -53,7 +53,6 @@ const Sidebar = ({ isSidebarOpen, closeMethod, isDesktop, className, ...props }:
                   <SidebarItem
                     {...item}
                     sectionMethod={handleClick}
-                    key={item.sectionLabel}
                   />
                 </li>
               )

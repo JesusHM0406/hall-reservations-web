@@ -1,4 +1,4 @@
-import { useEffect, useRef, type RefObject } from "react";
+import { useEffect, useRef, type RefObject } from 'react';
 
 const useFocusTrap = (
   containerRef: RefObject<HTMLElement | null>,

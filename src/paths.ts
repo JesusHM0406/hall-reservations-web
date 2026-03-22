@@ -18,6 +18,7 @@ const PATHS = {
     all: 'all',
     update: 'update',
     delete: 'delete',
+    restore: 'restore',
     byId: 'by-id'
   },
   auth: {

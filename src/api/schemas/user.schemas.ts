@@ -31,7 +31,7 @@ export const userCreateSchema = z.object({
   password_confirm: z.string()
 }).refine((data) => data.password === data.password_confirm, {
   error: 'The passwords do not match',
-  path: ['passwordConfirm']
+  path: ['password_confirm']
 });
 
 export const userUpdateSchema = z.object({

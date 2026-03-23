@@ -1,11 +1,11 @@
 import { useCallback, useMemo, useState, type ReactNode } from 'react';
-import type { LoginFormData } from '../api/schemas/auth.schemas';
-import { authService } from '../api/services/auth.service';
-import type { User } from '../api/schemas/user.schemas';
+import type { LoginFormData } from '@/api/schemas/auth.schemas';
+import { authService } from '@/api/services/auth.service';
+import type { User } from '@/api/schemas/user.schemas';
 import { AuthContext, type AuthContextType } from './AuthContext';
-import { PATHS } from '../paths';
-import { userService } from '../api/services/user.service';
-import { router } from '../router';
+import { PATHS } from '@/paths';
+import { userService } from '@/api/services/user.service';
+import { router } from '@/router';
 
 interface AuthProviderProps {
   children: ReactNode;

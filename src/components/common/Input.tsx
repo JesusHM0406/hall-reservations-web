@@ -1,8 +1,8 @@
 import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '../../lib/utils';
+import { cn } from '@utils';
 import { type InputHTMLAttributes, type Ref } from 'react';
 import { DynamicIcon, type IconName } from 'lucide-react/dynamic';
-import { ICON_SIZE } from '../../constants/ui.constants';
+import { ICON_SIZE } from '@/constants/ui.constants';
 
 const inputVariants = cva(
   'flex items-center gap-2 bg-inactive/5 border border-inactive/25 pr-4 rounded-xl text-gray font-medium grow transition duration-150 focus-within:ring-2 dark:bg-transparent dark:border-slate-gray',

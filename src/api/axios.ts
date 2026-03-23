@@ -1,6 +1,6 @@
 import axios, { isAxiosError, type AxiosRequestConfig } from 'axios';
-import { router } from '../router';
-import { PATHS } from '../paths';
+import { router } from '@/router';
+import { PATHS } from '@/paths';
 import { parseAPIResponse, ZodParseError } from './parseAPIResponse';
 import type { Endpoint } from './types';
 

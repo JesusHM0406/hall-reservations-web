@@ -1,13 +1,13 @@
 import { useRef, type HTMLAttributes } from 'react';
-import { SIDEBAR_ITEMS } from '../../config/sidebar-config';
+import { SIDEBAR_ITEMS } from '@/config/sidebar-config';
 import Button from '../common/Button';
 import SidebarItem from '../ui/SidebarItem';
 import { NavLink } from 'react-router';
-import { PATHS } from '../../paths';
+import { PATHS } from '@/paths';
 import { LogIn, UserPlus, X } from 'lucide-react';
-import { ICON_SIZE } from '../../constants/ui.constants';
-import { cn } from '../../lib/utils';
-import { useFocusTrap } from '../../hooks/useFocusTrap';
+import { ICON_SIZE } from '@/constants/ui.constants';
+import { cn } from '@utils';
+import { useFocusTrap } from '@/hooks/useFocusTrap';
 
 interface SidebarProps extends HTMLAttributes<HTMLElement> {
   isSidebarOpen: boolean;

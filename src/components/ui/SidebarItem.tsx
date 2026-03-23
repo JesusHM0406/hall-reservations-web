@@ -1,6 +1,6 @@
 import { DynamicIcon, type IconName } from 'lucide-react/dynamic';
 import { NavLink } from 'react-router';
-import { ICON_SIZE } from '../../constants/ui.constants';
+import { ICON_SIZE } from '@/constants/ui.constants';
 
 interface SidebarItemProps {
   sectionLabel: string;

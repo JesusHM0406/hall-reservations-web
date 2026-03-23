@@ -1,14 +1,14 @@
 import { createBrowserRouter, Navigate } from 'react-router';
-import MainLayout from './MainLayout';
-import { PATHS } from './paths';
+import MainLayout from '@/MainLayout';
+import { PATHS } from '@/paths';
 import {
   MyAccountPage,
   RegisterPage,
-  LoginPage
-} from './pages';
-import { HallsPage } from './pages/HallsPage';
-import { ReservationsPage } from './pages/ReservationsPage';
-import { UsersPage } from './pages/UsersPage';
+  LoginPage,
+  HallsPage,
+  ReservationsPage,
+  UsersPage
+} from '@/pages';
 
 const router = createBrowserRouter([
   {

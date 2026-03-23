@@ -1,18 +1,18 @@
 import { ArrowRight, Shield } from 'lucide-react';
-import Button from '../../components/common/Button';
-import Container from '../../components/common/Container';
-import FormField from '../../components/common/FormField';
-import Input from '../../components/common/Input';
-import { ICON_SIZE } from '../../constants/ui.constants';
+import Button from '@/components/common/Button';
+import Container from '@/components/common/Container';
+import FormField from '@/components/common/FormField';
+import Input from '@/components/common/Input';
+import { ICON_SIZE } from '@/constants/ui.constants';
 import { Link } from 'react-router';
-import { PATHS } from '../../paths';
+import { PATHS } from '@/paths';
 import { useForm } from 'react-hook-form';
-import { loginRequestSchema, type LoginFormData } from '../../api/schemas/auth.schemas';
+import { loginRequestSchema, type LoginFormData } from '@/api/schemas/auth.schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
-import SpinnerLoader from '../../components/common/SpinnerLoader';
-import { getErrorMessage } from '../../api/axios';
+import SpinnerLoader from '@/components/common/SpinnerLoader';
+import { getErrorMessage } from '@/api/axios';
 import { toast } from 'sonner';
-import { useAuth } from '../../hooks/useAuth';
+import { useAuth } from '@/hooks/useAuth';
 
 export const LoginPage = () => {
   const  {

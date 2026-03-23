@@ -1,6 +1,6 @@
 import { Menu } from 'lucide-react';
-import { type ThemeType } from '../../constants/ui.constants';
-import { ICON_SIZE } from '../../constants/ui.constants';
+import { type ThemeType } from '@/constants/ui.constants';
+import { ICON_SIZE } from '@/constants/ui.constants';
 import ThemeSwitcher from '../ui/ThemeSwitcher';
 
 interface HeaderProps {

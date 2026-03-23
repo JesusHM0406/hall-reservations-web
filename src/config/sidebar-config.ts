@@ -1,5 +1,5 @@
 import { type IconName } from 'lucide-react/dynamic';
-import { PATHS } from '../paths';
+import { PATHS } from '@/paths';
 
 interface ItemConfig {
   sectionLabel: string;

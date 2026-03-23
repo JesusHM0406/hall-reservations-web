@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import Sidebar from './components/layout/Sidebar';
-import Header from './components/layout/Header';
+import Sidebar from '@/components/layout/Sidebar';
+import Header from '@/components/layout/Header';
 import { Outlet } from 'react-router';
-import { THEMES, type ThemeType } from './constants/ui.constants';
-import { useMediaQuery } from './hooks/useMediaQuery';
+import { THEMES, type ThemeType } from '@/constants/ui.constants';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { Toaster } from 'sonner';
 
 const savedTheme = localStorage.getItem('theme') as ThemeType ||THEMES.SYSTEM;

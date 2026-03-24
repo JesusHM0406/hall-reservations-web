@@ -47,7 +47,7 @@ const ThemeSwitcher = ({ theme, setCurrentTheme }: ThemeSwitcherProps) => {
 
   return (
     <div
-      className='rounded-xl border-2 border-brand text-inactive flex overflow-hidden'
+      className='rounded-lg border-2 border-brand text-inactive flex overflow-hidden'
       role='radiogroup'
       aria-label='visual theme selector'
       onKeyDown={handleKeyDown}

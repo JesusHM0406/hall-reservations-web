@@ -4,7 +4,7 @@ import type { ButtonHTMLAttributes, ReactNode } from 'react';
 import { cn } from '@utils';
 
 const buttonVariants = cva(
-  'cursor-pointer text-white text-sm flex justify-center items-center gap-2.5 font-semibold rounded-xl py-2.5 px-4 border-2 transition disabled:opacity-50 disabled:cursor-not-allowed active:scale-96',
+  'cursor-pointer text-white text-sm flex justify-center items-center gap-2.5 font-semibold rounded-lg py-2.5 px-4 border-2 transition disabled:opacity-50 disabled:cursor-not-allowed active:scale-96',
   {
     variants: {
       intent: {

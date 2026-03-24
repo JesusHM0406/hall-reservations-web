@@ -54,7 +54,10 @@ export type HallUpdate = z.infer<typeof hallUpdateSchema>;
 export type HallSearchResponse = z.infer<typeof hallSearchResponseSchema>;
 
 export type HallPagination = z.infer<typeof hallPaginationSchema>;
-export type HallAvailabilityFilter = 'available' | 'unavailable' | 'all';
+
+export const hallAvailabilityFilterEnum = z.enum(['available', 'unavailable', 'all'])
+
+export type HallAvailabilityFilter = z.infer<typeof hallAvailabilityFilterEnum>;
 
 export interface HallPaginationParams {
   page?: number;

@@ -14,11 +14,7 @@ import { toast } from 'sonner';
 export const HallDetailPage = () => {
   const hallId = useParams().hallId;
   const numericId = parseInt(hallId || '', 10);
-
-  if (isNaN(numericId)) {
-    return <h1>Invalid hall id provided</h1>;
-  }
-
+  
   const [hallDetail, setHallDetail] = useState<Hall | null>(null);
 
   useEffect(() => {
@@ -40,8 +36,12 @@ export const HallDetailPage = () => {
 
     return () => { controller.abort() }
   }, [numericId]);
-
+  
   const isAva = hallDetail?.is_available;
+  
+  if (isNaN(numericId)) {
+    return <h1>Invalid hall id provided</h1>;
+  }
 
   return (
     <div className='grid place-content-center grow'>
@@ -51,7 +51,7 @@ export const HallDetailPage = () => {
             <div className='grid place-content-center grow'>
               <SpinnerLoader size='xxl' intent='gray' />
             </div>
-           :
+            :
             <>
               <header>
                 <h1 className='font-bold uppercase text-center text-balance mb-5'>{hallDetail?.name}</h1>

@@ -42,16 +42,27 @@ export const hallUpdateSchema = z.object({
 
 export const hallPaginationSchema = createPaginatedSchema(hallSchema);
 
-export const hallSearchResponseSchema = z.array(z.object({
+export const hallSearchSchema = z.object({
   id: z.number(),
-  name: z.string(),
-  rank: z.number()
-}));
+  name: z.string().transform((val) => val.trim().length > 0 ? val : 'Anonymous'),
+  is_available: z.boolean(),
+  preview: z.string()
+});
+
+export const hallSearchResponseSchema = z.array(hallSearchSchema);
 
 export type Hall = z.infer<typeof hallSchema>;
 export type HallCreate = z.infer<typeof hallCreateSchema>;
 export type HallUpdate = z.infer<typeof hallUpdateSchema>;
 export type HallSearchResponse = z.infer<typeof hallSearchResponseSchema>;
+export type HallSearch = z.infer<typeof hallSearchSchema>;
+
+export interface PartialHall {
+  id: number;
+  name: string;
+  description?: string;
+  is_available?: boolean;
+}
 
 export type HallPagination = z.infer<typeof hallPaginationSchema>;
 

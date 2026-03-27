@@ -14,7 +14,7 @@ export const SearchInput = ( { value, setSearch, placeholder, ariaLabel, clearLa
   return (
     <search className='flex flex-col'>
       <form
-        className={`w-full flex cursor-text bg-subtle-white border border-inactive/25 focus-within:ring-inactive/50 ${value ? '' : 'pr-4'} rounded-lg text-gray font-medium grow transition duration-150 focus-within:ring-2 dark:focus-within:ring-slate-gray dark:bg-dark-gray dark:border-slate-gray`}
+        className={`w-full flex cursor-text bg-subtle-white border border-inactive/25 focus-within:ring-inactive/50 ${value ? '' : 'pr-4'} rounded-lg text-gray font-medium grow focus-within:ring-2 dark:focus-within:ring-slate-gray dark:bg-dark-gray dark:border-slate-gray`}
         onSubmit={(e) => {e.preventDefault()}}
       >
         <label

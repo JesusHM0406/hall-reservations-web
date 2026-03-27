@@ -22,14 +22,27 @@ html.dark {
 
   --color-inactive: var(--color-slate-400);
 
-  --color-gray: var(--color-slate-500);
   --color-brand: var(--color-indigo-400);
+  --color-brand-light: var(--color-indigo-100);
+  --color-brand-dark: var(--color-indigo-900);
+
+  --color-hall: var(--color-emerald-600);
+  --color-hall-light: var(--color-emerald-100);
+  --color-hall-dark: var(--color-emerald-900);
+
   --color-danger: var(--color-red-500);
-  --color-white: var(--color-slate-100);
+
+  --color-gray: var(--color-slate-500);
+  --color-light-gray: #DCE0E5;
+  --color-dark-gray: #212121;
 
   --color-slate-gray: var(--color-slate-700);
-  --color-dark: var(--color-neutral-900);
   --color-slate-dark: var(--color-slate-900);
+
+  --color-white: var(--color-slate-100);
+  --color-subtle-white: #ECF0F5;
+
+  --color-dark: var(--color-neutral-900);
 }
 
 @utility text-2xs {

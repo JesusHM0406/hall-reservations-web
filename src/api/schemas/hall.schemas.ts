@@ -13,12 +13,12 @@ export const hallCreateSchema = z.object({
     .string()
     .trim()
     .min(5, 'The hall name must contain at least 5 characters.')
-    .max(255, 'The hall name cannot contain more than 255 characters.'),
+    .max(100, 'The hall name cannot contain more than 100 characters.'),
   description: z
     .string()
     .trim()
     .min(20, 'The hall description must contain at least 20 characters.')
-    .max(2500, 'The description is too long, summarize the details.'),
+    .max(1000, 'The description is too long, summarize the details.'),
   is_available: z.boolean()
 });
 
@@ -27,14 +27,14 @@ export const hallUpdateSchema = z.object({
     .string()
     .trim()
     .min(5, 'The hall name must contain at least 5 characters.')
-    .max(255, 'The hall name cannot contain more than 255 characters.')
+    .max(100, 'The hall name cannot contain more than 100 characters.')
     .optional()
     .or(z.literal('')),
   description: z
     .string()
     .trim()
     .min(20, 'The hall description must contain at least 20 characters.')
-    .max(2500, 'The description is too long, summarize the details.')
+    .max(1000, 'The description is too long, summarize the details.')
     .optional()
     .or(z.literal('')),
   is_available: z.boolean().optional()
@@ -56,13 +56,6 @@ export type HallCreate = z.infer<typeof hallCreateSchema>;
 export type HallUpdate = z.infer<typeof hallUpdateSchema>;
 export type HallSearchResponse = z.infer<typeof hallSearchResponseSchema>;
 export type HallSearch = z.infer<typeof hallSearchSchema>;
-
-export interface PartialHall {
-  id: number;
-  name: string;
-  description?: string;
-  is_available?: boolean;
-}
 
 export type HallPagination = z.infer<typeof hallPaginationSchema>;
 

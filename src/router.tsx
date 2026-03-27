@@ -7,7 +7,8 @@ import {
   LoginPage,
   HallsPage,
   ReservationsPage,
-  UsersPage
+  UsersPage,
+  HallDetailPage
 } from '@/pages';
 
 const router = createBrowserRouter([
@@ -18,7 +19,10 @@ const router = createBrowserRouter([
       { index: true, element: <Navigate to={PATHS.halls} replace /> },
       {
         path: PATHS.halls,
-        Component: HallsPage
+        children: [
+          { index: true, Component: HallsPage },
+          { path: ':hallId', Component: HallDetailPage }
+        ]
       },
       {
         path: PATHS.reservations,

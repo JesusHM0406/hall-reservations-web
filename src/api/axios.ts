@@ -54,6 +54,8 @@ export const apiRequest = async <TResponse = undefined, TParams = undefined, TDa
 };
 
 export const getErrorMessage = (error: unknown) => {
+  if (axios.isCancel(error)) return;
+
   if (error instanceof ZodParseError) return error.message;
 
   if (isAxiosError(error)) {
@@ -68,7 +70,7 @@ export const getErrorMessage = (error: unknown) => {
     if (typeof data?.detail === 'string') {
       return data.detail;
     }
-    
+
     return error.message || 'Network error.';
   }
 

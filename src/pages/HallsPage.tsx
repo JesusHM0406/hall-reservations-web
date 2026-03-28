@@ -2,10 +2,10 @@ import Button from '@/components/common/Button';
 import { PlusCircle } from 'lucide-react';
 import { ICON_SIZE } from '@/constants/ui.constants';
 import { useEffect, useState } from 'react';
-import type { HallSearchResponse } from '@/api/schemas/hall.schemas';
+import  type { HallSearchResponse } from '@/api/schemas/hall.schemas';
 import { SearchInput } from '@/components/ui/SearchInput';
 import { useDebounce } from '@/hooks/useDebounce';
-import { HallSearchCard } from '@/components/ui/HallSearchCard';
+import { HallCard } from '@/components/ui/HallCard';
 import { hallService } from '@/api/services/hall.service';
 import { getErrorMessage } from '@/api/axios';
 import { toast } from 'sonner';
@@ -63,7 +63,7 @@ export const HallsPage = () => {
           {data ? data.map((item) => {
             return (
               <li key={item.id}>
-                <HallSearchCard hall={item} />
+                <HallCard hall={item} />
               </li>
             );
           }) : null}

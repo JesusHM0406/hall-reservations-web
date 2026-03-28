@@ -7,7 +7,7 @@ interface HallCardProps {
   hall: HallPreview;
 }
 
-export const HallSearchCard = ({ hall }: HallCardProps) => {
+export const HallCard = ({ hall }: HallCardProps) => {
   const isAvailable = hall.is_available;
 
   return (

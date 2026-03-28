@@ -1,10 +1,10 @@
-import type { HallSearch } from '@/api/schemas/hall.schemas';
+import type { HallPreview} from '@/api/schemas/hall.schemas';
 import { Link } from 'react-router';
 import { Badge } from '../common/Badge';
 import { PATHS } from '@/paths';
 
 interface HallCardProps {
-  hall: HallSearch;
+  hall: HallPreview;
 }
 
 export const HallSearchCard = ({ hall }: HallCardProps) => {

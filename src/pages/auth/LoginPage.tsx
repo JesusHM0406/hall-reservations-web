@@ -10,7 +10,7 @@ import { useForm } from 'react-hook-form';
 import { loginRequestSchema, type LoginFormData } from '@/api/schemas/auth.schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import SpinnerLoader from '@/components/common/SpinnerLoader';
-import { getErrorMessage } from '@/api/axios';
+import { getErrorMessage } from '@/api/api.utils';
 import { toast } from 'sonner';
 import { useAuth } from '@/hooks/useAuth';
 

@@ -1,4 +1,4 @@
-import { getErrorMessage } from '@/api/axios';
+import { getErrorMessage } from '@/api/api.utils';
 import type { Hall } from '@/api/schemas/hall.schemas';
 import { hallService } from '@/api/services/hall.service';
 import { Badge } from '@/components/common/Badge';

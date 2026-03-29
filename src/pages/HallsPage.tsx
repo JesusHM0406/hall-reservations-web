@@ -7,7 +7,7 @@ import { SearchInput } from '@/components/ui/SearchInput';
 import { useDebounce } from '@/hooks/useDebounce';
 import { HallCard } from '@/components/ui/HallCard';
 import { hallService } from '@/api/services/hall.service';
-import { getErrorMessage } from '@/api/axios';
+import { getErrorMessage } from '@/api/api.utils';
 import { toast } from 'sonner';
 
 export const HallsPage = () => {

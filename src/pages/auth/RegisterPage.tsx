@@ -12,7 +12,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import SpinnerLoader from '@/components/common/SpinnerLoader';
 import { authService } from '@/api/services/auth.service';
 import { toast } from 'sonner';
-import { getErrorMessage } from '@/api/axios';
+import { getErrorMessage } from '@/api/api.utils';
 import { useAuth } from '@/hooks/useAuth';
 import { userCreateSchema, type UserCreate } from '@/api/schemas/user.schemas';
 

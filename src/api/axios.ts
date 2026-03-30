@@ -1,8 +1,7 @@
 import axios, { isAxiosError, type AxiosRequestConfig } from 'axios';
-import { router } from '@/router';
-import { PATHS } from '@/paths';
 import { parseAPIResponse } from './api.utils';
 import type { Endpoint } from './types';
+import { eventBus } from '@/lib/events';
 
 const apiClient = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
@@ -25,8 +24,7 @@ apiClient.interceptors.response.use(
   (error: unknown) => {
     if (isAxiosError(error)) {
       if (error.response?.status === 401) {
-        localStorage.removeItem('token');
-        router.navigate(`/${PATHS.auth.root}/${PATHS.auth.login}`);
+        eventBus.dispatch('auth:unauthorized');
       }
     }
 

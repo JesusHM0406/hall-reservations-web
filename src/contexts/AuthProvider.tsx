@@ -3,9 +3,8 @@ import type { LoginFormData } from '@/api/schemas/auth.schemas';
 import { authService } from '@/api/services/auth.service';
 import type { User } from '@/api/schemas/user.schemas';
 import { AuthContext, type AuthContextType } from './AuthContext';
-import { PATHS } from '@/paths';
 import { userService } from '@/api/services/user.service';
-import { router } from '@/router';
+import { eventBus } from '@/lib/events';
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -20,13 +19,14 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     const userResponse = await userService.getCurrent();
     setUser(userResponse);
     
-    router.navigate('/');
+    eventBus.dispatch('auth:login-success');
   }, []);
 
   const logOut = useCallback(()=> {
     setUser(null);
     localStorage.removeItem('token');
-    router.navigate(`/${PATHS.auth.root}/${PATHS.auth.login}`);
+
+    eventBus.dispatch('auth:logout');
   }, []);
 
   const value: AuthContextType = useMemo(() => ({

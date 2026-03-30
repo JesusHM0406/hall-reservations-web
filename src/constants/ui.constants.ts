@@ -1,4 +1,6 @@
-const ICON_SIZE = {
+import z from "zod";
+
+export const ICON_SIZE = {
   XS: 12,
   SM: 14,
   MD: 18,
@@ -6,12 +8,8 @@ const ICON_SIZE = {
   XL: 26
 } as const;
 
-const THEMES = {
-  LIGHT: 'light',
-  DARK: 'dark',
-  SYSTEM: 'system'
-} as const;
+export const themesArray = ['light', 'dark', 'system'] as const;
 
-type ThemeType = typeof THEMES[keyof typeof THEMES];
+export const THEMES = z.enum(themesArray);
 
-export { ICON_SIZE, THEMES, type ThemeType };
+export type ThemeType = z.infer<typeof THEMES>;

@@ -6,9 +6,9 @@ import Button from '@/components/common/Button';
 import Container from '@/components/common/Container';
 import SpinnerLoader from '@/components/common/SpinnerLoader';
 import { ICON_SIZE } from '@/constants/ui.constants';
-import { Calendar, Edit2 } from 'lucide-react';
+import { ArrowLeft, Calendar, Edit2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { toast } from 'sonner';
 
 export const HallDetailPage = () => {
@@ -16,6 +16,8 @@ export const HallDetailPage = () => {
   const numericId = parseInt(hallId || '', 10);
   
   const [hallDetail, setHallDetail] = useState<Hall | null>(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const controller = new AbortController();
@@ -44,9 +46,9 @@ export const HallDetailPage = () => {
   }
 
   return (
-    <div className='grid place-content-center grow'>
+    <div className='grid place-content-center grow gap-5'>
       <Container>
-        <article className='flex flex-col gap-5 max-w-md min-w-3xs min-h-72'>
+        <article className='flex flex-col gap-5 max-w-md min-w-3xs min-h-72 justify-center'>
           {hallDetail === null ?
             <div className='grid place-content-center grow'>
               <SpinnerLoader size='xxl' intent='gray' />
@@ -78,7 +80,7 @@ export const HallDetailPage = () => {
                 <Button
                   filled={false}
                   intent='hall'
-                  className='text-hall hover:bg-hall hover:text-white'
+                  className='text-hall hover:bg-hall dark:text-hall-light'
                   aria-label='Edit this hall'
                 >
                   <Edit2 size={ICON_SIZE.SM} aria-hidden />
@@ -88,6 +90,15 @@ export const HallDetailPage = () => {
           }
         </article>
       </Container>
+      <Button
+        filled={false}
+        intent='hall'
+        className='w-fit text-2xs uppercase font-bold text-hall hover:bg-hall dark:text-hall-light'
+        onClick={() => { navigate(-1) }}
+      >
+        <span><ArrowLeft size={ICON_SIZE.SM} aria-hidden /></span>
+        <span>Go Back</span>
+      </Button>
     </div>
   );
 };

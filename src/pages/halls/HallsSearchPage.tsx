@@ -57,7 +57,7 @@ export const HallsSearchPage = () => {
 
         setData(response);
       } catch (e) {
-        const msg = getErrorMessage (e);
+        const msg = getErrorMessage(e);
         if (!msg) return;
         toast .error(msg);
       } finally {

@@ -80,7 +80,7 @@ export const HallDetailPage = () => {
                 <Button
                   filled={false}
                   intent='hall'
-                  className='text-hall hover:bg-hall dark:text-hall-light'
+                  className='text-hall hover:text-hall-light dark:text-hall-light'
                   aria-label='Edit this hall'
                 >
                   <Edit2 size={ICON_SIZE.SM} aria-hidden />
@@ -93,7 +93,7 @@ export const HallDetailPage = () => {
       <Button
         filled={false}
         intent='hall'
-        className='w-fit text-2xs uppercase font-bold text-hall hover:bg-hall dark:text-hall-light'
+        className='w-fit text-2xs uppercase font-bold text-hall hover:text-hall-light dark:text-hall-light'
         onClick={() => { navigate(-1) }}
       >
         <span><ArrowLeft size={ICON_SIZE.SM} aria-hidden /></span>

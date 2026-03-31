@@ -10,6 +10,7 @@ import { SearchInput } from '@/components/ui/SearchInput';
 import Button from '@/components/common/Button';
 import { ArrowUp } from 'lucide-react';
 import { ICON_SIZE } from '@/constants/ui.constants';
+import SpinnerLoader from '@/components/common/SpinnerLoader';
 
 export const HallsSearchPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -20,6 +21,8 @@ export const HallsSearchPage = () => {
   const debouncedSearch = useDebounce(search, 400);
 
   const [data, setData] = useState <HallSearchResponse | null>(null);
+
+  const [isLoading, setIsLoading] = useState<boolean>(false); 
 
   const lastValue = useRef<string>('');
 
@@ -48,6 +51,7 @@ export const HallsSearchPage = () => {
 
     const fetchData = async () => {
 
+      setIsLoading(true);
       try {
         const response = await hallService.search({ q: query }, controller);
 
@@ -56,6 +60,8 @@ export const HallsSearchPage = () => {
         const msg = getErrorMessage (e);
         if (!msg) return;
         toast .error(msg);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -100,9 +106,16 @@ export const HallsSearchPage = () => {
           </>
         ) : (
           <>
-            <h2 className='font-bold uppercase text-sm text-gray tracking-wider mb-3'>Showing results for {debouncedSearch}</h2>
+            <h2 className='font-bold uppercase text-sm text-gray tracking-wider mb-3'>Showing results for: {debouncedSearch}</h2>
 
             <ul className='flex flex-col gap-3'>
+
+              {(isLoading && !data) && (
+                <li className='flex flex-col items-center my-3 w-full'>
+                  <SpinnerLoader size='xxl' intent='gray' />
+                  <span className='uppercase text-xs text-gray font-bold mt-3'>Loading data</span>
+                </li>
+              )}
 
               {data ? data.map((item) => {
                 return (

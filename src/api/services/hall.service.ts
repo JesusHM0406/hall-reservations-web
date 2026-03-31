@@ -7,8 +7,11 @@ export const hallService = {
     await apiRequest(API_ENDPOINTS.HALLS.ADD(payload));
   },
 
-  async all(filters: HallPaginationParams) {
-    return await apiRequest(API_ENDPOINTS.HALLS.ALL(filters));
+  async all(filters: HallPaginationParams, controller?: AbortController) {
+    return await apiRequest(
+      API_ENDPOINTS.HALLS.ALL(filters),
+      { signal: controller?.signal }
+    );
   },
 
   async byId(id: number | string, controller?: AbortController) {

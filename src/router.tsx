@@ -16,12 +16,14 @@ const router = createBrowserRouter([
     path: '/',
     Component: MainLayout,
     children: [
-      { index: true, element: <Navigate to={PATHS.halls} replace /> },
+      { index: true, element: <Navigate to={`${PATHS.halls.root}/${PATHS.halls.search}`} replace /> },
       {
-        path: PATHS.halls,
+        path: PATHS.halls.root,
         children: [
-          { index: true, Component: HallsPage },
-          { path: ':hallId', Component: HallDetailPage }
+          { index: true, element: <Navigate to={PATHS.halls.search} replace /> },
+          { path: PATHS.halls.search, Component: HallsPage },
+          { path: PATHS.halls.explore, Component: HallsPage },
+          { path: `${PATHS.halls.detail}/:hallId`, Component: HallDetailPage }
         ]
       },
       {

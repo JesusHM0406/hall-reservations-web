@@ -5,11 +5,11 @@ import {
   MyAccountPage,
   RegisterPage,
   LoginPage,
-  HallsPage,
   ReservationsPage,
   UsersPage,
   HallDetailPage,
-  HallsSearchPage
+  HallsSearchPage,
+  HallsExplorePage
 } from '@/pages';
 
 const router = createBrowserRouter([
@@ -23,7 +23,7 @@ const router = createBrowserRouter([
         children: [
           { index: true, element: <Navigate to={PATHS.halls.search} replace /> },
           { path: PATHS.halls.search, Component: HallsSearchPage },
-          { path: PATHS.halls.explore, Component: HallsPage },
+          { path: PATHS.halls.explore, Component: HallsExplorePage },
           { path: `${PATHS.halls.detail}/:hallId`, Component: HallDetailPage }
         ]
       },

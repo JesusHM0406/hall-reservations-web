@@ -5,6 +5,7 @@ import { HallsPage } from './HallsPage';
 import { ReservationsPage } from './ReservationsPage';
 import { UsersPage } from './UsersPage';
 import { HallDetailPage } from './HallDetailPage';
+import { HallsSearchPage } from './halls/HallsSearchPage';
 
 export {
   HallsPage,
@@ -13,5 +14,6 @@ export {
   MyAccountPage,
   RegisterPage,
   LoginPage,
-  HallDetailPage
+  HallDetailPage,
+  HallsSearchPage
 };

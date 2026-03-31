@@ -84,7 +84,7 @@ const Sidebar = ({ isSidebarOpen, closeMethod, isDesktop, className, ...props }:
               </NavLink>
             </Button>
             
-            <Button asChild onClick={closeMethod} filled={false} >
+            <Button asChild onClick={closeMethod} filled={false} intent='gray' >
               <NavLink to={`/${PATHS.auth.root}/${PATHS.auth.login}`}>
                 <LogIn size={ICON_SIZE.MD} aria-hidden='true' />
                 <span>Log In</span>

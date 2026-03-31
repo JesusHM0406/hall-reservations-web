@@ -27,9 +27,9 @@ const buttonVariants = cva(
     },
     compoundVariants: [
       // Outlined variants
-      { intent: 'brand', filled: false, className: 'border-brand' },
-      { intent: 'gray', filled: false, className: 'border-inactive' },
-      { intent: 'hall', filled: false, className: 'border-hall' },
+      { intent: 'brand', filled: false, className: 'border-brand hover:bg-brand' },
+      { intent: 'gray', filled: false, className: 'border-inactive hover:bg-inactive' },
+      { intent: 'hall', filled: false, className: 'border-hall hover:bg-hall' },
 
       // Filled variants
       { intent: 'brand', filled: true, className: 'bg-brand' },

@@ -1,4 +1,4 @@
-import { useRef, type HTMLAttributes } from 'react';
+import { useRef, useState, type HTMLAttributes } from 'react';
 import { SIDEBAR_ITEMS } from '@/config/sidebar-config';
 import Button from '../common/Button';
 import SidebarItem from '../ui/SidebarItem';
@@ -20,7 +20,13 @@ const Sidebar = ({ isSidebarOpen, closeMethod, isDesktop, className, ...props }:
   const closeBtnRef = useRef<HTMLButtonElement | null>(null);
   const wasSidebarOpenRef = useRef<boolean>(false);
 
+  const [expandedOpt, setExpandedOpt] = useState<string | null>(null);
+
   useFocusTrap(asideRef, isSidebarOpen && !isDesktop, wasSidebarOpenRef, closeBtnRef, closeMethod);
+
+  const handleExpandableClick = (label: string) => {
+    setExpandedOpt(expandedOpt === label ? null : label);
+  }
 
   return (
     <>
@@ -46,6 +52,19 @@ const Sidebar = ({ isSidebarOpen, closeMethod, isDesktop, className, ...props }:
           </button>
           <ul className='grow flex flex-col gap-1.5'>
             {SIDEBAR_ITEMS.map(item => {
+              if (item.type === 'expandable') {
+                return (
+                  <li key={item.sectionLabel}>
+                    <SidebarItem
+                      {...item}
+                      sectionMethod={() => handleExpandableClick(item.sectionLabel)}
+                      isExpanded={expandedOpt === item.sectionLabel}
+                      closeMethod={closeMethod}
+                    />
+                  </li>
+                )
+              }
+
               return (
                 <li key={item.sectionLabel}>
                   <SidebarItem

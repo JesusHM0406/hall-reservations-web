@@ -1,10 +1,10 @@
 import { MyAccountPage } from './MyAccountPage';
 import { RegisterPage } from './auth/RegisterPage';
 import { LoginPage } from './auth/LoginPage';
-import { HallsPage } from './HallsPage';
+import { HallsPage } from './halls/HallsPage';
 import { ReservationsPage } from './ReservationsPage';
 import { UsersPage } from './UsersPage';
-import { HallDetailPage } from './HallDetailPage';
+import { HallDetailPage } from './halls/HallDetailPage';
 import { HallsSearchPage } from './halls/HallsSearchPage';
 
 export {

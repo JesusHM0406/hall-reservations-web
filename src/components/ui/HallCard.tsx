@@ -11,7 +11,7 @@ export const HallCard = ({ hall }: HallCardProps) => {
   const isAvailable = hall.is_available;
 
   return (
-    <Link to={`/${PATHS.halls}/${hall.id}`}>
+    <Link to={`/${PATHS.halls.root}/${PATHS.halls.detail}/${hall.id}`}>
       <article className='border border-inactive/25 p-3 gap-2 bg-subtle-white/30 dark:bg-dark-gray rounded-lg hover:scale-102 hover:bg-inactive/10 dark:hover:bg-inactive/15 transition-[background-color_scale] duration-150 flex flex-col'>
         <header>
           <Badge

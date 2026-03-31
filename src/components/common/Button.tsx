@@ -4,7 +4,7 @@ import type { ButtonHTMLAttributes, ReactNode } from 'react';
 import { cn } from '@utils';
 
 const buttonVariants = cva(
-  'cursor-pointer text-white text-sm flex justify-center items-center gap-2.5 font-semibold rounded-lg py-2.5 px-4 border-2 transition disabled:opacity-50 disabled:cursor-not-allowed active:scale-96 focus-visible:ring-2 dark:focus-visible:ring-white',
+  'cursor-pointer text-white text-sm flex justify-center items-center gap-2.5 font-semibold rounded-lg py-2.5 px-4 border-2 transition disabled:opacity-50 disabled:cursor-not-allowed not-disabled:active:scale-96 focus-visible:ring-2 dark:focus-visible:ring-white',
   {
     variants: {
       intent: {
@@ -18,7 +18,7 @@ const buttonVariants = cva(
       },
       shadow: {
         false: 'shadow-none',
-        true: 'shadow-lg'
+        true: 'shadow-lg disabled:shadow-none'
       },
       darkFocus: {
         false: '',

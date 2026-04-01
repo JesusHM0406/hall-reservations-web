@@ -40,7 +40,7 @@ const SidebarItem = (props: SidebarItemProps) => {
       <div>
         <button
           type='button'
-          className={`cursor-pointer py-2 px-3 w-full rounded-md transition-colors hover:bg-inactive/15 text-inactive flex text-start items-center gap-2 ${isOptActive && 'text-white'}`}
+          className={`cursor-pointer py-2 px-3 w-full rounded-md transition-colors hover:bg-inactive/15 flex text-start items-center gap-2 ${isOptActive ? 'text-white' : 'text-inactive'}`}
           onClick={sectionMethod}
           aria-controls={`${sectionLabel}-submenu`}
           aria-expanded={isExpanded}
@@ -77,9 +77,9 @@ const SidebarItem = (props: SidebarItemProps) => {
   }
 
   return (
-    <NavLink 
-      to={`/${rootPath}`} 
-      className={({ isActive }) => `cursor-pointer py-2 px-3 rounded-md transition-colors hover:bg-inactive/15 text-inactive flex text-start items-center gap-2 ${isActive ? 'text-white' : ''}`} 
+    <NavLink
+      to={`/${rootPath}`}
+      className={({ isActive }) => `cursor-pointer py-2 px-3 rounded-md transition-colors hover:bg-inactive/15 text-inactive flex text-start items-center gap-2 ${isActive ? 'text-white' : ''}`}
       onClick={sectionMethod}
     >
       <DynamicIcon name={iconName} size={ICON_SIZE.MD} aria-hidden />
@@ -88,4 +88,4 @@ const SidebarItem = (props: SidebarItemProps) => {
   );
 };
 
-export default SidebarItem; 
+export default SidebarItem;

@@ -14,7 +14,7 @@ import { toast } from 'sonner';
 export const HallDetailPage = () => {
   const hallId = useParams().hallId;
   const numericId = parseInt(hallId || '', 10);
-  
+
   const [hallDetail, setHallDetail] = useState<Hall | null>(null);
 
   const navigate = useNavigate();
@@ -38,10 +38,10 @@ export const HallDetailPage = () => {
 
     return () => { controller.abort() }
   }, [numericId]);
-  
+
   const isAva = hallDetail?.is_available;
-  
-  if (isNaN(numericId)) {
+
+  if (isNaN(numericId) || numericId < 1) {
     return <h1>Invalid hall id provided</h1>;
   }
 

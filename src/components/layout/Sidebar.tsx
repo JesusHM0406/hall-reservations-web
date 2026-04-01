@@ -1,13 +1,13 @@
-import { useRef, type HTMLAttributes } from 'react';
-import { SIDEBAR_ITEMS } from '../../config/sidebar-config';
+import { useRef, useState, type HTMLAttributes } from 'react';
+import { SIDEBAR_ITEMS } from '@/config/sidebar-config';
 import Button from '../common/Button';
 import SidebarItem from '../ui/SidebarItem';
 import { NavLink } from 'react-router';
-import { PATHS } from '../../paths';
+import { PATHS } from '@/paths';
 import { LogIn, UserPlus, X } from 'lucide-react';
-import { ICON_SIZE } from '../../constants/ui.constants';
-import { cn } from '../../lib/utils';
-import { useFocusTrap } from '../../hooks/useFocusTrap';
+import { ICON_SIZE } from '@/constants/ui.constants';
+import { cn } from '@utils';
+import { useFocusTrap } from '@/hooks/useFocusTrap';
 
 interface SidebarProps extends HTMLAttributes<HTMLElement> {
   isSidebarOpen: boolean;
@@ -20,9 +20,13 @@ const Sidebar = ({ isSidebarOpen, closeMethod, isDesktop, className, ...props }:
   const closeBtnRef = useRef<HTMLButtonElement | null>(null);
   const wasSidebarOpenRef = useRef<boolean>(false);
 
+  const [expandedOpt, setExpandedOpt] = useState<string | null>(null);
+
   useFocusTrap(asideRef, isSidebarOpen && !isDesktop, wasSidebarOpenRef, closeBtnRef, closeMethod);
 
-  const handleClick = () => { closeMethod() };
+  const handleExpandableClick = (label: string) => {
+    setExpandedOpt(expandedOpt === label ? null : label);
+  }
 
   return (
     <>
@@ -32,7 +36,7 @@ const Sidebar = ({ isSidebarOpen, closeMethod, isDesktop, className, ...props }:
         className={cn(
           'shrink-0 w-60 px-4 py-8 flex transition-[margin] overflow-hidden text-sm',
           isSidebarOpen ? 'ml-0' : '-ml-60',
-          'md:ml-0 z-50 bg-dark border-r dark:border-slate-gray',
+          'md:ml-0 z-50 bg-dark border-r border-transparent dark:border-slate-gray',
           className
         )}
       >
@@ -48,11 +52,24 @@ const Sidebar = ({ isSidebarOpen, closeMethod, isDesktop, className, ...props }:
           </button>
           <ul className='grow flex flex-col gap-1.5'>
             {SIDEBAR_ITEMS.map(item => {
+              if (item.type === 'expandable') {
+                return (
+                  <li key={item.sectionLabel}>
+                    <SidebarItem
+                      {...item}
+                      sectionMethod={() => handleExpandableClick(item.sectionLabel)}
+                      isExpanded={expandedOpt === item.sectionLabel}
+                      closeMethod={closeMethod}
+                    />
+                  </li>
+                )
+              }
+
               return (
                 <li key={item.sectionLabel}>
                   <SidebarItem
                     {...item}
-                    sectionMethod={handleClick}
+                    sectionMethod={closeMethod}
                   />
                 </li>
               )
@@ -60,14 +77,14 @@ const Sidebar = ({ isSidebarOpen, closeMethod, isDesktop, className, ...props }:
             })}
           </ul>
           <div className='flex flex-col gap-4 items-center'>
-            <Button asChild onClick={handleClick}>
+            <Button asChild onClick={closeMethod}>
               <NavLink to={`/${PATHS.auth.root}/${PATHS.auth.register}`}>
                 <UserPlus size={ICON_SIZE.MD} aria-hidden='true' />
                 <span>Register</span>
               </NavLink>
             </Button>
             
-            <Button asChild onClick={handleClick} filled={false} >
+            <Button asChild onClick={closeMethod} filled={false} intent='gray' >
               <NavLink to={`/${PATHS.auth.root}/${PATHS.auth.login}`}>
                 <LogIn size={ICON_SIZE.MD} aria-hidden='true' />
                 <span>Log In</span>

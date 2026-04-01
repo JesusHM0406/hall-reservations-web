@@ -1,5 +1,5 @@
 import { useRef, type KeyboardEvent } from 'react';
-import { ICON_SIZE, type ThemeType } from '../../constants/ui.constants';
+import { ICON_SIZE, type ThemeType } from '@/constants/ui.constants';
 import { DynamicIcon, type IconName } from 'lucide-react/dynamic';
 
 interface Theme {
@@ -47,7 +47,7 @@ const ThemeSwitcher = ({ theme, setCurrentTheme }: ThemeSwitcherProps) => {
 
   return (
     <div
-      className='rounded-xl border-2 border-brand text-inactive flex overflow-hidden'
+      className='rounded-lg border-2 border-brand text-inactive flex overflow-hidden'
       role='radiogroup'
       aria-label='visual theme selector'
       onKeyDown={handleKeyDown}
@@ -64,7 +64,7 @@ const ThemeSwitcher = ({ theme, setCurrentTheme }: ThemeSwitcherProps) => {
           tabIndex={isSelected ? 0 : -1 }
           key={themeName} 
           type='button'
-          className={`cursor-pointer py-2.5 px-3.5 transition-colors outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white ${isSelected ? 'bg-brand text-white' : 'bg-transparent hover:bg-brand/20'}`} 
+          className={`cursor-pointer rounded-md py-2.5 px-3.5 transition-colors outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white ${isSelected ? 'bg-brand text-white' : 'bg-transparent hover:bg-brand/20'}`} 
           onClick={() => setCurrentTheme(themeName)}
         >
           <span aria-hidden>

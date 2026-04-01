@@ -7,16 +7,25 @@ export const hallService = {
     await apiRequest(API_ENDPOINTS.HALLS.ADD(payload));
   },
 
-  async all(filters: HallPaginationParams) {
-    return await apiRequest(API_ENDPOINTS.HALLS.ALL(filters));
+  async all(filters: HallPaginationParams, controller?: AbortController) {
+    return await apiRequest(
+      API_ENDPOINTS.HALLS.ALL(filters),
+      { signal: controller?.signal }
+    );
   },
 
-  async byId(id: number | string) {
-    return await apiRequest(API_ENDPOINTS.HALLS.BY_ID(id));
+  async byId(id: number | string, controller?: AbortController) {
+    return await apiRequest(
+      API_ENDPOINTS.HALLS.BY_ID(id),
+      { signal: controller?.signal }
+    );
   },
 
-  async search(params: HallSearchParams) {
-    return await apiRequest(API_ENDPOINTS.HALLS.SEARCH(params));
+  async search(params: HallSearchParams, controller?: AbortController) {
+    return await apiRequest(
+      API_ENDPOINTS.HALLS.SEARCH(params),
+      { signal: controller?.signal }
+    );
   },
 
   async update(id: number | string, payload: HallUpdate) {

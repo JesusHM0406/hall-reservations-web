@@ -1,5 +1,10 @@
 export const PATHS = {
-  halls: 'halls',
+  halls: {
+    root: 'halls',
+    search: 'search',
+    explore: 'explore',
+    detail: 'detail'
+  },
   reservations: 'reservations',
   users: 'users',
   auth: {

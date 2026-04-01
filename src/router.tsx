@@ -1,24 +1,31 @@
 import { createBrowserRouter, Navigate } from 'react-router';
-import MainLayout from './MainLayout';
-import { PATHS } from './paths';
+import MainLayout from '@/MainLayout';
+import { PATHS } from '@/paths';
 import {
   MyAccountPage,
   RegisterPage,
-  LoginPage
-} from './pages'
-import { HallsPage } from './pages/HallsPage';
-import { ReservationsPage } from './pages/ReservationsPage';
-import { UsersPage } from './pages/UsersPage';
+  LoginPage,
+  ReservationsPage,
+  UsersPage,
+  HallDetailPage,
+  HallsSearchPage,
+  HallsExplorePage
+} from '@/pages';
 
 const router = createBrowserRouter([
   {
     path: '/',
     Component: MainLayout,
     children: [
-      { index: true, element: <Navigate to={`${PATHS.halls}`} /> },
+      { index: true, element: <Navigate to={`${PATHS.halls.root}/${PATHS.halls.search}`} replace /> },
       {
-        path: PATHS.halls,
-        Component: HallsPage
+        path: PATHS.halls.root,
+        children: [
+          { index: true, element: <Navigate to={PATHS.halls.search} replace /> },
+          { path: PATHS.halls.search, Component: HallsSearchPage },
+          { path: PATHS.halls.explore, Component: HallsExplorePage },
+          { path: `${PATHS.halls.detail}/:hallId`, Component: HallDetailPage }
+        ]
       },
       {
         path: PATHS.reservations,
@@ -27,7 +34,7 @@ const router = createBrowserRouter([
       {
         path: PATHS.auth.root,
         children: [
-          { index: true, element: <Navigate to={PATHS.auth.login} /> },
+          { index: true, element: <Navigate to={PATHS.auth.login} replace /> },
           { path: PATHS.auth.login, Component: LoginPage },
           { path: PATHS.auth.register, Component: RegisterPage }
         ]

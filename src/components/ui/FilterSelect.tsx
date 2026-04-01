@@ -15,12 +15,13 @@ interface FilterSelectProps<T extends string> {
   items: FilterItem<T>[];
   onValueChange: (value: T) => void;
   placeholder: string;
+  value: T;
 }
 
-export const FilterSelect = <T extends string>({ items, onValueChange, placeholder }: FilterSelectProps<T>) => {
+export const FilterSelect = <T extends string>({ items, onValueChange, placeholder, value }: FilterSelectProps<T>) => {
 
   return (
-    <Select onValueChange={onValueChange}>
+    <Select onValueChange={onValueChange} value={value} >
       <SelectTrigger className='min-w-30 max-w-50 w-full uppercase text-2xs font-bold py-2.5 px-3'>
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>

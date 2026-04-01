@@ -5,9 +5,9 @@ import { Outlet, useNavigate } from 'react-router';
 import { THEMES, type ThemeType } from '@/constants/ui.constants';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { toast, Toaster } from 'sonner';
-import { eventBus } from './lib/events';
-import { PATHS } from './paths';
-import { useAuth } from './hooks/useAuth';
+import { eventBus } from '@/lib/events';
+import { PATHS } from '@/paths';
+import { useAuth } from '@/hooks/useAuth';
 
 const savedTheme = localStorage.getItem('theme');
 let actualTheme: ThemeType = THEMES.enum.system;

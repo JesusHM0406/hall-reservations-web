@@ -45,9 +45,8 @@ export const HallsExplorePage = () => {
         const msg = getErrorMessage(e);
         if (!msg) return;
         toast.error(msg);
-      } finally {
-        setIsLoading(false);
       }
+      setIsLoading(false);
     }
 
     fetchHalls();
@@ -92,8 +91,10 @@ export const HallsExplorePage = () => {
         <h2 className='font-bold uppercase text-sm text-gray tracking-wider mb-3'>Showing all halls ({hallsPagination?.total})</h2>
         {isLoading ? (
           <div className='grid place-content-center my-3 w-full grow'>
-            <SpinnerLoader size='xxl' intent='gray' />
+            <div className='flex flex-col items-center'>
+              <SpinnerLoader size='xxl' intent='gray' />
             <span className='uppercase text-xs text-gray font-bold mt-3'>Loading data</span>
+            </div>
           </div>
         ) : (
           <>

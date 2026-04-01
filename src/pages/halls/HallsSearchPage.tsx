@@ -22,13 +22,13 @@ export const HallsSearchPage = () => {
 
   const [data, setData] = useState <HallSearchResponse | null>(null);
 
-  const [isLoading, setIsLoading] = useState<boolean>(false); 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const lastValue = useRef<string>('');
 
   useEffect(() => {
     if (debouncedSearch === lastValue.current) return;
-    
+
     if (debouncedSearch && debouncedSearch.length >= 2) {
       lastValue.current = debouncedSearch;
       setSearchParams({ q: debouncedSearch }, { replace: true });
@@ -50,7 +50,6 @@ export const HallsSearchPage = () => {
     const controller = new AbortController();
 
     const fetchData = async () => {
-
       setIsLoading(true);
       try {
         const response = await hallService.search({ q: query }, controller);
@@ -60,9 +59,8 @@ export const HallsSearchPage = () => {
         const msg = getErrorMessage(e);
         if (!msg) return;
         toast .error(msg);
-      } finally {
-        setIsLoading(false);
       }
+      setIsLoading(false);
     };
 
     fetchData();
@@ -110,14 +108,16 @@ export const HallsSearchPage = () => {
 
             <ul className='flex flex-col gap-3'>
 
-              {(isLoading && !data) && (
-                <li className='flex flex-col items-center my-3 w-full'>
-                  <SpinnerLoader size='xxl' intent='gray' />
+              {isLoading && (
+                <div className='grid place-content-center my-3 w-full grow'>
+                  <div className='flex flex-col items-center'>
+                    <SpinnerLoader size='xxl' intent='gray' />
                   <span className='uppercase text-xs text-gray font-bold mt-3'>Loading data</span>
-                </li>
+                  </div>
+                </div>
               )}
 
-              {data ? data.map((item) => {
+              {!isLoading && data ? data.map((item) => {
                 return (
                   <li key={item.id}>
                     <HallCard hall={item} />

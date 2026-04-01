@@ -12,6 +12,7 @@ import { toast } from 'sonner';
 import { HallCard } from '@/components/ui/HallCard';
 import { useSearchParams } from 'react-router';
 import SpinnerLoader from '@/components/common/SpinnerLoader';
+import { Pagination } from '@/components/ui/Pagination';
 
 export const HallsExplorePage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -19,7 +20,7 @@ export const HallsExplorePage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const rawPage = parseInt(searchParams.get('page') || '1', 10);
-  const page = isNaN(rawPage) ? 1 : rawPage;
+  const page = isNaN(rawPage) || rawPage < 1 ? 1 : rawPage;
 
   const statusParse = hallAvailabilityFilterEnum.safeParse(searchParams.get('status'));
 
@@ -27,7 +28,7 @@ export const HallsExplorePage = () => {
 
   if (statusParse.error) status = 'all';
   else status = statusParse.data;
-  
+
   const [hallsPagination, setHallsPagination] = useState<HallPagination | null>(null);
 
   useEffect(() => {
@@ -37,7 +38,7 @@ export const HallsExplorePage = () => {
       setIsLoading(true);
       try {
         const data = await hallService.all({ page, status }, controller);
-      
+
         setHallsPagination(data);
         setSearchParams({ page: page.toString(), status }, { replace: true });
       } catch(e) {
@@ -58,6 +59,10 @@ export const HallsExplorePage = () => {
   const handleFilterClick = (value: HallAvailabilityFilter) => {
     setSearchParams({ page: page.toString(), status: value }, { replace: true });
   };
+
+  const handlePageClick = (num: number) => {
+    setSearchParams({ page: num.toString(), status }, { replace: true });
+  }
 
   return (
     <div className='max-w-xl w-full mx-auto flex flex-col gap-7 grow'>
@@ -92,24 +97,35 @@ export const HallsExplorePage = () => {
           </div>
         ) : (
           <>
-            <ul className='flex flex-col gap-3'>
-              {hallsPagination?.items.map((hall) => {
-                const descPreview = hall.description.length > 100 ? 
-                  hall.description.slice(0, 97) + '...' :
-                  hall.description
-                
-                return (
-                  <li key={hall.id}>
-                    <HallCard hall={{
-                      id: hall.id,
-                      name: hall.name,
-                      is_available: hall.is_available,
-                      preview: descPreview
-                    }} />
-                  </li>
-                )
-              })}
-            </ul>
+              {hallsPagination ? (
+                <>
+                  <ul className='flex flex-col gap-3 mb-5'>
+                    {hallsPagination.items.map((hall) => {
+                      const descPreview = hall.description.length > 100 ?
+                        hall.description.slice(0, 97) + '...' :
+                        hall.description
+
+                      return (
+                        <li key={hall.id}>
+                          <HallCard hall={{
+                            id: hall.id,
+                            name: hall.name,
+                            is_available: hall.is_available,
+                            preview: descPreview
+                          }} />
+                        </li>
+                      )
+                    })}
+                  </ul>
+                  <Pagination
+                    pages={hallsPagination.pages}
+                    current_page={hallsPagination.current_page}
+                    has_next={hallsPagination.has_next}
+                    has_prev={hallsPagination.has_prev}
+                    onPageClick={handlePageClick}
+                  />
+                </>
+              ) : null}
           </>
         )}
       </section>

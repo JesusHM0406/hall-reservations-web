@@ -12,3 +12,13 @@ export const createPaginatedSchema = <T>(itemSchema: z.ZodType<T>) => {
     has_next: z.boolean()
   })
 };
+
+export interface PaginationCommons {
+  total: number;
+  requested_page: number;
+  per_page: number;
+  pages: number;
+  current_page: number;
+  has_prev: boolean;
+  has_next: boolean;
+}

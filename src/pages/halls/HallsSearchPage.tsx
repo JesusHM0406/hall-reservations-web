@@ -47,6 +47,7 @@ export const HallsSearchPage = () => {
       return;
     }
 
+    let isCurrent = true;
     const controller = new AbortController();
 
     const fetchData = async () => {
@@ -54,18 +55,20 @@ export const HallsSearchPage = () => {
       try {
         const response = await hallService.search({ q: query }, controller);
 
-        setData(response);
+        if (isCurrent) setData(response);
       } catch (e) {
         const msg = getErrorMessage(e);
-        if (!msg) return;
-        toast .error(msg);
+        if (isCurrent && msg) toast .error(msg);
       }
-      setIsLoading(false);
+      if (isCurrent) setIsLoading(false);
     };
 
     fetchData();
 
-    return () => { controller.abort() };
+    return () => {
+      isCurrent = false;
+      controller.abort();
+    };
   }, [query]);
 
   return (

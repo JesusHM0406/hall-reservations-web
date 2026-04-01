@@ -32,6 +32,7 @@ export const HallsExplorePage = () => {
   const [hallsPagination, setHallsPagination] = useState<HallPagination | null>(null);
 
   useEffect(() => {
+    let isCurrent = true;
     const controller = new AbortController();
 
     const fetchHalls = async () => {
@@ -39,19 +40,22 @@ export const HallsExplorePage = () => {
       try {
         const data = await hallService.all({ page, status }, controller);
 
-        setHallsPagination(data);
+        if (isCurrent) setHallsPagination(data);
         setSearchParams({ page: page.toString(), status }, { replace: true });
       } catch(e) {
         const msg = getErrorMessage(e);
-        if (!msg) return;
-        toast.error(msg);
+        if (isCurrent && msg) toast.error(msg);
+      } finally {
+        if (isCurrent) setIsLoading(false);
       }
-      setIsLoading(false);
     }
 
     fetchHalls();
 
-    return () => { controller.abort() }
+    return () => {
+      isCurrent = false;
+      controller.abort();
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, status]);
 

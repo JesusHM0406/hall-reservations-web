@@ -22,6 +22,7 @@ export const HallDetailPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    let isCurrent = true;
     const controller = new AbortController();
 
     const fetchHallDetail = async (id: number) => {
@@ -29,18 +30,20 @@ export const HallDetailPage = () => {
       try {
         const hall = await hallService.byId(id, controller);
 
-        setHallDetail(hall);
+        if (isCurrent) setHallDetail(hall);
       } catch (e) {
         const msg = getErrorMessage(e);
-        if (!msg) return;
-        toast.error(msg);
+        if (isCurrent && msg) toast.error(msg);
       }
-      setIsLoading(false);
+      if (isCurrent) setIsLoading(false);
     };
 
     fetchHallDetail(numericId);
 
-    return () => { controller.abort() }
+    return () => {
+      isCurrent = false;
+      controller.abort();
+    }
   }, [numericId]);
 
   const isAva = hallDetail?.is_available;

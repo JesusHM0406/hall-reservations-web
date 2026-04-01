@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import Sidebar from '@/components/layout/Sidebar';
 import Header from '@/components/layout/Header';
 import { Outlet, useNavigate } from 'react-router';
-import { THEMES, themesArray, type ThemeType } from '@/constants/ui.constants';
+import { THEMES, type ThemeType } from '@/constants/ui.constants';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { toast, Toaster } from 'sonner';
 import { eventBus } from './lib/events';
@@ -12,8 +12,9 @@ import { useAuth } from './hooks/useAuth';
 const savedTheme = localStorage.getItem('theme');
 let actualTheme: ThemeType = THEMES.enum.system;
 
-if (savedTheme && themesArray.findIndex(t => t === savedTheme) !== -1 ) {
-  actualTheme = savedTheme as ThemeType;
+if (savedTheme) {
+  const parsedTheme = THEMES.safeParse(savedTheme);
+  if (parsedTheme.success) actualTheme = parsedTheme.data;
 }
 
 const shouldBeDark = actualTheme === THEMES.enum.dark ||

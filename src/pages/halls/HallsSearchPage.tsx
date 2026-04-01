@@ -20,7 +20,7 @@ export const HallsSearchPage = () => {
   const [search, setSearch] = useState<string>(query);
   const debouncedSearch = useDebounce(search, 400);
 
-  const [data, setData] = useState <HallSearchResponse | null>(null);
+  const [data, setData] = useState<HallSearchResponse | null>(null);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -58,7 +58,7 @@ export const HallsSearchPage = () => {
         if (isCurrent) setData(response);
       } catch (e) {
         const msg = getErrorMessage(e);
-        if (isCurrent && msg) toast .error(msg);
+        if (isCurrent && msg) toast.error(msg);
       }
       if (isCurrent) setIsLoading(false);
     };

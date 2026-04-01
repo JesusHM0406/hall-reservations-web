@@ -8,7 +8,6 @@ interface PaginationParams extends Pick<PaginationCommons, 'current_page' | 'pag
 }
 
 export const Pagination = ({ current_page, pages, has_prev, has_next, onPageClick }: PaginationParams) => {
-
   const showFirst = current_page > 1;
   const showLast = current_page < pages;
 
@@ -17,7 +16,7 @@ export const Pagination = ({ current_page, pages, has_prev, has_next, onPageClic
 
   return (
     <nav
-      className='mx-autol'
+      className='mx-auto'
       aria-label='Results pagination'
     >
       <ul className='flex w-full justify-center'>

@@ -17,12 +17,15 @@ export const HallDetailPage = () => {
 
   const [hallDetail, setHallDetail] = useState<Hall | null>(null);
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const navigate = useNavigate();
 
   useEffect(() => {
     const controller = new AbortController();
 
     const fetchHallDetail = async (id: number) => {
+      setIsLoading(true);
       try {
         const hall = await hallService.byId(id, controller);
 
@@ -32,6 +35,7 @@ export const HallDetailPage = () => {
         if (!msg) return;
         toast.error(msg);
       }
+      setIsLoading(false);
     };
 
     fetchHallDetail(numericId);
@@ -46,17 +50,19 @@ export const HallDetailPage = () => {
   }
 
   return (
-    <div className='grid place-content-center grow gap-5'>
+    <div className='grid place-content-center h-full gap-5'>
       <Container>
         <article className='flex flex-col gap-5 max-w-md min-w-3xs min-h-72 justify-center'>
-          {hallDetail === null ?
+          {isLoading && (
             <div className='grid place-content-center grow'>
               <SpinnerLoader size='xxl' intent='gray' />
             </div>
-            :
+          )}
+
+          {!isLoading && hallDetail && (
             <>
               <header>
-                <h1 className='font-bold uppercase text-center text-balance mb-5'>{hallDetail?.name}</h1>
+                <h1 className='font-bold uppercase text-center text-balance mb-5'>{hallDetail.name}</h1>
                 <Badge
                   label={isAva ? 'Available' : 'Unavailable'}
                   ariaLabel={isAva ? 'Available' : 'Unavailable'}
@@ -67,7 +73,7 @@ export const HallDetailPage = () => {
 
               <section>
                 <h2 className='font-bold uppercase text-xs text-gray'>Description</h2>
-                <p className='text-sm'>{hallDetail?.description}</p>
+                <p className='text-sm'>{hallDetail.description}</p>
               </section>
 
               <footer className='flex gap-2 mt-3'>
@@ -87,7 +93,7 @@ export const HallDetailPage = () => {
                 </Button>
               </footer>
             </>
-          }
+          )}
         </article>
       </Container>
       <Button

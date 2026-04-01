@@ -22,6 +22,8 @@ export const HallDetailPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (isNaN(numericId) || numericId < 1) return;
+
     let isCurrent = true;
     const controller = new AbortController();
 

@@ -13,6 +13,13 @@ html.dark {
   color-scheme: dark;
 }
 
+html,
+body,
+#root {
+  height: 100%;
+  overflow: hidden;
+}
+
 @theme {
   --font-size-2xs: 10.5px;
   --line-height-2xs: 1.2;

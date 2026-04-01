@@ -24,7 +24,7 @@ document.documentElement.classList.toggle(THEMES.enum.dark, shouldBeDark);
 function MainLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
   const [currentTheme, setCurrentTheme] = useState<ThemeType>(actualTheme);
-  
+
   const isDesktop = useMediaQuery('(min-width: 48em)'); // 768px Tailwind md breakpoint;
 
   const mainRef = useRef<HTMLDivElement | null>(null);
@@ -32,7 +32,7 @@ function MainLayout() {
   const navigate = useNavigate();
 
   const { logOut } = useAuth();
-  
+
   useEffect(()=> {
     if (isSidebarOpen && !isDesktop) mainRef.current?.setAttribute('inert', '');
     else mainRef.current?.removeAttribute('inert');
@@ -85,7 +85,7 @@ function MainLayout() {
       localStorage.theme = theme;
     }
 
-    const isDark = theme === THEMES.enum.dark || 
+    const isDark = theme === THEMES.enum.dark ||
       (theme === THEMES.enum.system && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
     document.documentElement.classList.toggle(THEMES.enum.dark, isDark);
@@ -98,27 +98,27 @@ function MainLayout() {
   const handleOpenSidebar = useCallback(() => {setIsSidebarOpen(true)}, []);
 
   return (
-    <div className='flex min-h-dvh w-full overflow-hidden'>
-      <Sidebar 
-        id={sidebarId} 
-        isSidebarOpen={isSidebarDesktopOrOpen} 
-        closeMethod={handleCloseSidebar} 
-        isDesktop={isDesktop} 
+    <div className='flex h-dvh w-full overflow-hidden'>
+      <Sidebar
+        id={sidebarId}
+        isSidebarOpen={isSidebarDesktopOrOpen}
+        closeMethod={handleCloseSidebar}
+        isDesktop={isDesktop}
         {...(isSidebarDesktopOrOpen ? {} : { inert: true })}
       />
       <Toaster theme={currentTheme} position='top-center' />
-      <div 
-        ref={mainRef} 
-        className='min-w-full h-dvh md:min-w-[calc(100%-15rem)]! overflow-y-auto bg-white dark:bg-dark dark:text-white'
+      <div
+        ref={mainRef}
+        className='min-w-full md:min-w-[calc(100%-15rem)]! bg-white dark:bg-dark dark:text-white'
       >
-        <Header 
-          isSidebarOpen={isSidebarDesktopOrOpen} 
+        <Header
+          isSidebarOpen={isSidebarDesktopOrOpen}
           sidebarId={sidebarId}
-          menuMethod={handleOpenSidebar} 
-          theme={currentTheme} 
-          themeToggleMethod={toggleTheme} 
+          menuMethod={handleOpenSidebar}
+          theme={currentTheme}
+          themeToggleMethod={toggleTheme}
         />
-        <main className='pt-20 px-6 min-h-dvh flex flex-col pb-10'>
+        <main className='flex-1 h-dvh overflow-y-auto px-6 pt-24 pb-10'>
           <Outlet />
         </main>
       </div>

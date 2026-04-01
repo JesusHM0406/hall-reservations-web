@@ -11,9 +11,12 @@ import { getErrorMessage } from '@/api/api.utils';
 import { toast } from 'sonner';
 import { HallCard } from '@/components/ui/HallCard';
 import { useSearchParams } from 'react-router';
+import SpinnerLoader from '@/components/common/SpinnerLoader';
 
 export const HallsExplorePage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const rawPage = parseInt(searchParams.get('page') || '1', 10);
   const page = isNaN(rawPage) ? 1 : rawPage;
@@ -31,6 +34,7 @@ export const HallsExplorePage = () => {
     const controller = new AbortController();
 
     const fetchHalls = async () => {
+      setIsLoading(true);
       try {
         const data = await hallService.all({ page, status }, controller);
       
@@ -40,6 +44,8 @@ export const HallsExplorePage = () => {
         const msg = getErrorMessage(e);
         if (!msg) return;
         toast.error(msg);
+      } finally {
+        setIsLoading(false);
       }
     }
 
@@ -54,7 +60,7 @@ export const HallsExplorePage = () => {
   };
 
   return (
-    <div className='max-w-xl w-full mx-auto flex flex-col gap-7'>
+    <div className='max-w-xl w-full mx-auto flex flex-col gap-7 grow'>
       <header className='flex justify-between gap-3 items-center'>
         <h1 className='font-bold text-lg xs:text-2xl uppercase'>Explore Halls</h1>
         <Button className='text-2xs uppercase' intent='hall' filled shadow darkFocus >
@@ -77,26 +83,35 @@ export const HallsExplorePage = () => {
         </div>
       </section>
 
-      <section>
+      <section className='flex flex-col grow'>
         <h2 className='font-bold uppercase text-sm text-gray tracking-wider mb-3'>Showing all halls ({hallsPagination?.total})</h2>
-        <ul className='flex flex-col gap-3'>
-          {hallsPagination?.items.map((hall) => {
-            const descPreview = hall.description.length > 100 ? 
-              hall.description.slice(0, 97) + '...' :
-              hall.description
-            
-            return (
-              <li key={hall.id}>
-                <HallCard hall={{
-                  id: hall.id,
-                  name: hall.name,
-                  is_available: hall.is_available,
-                  preview: descPreview
-                }} />
-              </li>
-            )
-          })}
-        </ul>
+        {isLoading ? (
+          <div className='grid place-content-center my-3 w-full grow'>
+            <SpinnerLoader size='xxl' intent='gray' />
+            <span className='uppercase text-xs text-gray font-bold mt-3'>Loading data</span>
+          </div>
+        ) : (
+          <>
+            <ul className='flex flex-col gap-3'>
+              {hallsPagination?.items.map((hall) => {
+                const descPreview = hall.description.length > 100 ? 
+                  hall.description.slice(0, 97) + '...' :
+                  hall.description
+                
+                return (
+                  <li key={hall.id}>
+                    <HallCard hall={{
+                      id: hall.id,
+                      name: hall.name,
+                      is_available: hall.is_available,
+                      preview: descPreview
+                    }} />
+                  </li>
+                )
+              })}
+            </ul>
+          </>
+        )}
       </section>
     </div>
   );

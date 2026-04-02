@@ -9,11 +9,11 @@ import { hallAvailabilityFilterEnum, type HallAvailabilityFilter, type HallPagin
 import { hallService } from '@/api/services/hall.service';
 import { getErrorMessage } from '@/api/api.utils';
 import { toast } from 'sonner';
-import { HallCard } from '@/components/ui/HallCard';
+import { HallCard } from '@/pages/halls/components/HallCard';
 import { useSearchParams } from 'react-router';
 import SpinnerLoader from '@/components/ui/SpinnerLoader';
-import { Pagination } from '@/components/ui/Pagination';
-import { CreateHallDrawer } from '@/components/ui/CreateHallDrawer';
+import { Pagination } from '@/components/common/Pagination';
+import { CreateHallDrawer } from '@/pages/halls/components/CreateHallDrawer';
 
 export const HallsExplorePage = () => {
   const [searchParams, setSearchParams] = useSearchParams();

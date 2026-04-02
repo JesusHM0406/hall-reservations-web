@@ -8,12 +8,12 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger
-} from './drawer';
-import Button from './Button';
-import FormField from '../common/FormField';
-import Input from './Input';
-import { Textarea } from './textarea';
-import { Switch } from './switch';
+} from '../../../components/ui/drawer';
+import Button from '../../../components/ui/Button';
+import FormField from '../../../components/common/FormField';
+import Input from '../../../components/ui/Input';
+import { Textarea } from '../../../components/ui/textarea';
+import { Switch } from '../../../components/ui/switch';
 import { Controller, useForm } from 'react-hook-form';
 import { hallCreateSchema, type HallCreate } from '@/api/schemas/hall.schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -22,7 +22,7 @@ import { hallService } from '@/api/services/hall.service';
 import { getErrorMessage } from '@/api/api.utils';
 import { CircleFadingArrowUp } from 'lucide-react';
 import { ICON_SIZE } from '@/constants/ui.constants';
-import SpinnerLoader from './SpinnerLoader';
+import SpinnerLoader from '../../../components/ui/SpinnerLoader';
 
 interface CreateHallDrawerProps {
   children: ReactNode;

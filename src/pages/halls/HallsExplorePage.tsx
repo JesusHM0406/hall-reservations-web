@@ -2,7 +2,7 @@ import Button from '@/components/ui/Button';
 import { PlusCircle } from 'lucide-react';
 import { ICON_SIZE } from '@/constants/ui.constants';
 import { FilterContainer } from '@/components/ui/FilterContainer';
-import { FilterSelect } from '@/components/ui/FilterSelect';
+import { FilterSelect } from '@/components/common/FilterSelect';
 import { HALL_AVAILABILITY_FILTER_ITEMS } from '@/constants/hall.constants';
 import { useEffect, useState } from 'react';
 import { hallAvailabilityFilterEnum, type HallAvailabilityFilter, type HallPagination } from '@/api/schemas/hall.schemas';

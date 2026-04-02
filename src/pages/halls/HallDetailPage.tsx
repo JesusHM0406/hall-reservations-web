@@ -3,7 +3,7 @@ import type { Hall } from '@/api/schemas/hall.schemas';
 import { hallService } from '@/api/services/hall.service';
 import { Badge } from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
-import Container from '@/components/common/Container';
+import Container from '@/components/layout/Container';
 import SpinnerLoader from '@/components/ui/SpinnerLoader';
 import { ICON_SIZE } from '@/constants/ui.constants';
 import { ArrowLeft, Calendar, Edit2 } from 'lucide-react';

@@ -1,6 +1,6 @@
 import { ArrowRight, Shield } from 'lucide-react';
 import Button from '@/components/ui/Button';
-import Container from '@/components/common/Container';
+import Container from '@/components/layout/Container';
 import FormField from '@/components/common/FormField';
 import Input from '@/components/ui/Input';
 import { ICON_SIZE } from '@/constants/ui.constants';

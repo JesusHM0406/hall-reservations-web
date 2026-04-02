@@ -1,7 +1,7 @@
 import { useRef, useState, type HTMLAttributes } from 'react';
 import { SIDEBAR_ITEMS } from '@/config/sidebar-config';
 import Button from '../ui/Button';
-import SidebarItem from '../ui/SidebarItem';
+import SidebarItem from './SidebarItem';
 import { NavLink } from 'react-router';
 import { PATHS } from '@/paths';
 import { LogIn, UserPlus, X } from 'lucide-react';

@@ -1,16 +1,16 @@
 import { useDebounce } from '@/hooks/useDebounce';
 import { useSearchParams } from 'react-router';
-import { HallCard } from '@/components/ui/HallCard';
+import { HallCard } from '@/pages/halls/components/HallCard';
 import type { HallSearchResponse } from '@/api/schemas/hall.schemas';
 import { useEffect, useRef, useState } from 'react';
 import { getErrorMessage } from '@/api/api.utils';
 import { toast } from 'sonner';
 import { hallService } from '@/api/services/hall.service';
-import { SearchInput } from '@/components/ui/SearchInput';
-import Button from '@/components/common/Button';
+import { SearchInput } from '@/components/common/SearchInput';
+import Button from '@/components/ui/Button';
 import { ArrowUp } from 'lucide-react';
 import { ICON_SIZE } from '@/constants/ui.constants';
-import SpinnerLoader from '@/components/common/SpinnerLoader';
+import SpinnerLoader from '@/components/ui/SpinnerLoader';
 
 export const HallsSearchPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();

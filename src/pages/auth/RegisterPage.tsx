@@ -1,15 +1,15 @@
 import { ArrowRight, Shield } from 'lucide-react';
-import Button from '@/components/common/Button';
-import Container from '@/components/common/Container';
+import Button from '@/components/ui/Button';
+import Container from '@/components/layout/Container';
 import FormField from '@/components/common/FormField';
-import Input from '@/components/common/Input';
+import Input from '@/components/ui/Input';
 import { ICON_SIZE } from '@/constants/ui.constants';
 import { Link } from 'react-router';
 import { PATHS } from '@/paths';
 import { useForm } from 'react-hook-form';
 import { type LoginFormData } from '@/api/schemas/auth.schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
-import SpinnerLoader from '@/components/common/SpinnerLoader';
+import SpinnerLoader from '@/components/ui/SpinnerLoader';
 import { authService } from '@/api/services/auth.service';
 import { toast } from 'sonner';
 import { getErrorMessage } from '@/api/api.utils';
@@ -17,12 +17,12 @@ import { useAuth } from '@/hooks/useAuth';
 import { userCreateSchema, type UserCreate } from '@/api/schemas/user.schemas';
 
 export const RegisterPage = () => {
-  const { 
-    register, 
-    handleSubmit, 
+  const {
+    register,
+    handleSubmit,
     formState: { errors, isSubmitting },
     reset
-  } = useForm<UserCreate>({ 
+  } = useForm<UserCreate>({
     resolver: zodResolver(userCreateSchema),
     defaultValues: {
       name: '',
@@ -36,12 +36,12 @@ export const RegisterPage = () => {
   const onSubmit = async (data: UserCreate) => {
     try {
       await authService.register(data);
-      
+
       const loginData: LoginFormData = {
         username: data.name,
         password: data.password
       };
-      
+
       await logIn(loginData);
 
       reset();
@@ -61,51 +61,51 @@ export const RegisterPage = () => {
         <span className='uppercase font-bold text-inactive tracking-widest text-center'>Join the event venue booking platform</span>
       </div>
       <Container>
-        <form 
+        <form
           onSubmit={handleSubmit(onSubmit)}
-          className='flex flex-col gap-5' 
-          aria-label='Create an account' 
-          noValidate 
+          className='flex flex-col gap-5'
+          aria-label='Create an account'
+          noValidate
         >
           <FormField label='username' required error={errors.name}>
             {(id) => (
-              <Input 
-                id={id} 
+              <Input
+                id={id}
                 required
-                iconName='user' 
-                placeholder='John Doe' 
-                intention={errors.name ? 'danger' : 'brand'} 
-                {...register('name')} 
+                iconName='user'
+                placeholder='John Doe'
+                intention={errors.name ? 'danger' : 'brand'}
+                {...register('name')}
                 {...(errors.name ? { 'aria-invalid': true, 'aria-errormessage': `${id}-error` } : {})}
               />)
             }
           </FormField>
-          
+
           <FormField label='password' required error={errors.password}>
             {(id) => (
-              <Input 
-                id={id} 
+              <Input
+                id={id}
                 required
-                type='password' 
-                iconName='lock' 
-                placeholder='••••••••' 
+                type='password'
+                iconName='lock'
+                placeholder='••••••••'
                 intention={errors.password ? 'danger' : 'brand'}
-                {...register('password')} 
+                {...register('password')}
                 {...(errors.password ? { 'aria-invalid': true, 'aria-errormessage': `${id}-error` } : {})}
               />
             )}
           </FormField>
-          
+
           <FormField label='confirm your password' required error={errors.password_confirm}>
               {(id) => (
-                <Input 
-                  id={id} 
+                <Input
+                  id={id}
                   required
-                  type='password' 
-                  iconName='lock' 
-                  placeholder='••••••••' 
+                  type='password'
+                  iconName='lock'
+                  placeholder='••••••••'
                   intention={errors.password_confirm ? 'danger' : 'brand'}
-                  {...register('password_confirm')} 
+                  {...register('password_confirm')}
                   {...(errors.password_confirm ? { 'aria-invalid': true, 'aria-errormessage': `${id}-error` } : {})}
                 />
               )}

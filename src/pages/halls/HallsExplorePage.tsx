@@ -1,19 +1,19 @@
-import Button from '@/components/common/Button';
+import Button from '@/components/ui/Button';
 import { PlusCircle } from 'lucide-react';
 import { ICON_SIZE } from '@/constants/ui.constants';
 import { FilterContainer } from '@/components/ui/FilterContainer';
-import { FilterSelect } from '@/components/ui/FilterSelect';
+import { FilterSelect } from '@/components/common/FilterSelect';
 import { HALL_AVAILABILITY_FILTER_ITEMS } from '@/constants/hall.constants';
 import { useEffect, useState } from 'react';
 import { hallAvailabilityFilterEnum, type HallAvailabilityFilter, type HallPagination } from '@/api/schemas/hall.schemas';
 import { hallService } from '@/api/services/hall.service';
 import { getErrorMessage } from '@/api/api.utils';
 import { toast } from 'sonner';
-import { HallCard } from '@/components/ui/HallCard';
+import { HallCard } from '@/pages/halls/components/HallCard';
 import { useSearchParams } from 'react-router';
-import SpinnerLoader from '@/components/common/SpinnerLoader';
-import { Pagination } from '@/components/ui/Pagination';
-import { CreateHallDrawer } from '@/components/ui/CreateHallDrawer';
+import SpinnerLoader from '@/components/ui/SpinnerLoader';
+import { Pagination } from '@/components/common/Pagination';
+import { CreateHallDrawer } from '@/pages/halls/components/CreateHallDrawer';
 
 export const HallsExplorePage = () => {
   const [searchParams, setSearchParams] = useSearchParams();

@@ -104,7 +104,7 @@ export const CreateHallDrawer = ({ children, onSuccess }: CreateHallDrawerProps)
                       {...field}
                       id={id}
                       placeholder='Type the hall description here.'
-                      className='text-sm leading-4.5 h-50 resize-none focus-within:ring-2'
+                      className='leading-4.5 h-50 resize-none focus-within:ring-2'
                       {...(fieldState.invalid ? { 'aria-invalid': true, 'aria-errormessage': `${id}-error` } : {})}
                     />)
                   }
@@ -150,7 +150,7 @@ export const CreateHallDrawer = ({ children, onSuccess }: CreateHallDrawerProps)
             )}
           </Button>
           <DrawerClose asChild>
-            <Button intent='gray'>Cancel</Button>
+            <Button intent='danger' filled={false} className='text-danger hover:text-danger-light'>Cancel</Button>
           </DrawerClose>
         </DrawerFooter>
       </DrawerContent>

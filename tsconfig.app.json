@@ -9,7 +9,6 @@
     "skipLibCheck": true,
 
     /* Aliases */
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
       "@utils": ["./src/lib/utils.ts"]

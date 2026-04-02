@@ -144,7 +144,7 @@ export const CreateHallDrawer = ({ children, onSuccess }: CreateHallDrawerProps)
               </>
             ) : (
               <>
-                <span><CircleFadingArrowUp size={ICON_SIZE.MD} /></span>
+                <span><CircleFadingArrowUp size={ICON_SIZE.MD} aria-hidden /></span>
                 <span>Create</span>
               </>
             )}

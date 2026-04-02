@@ -13,6 +13,7 @@ import { HallCard } from '@/components/ui/HallCard';
 import { useSearchParams } from 'react-router';
 import SpinnerLoader from '@/components/common/SpinnerLoader';
 import { Pagination } from '@/components/ui/Pagination';
+import { CreateHallDrawer } from '@/components/ui/CreateHallDrawer';
 
 export const HallsExplorePage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -76,6 +77,13 @@ export const HallsExplorePage = () => {
           <span className='w-min 2xs:w-auto'>New Hall</span>
         </Button>
       </header>
+
+      <CreateHallDrawer>
+        <Button className='text-2xs uppercase' intent='hall' filled shadow darkFocus >
+          <span><PlusCircle size={ICON_SIZE.MD} aria-hidden /></span>
+          <span className='w-min 2xs:w-auto'>New Hall</span>
+        </Button>
+      </CreateHallDrawer>
 
       <section>
         <h2 className='font-bold uppercase text-sm text-gray tracking-wider'>Filters</h2>

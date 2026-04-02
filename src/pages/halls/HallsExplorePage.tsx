@@ -13,6 +13,7 @@ import { HallCard } from '@/components/ui/HallCard';
 import { useSearchParams } from 'react-router';
 import SpinnerLoader from '@/components/common/SpinnerLoader';
 import { Pagination } from '@/components/ui/Pagination';
+import { CreateHallDrawer } from '@/components/ui/CreateHallDrawer';
 
 export const HallsExplorePage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -30,6 +31,8 @@ export const HallsExplorePage = () => {
   else status = statusParse.data;
 
   const [hallsPagination, setHallsPagination] = useState<HallPagination | null>(null);
+
+  const [refreshCount, setRefreshCount] = useState<number>(0);
 
   useEffect(() => {
     let isCurrent = true;
@@ -57,7 +60,7 @@ export const HallsExplorePage = () => {
       controller.abort();
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, status]);
+  }, [page, status, refreshCount]);
 
   const handleFilterClick = (value: HallAvailabilityFilter) => {
     setSearchParams({ page: page.toString(), status: value }, { replace: true });
@@ -65,17 +68,22 @@ export const HallsExplorePage = () => {
 
   const handlePageClick = (num: number) => {
     setSearchParams({ page: num.toString(), status }, { replace: true });
-  }
+  };
 
   return (
     <div className='max-w-xl w-full mx-auto flex flex-col gap-7 grow'>
-      <header className='flex justify-between gap-3 items-center'>
-        <h1 className='font-bold text-lg xs:text-2xl uppercase'>Explore Halls</h1>
-        <Button className='text-2xs uppercase' intent='hall' filled shadow darkFocus >
-          <span><PlusCircle size={ICON_SIZE.MD} aria-hidden /></span>
-          <span className='w-min 2xs:w-auto'>New Hall</span>
-        </Button>
-      </header>
+      <section className='flex justify-between gap-3 items-center'>
+        <header>
+          <h1 className='font-bold text-lg xs:text-2xl uppercase'>Explore Halls</h1>
+        </header>
+
+        <CreateHallDrawer onSuccess={() => setRefreshCount((prev) => prev + 1)}>
+          <Button className='text-2xs uppercase' intent='hall' filled shadow darkFocus >
+            <span><PlusCircle size={ICON_SIZE.MD} aria-hidden /></span>
+            <span className='w-min 2xs:w-auto'>New Hall</span>
+          </Button>
+        </CreateHallDrawer>
+      </section>
 
       <section>
         <h2 className='font-bold uppercase text-sm text-gray tracking-wider'>Filters</h2>
@@ -102,35 +110,35 @@ export const HallsExplorePage = () => {
           </div>
         ) : (
           <>
-              {hallsPagination ? (
-                <>
-                  <ul className='flex flex-col gap-3 mb-5'>
-                    {hallsPagination.items.map((hall) => {
-                      const descPreview = hall.description.length > 100 ?
-                        hall.description.slice(0, 97) + '...' :
-                        hall.description
+            {hallsPagination ? (
+              <>
+                <ul className='flex flex-col gap-3 mb-5'>
+                  {hallsPagination.items.map((hall) => {
+                    const descPreview = hall.description.length > 100 ?
+                      hall.description.slice(0, 97) + '...' :
+                      hall.description
 
-                      return (
-                        <li key={hall.id}>
-                          <HallCard hall={{
-                            id: hall.id,
-                            name: hall.name,
-                            is_available: hall.is_available,
-                            preview: descPreview
-                          }} />
-                        </li>
-                      )
-                    })}
-                  </ul>
-                  <Pagination
-                    pages={hallsPagination.pages}
-                    current_page={hallsPagination.current_page}
-                    has_next={hallsPagination.has_next}
-                    has_prev={hallsPagination.has_prev}
-                    onPageClick={handlePageClick}
-                  />
-                </>
-              ) : null}
+                    return (
+                      <li key={hall.id}>
+                        <HallCard hall={{
+                          id: hall.id,
+                          name: hall.name,
+                          is_available: hall.is_available,
+                          preview: descPreview
+                        }} />
+                      </li>
+                    )
+                  })}
+                </ul>
+                <Pagination
+                  pages={hallsPagination.pages}
+                  current_page={hallsPagination.current_page}
+                  has_next={hallsPagination.has_next}
+                  has_prev={hallsPagination.has_prev}
+                  onPageClick={handlePageClick}
+                />
+              </>
+            ) : null}
           </>
         )}
       </section>

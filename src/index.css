@@ -27,28 +27,57 @@ body,
   --breakpoint-xs: 30rem;
   --breakpoint-2xs: 24rem;
 
-  --color-inactive: var(--color-slate-400);
-
+  /* --- BRAND --- */
   --color-brand: var(--color-indigo-400);
   --color-brand-light: var(--color-indigo-100);
   --color-brand-dark: var(--color-indigo-900);
 
-  --color-hall: var(--color-emerald-600);
-  --color-hall-light: var(--color-emerald-100);
-  --color-hall-dark: var(--color-emerald-900);
+  /* --- ENTITIES --- */
+  /* Halls */
+  --color-hall: var(--color-teal-600);
+  --color-hall-light: var(--color-teal-100);
+  --color-hall-dark: var(--color-teal-900);
 
+  /* Reservations */
+  --color-res: var(--color-violet-500);
+  --color-res-light: var(--color-violet-100);
+  --color-res-dark: var(--color-violet-900);
+
+  /* Users */
+  --color-user: var(--color-fuchsia-600);
+  --color-user-light: var(--color-fuchsia-100);
+  --color-user-dark: var(--color-fuchsia-900);
+
+  /* --- SEMANTIC STATES --- */
+  /* Success */
+  --color-success-light: var(--color-green-200);
+  --color-success: var(--color-green-600);
+  --color-success-dark: var(--color-green-950);
+
+  /* Warning */
+  --color-warning-light: var(--color-amber-200);
+  --color-warning: var(--color-amber-500);
+  --color-warning-dark: var(--color-amber-950);
+
+  /* Info */
+  --color-info-light: var(--color-sky-200);
+  --color-info: var(--color-sky-500);
+  --color-info-dark: var(--color-sky-950);
+
+  /* Danger */
+  --color-danger-light: var(--color-red-200);
   --color-danger: var(--color-red-500);
+  --color-danger-dark: var(--color-red-950);
 
+  /* --- NEUTRALS & UI --- */
+  --color-inactive: var(--color-slate-400);
   --color-gray: var(--color-slate-500);
   --color-light-gray: #DCE0E5;
   --color-dark-gray: #212121;
-
   --color-slate-gray: var(--color-slate-700);
   --color-slate-dark: var(--color-slate-900);
-
   --color-white: var(--color-slate-100);
   --color-subtle-white: #ECF0F5;
-
   --color-dark: var(--color-neutral-900);
 }
 

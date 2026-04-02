@@ -1,10 +1,10 @@
 import { getErrorMessage } from '@/api/api.utils';
 import type { Hall } from '@/api/schemas/hall.schemas';
 import { hallService } from '@/api/services/hall.service';
-import { Badge } from '@/components/common/Badge';
-import Button from '@/components/common/Button';
+import { Badge } from '@/components/ui/Badge';
+import Button from '@/components/ui/Button';
 import Container from '@/components/common/Container';
-import SpinnerLoader from '@/components/common/SpinnerLoader';
+import SpinnerLoader from '@/components/ui/SpinnerLoader';
 import { ICON_SIZE } from '@/constants/ui.constants';
 import { ArrowLeft, Calendar, Edit2 } from 'lucide-react';
 import { useEffect, useState } from 'react';

@@ -1,6 +1,6 @@
 import type { HallPreview} from '@/api/schemas/hall.schemas';
 import { Link } from 'react-router';
-import { Badge } from '../common/Badge';
+import { Badge } from './Badge';
 import { PATHS } from '@/paths';
 
 interface HallCardProps {

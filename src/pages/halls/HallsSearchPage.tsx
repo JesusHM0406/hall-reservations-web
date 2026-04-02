@@ -7,10 +7,10 @@ import { getErrorMessage } from '@/api/api.utils';
 import { toast } from 'sonner';
 import { hallService } from '@/api/services/hall.service';
 import { SearchInput } from '@/components/ui/SearchInput';
-import Button from '@/components/common/Button';
+import Button from '@/components/ui/Button';
 import { ArrowUp } from 'lucide-react';
 import { ICON_SIZE } from '@/constants/ui.constants';
-import SpinnerLoader from '@/components/common/SpinnerLoader';
+import SpinnerLoader from '@/components/ui/SpinnerLoader';
 
 export const HallsSearchPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();

@@ -1,23 +1,23 @@
 import { ArrowRight, Shield } from 'lucide-react';
-import Button from '@/components/common/Button';
+import Button from '@/components/ui/Button';
 import Container from '@/components/common/Container';
 import FormField from '@/components/common/FormField';
-import Input from '@/components/common/Input';
+import Input from '@/components/ui/Input';
 import { ICON_SIZE } from '@/constants/ui.constants';
 import { Link } from 'react-router';
 import { PATHS } from '@/paths';
 import { useForm } from 'react-hook-form';
 import { loginRequestSchema, type LoginFormData } from '@/api/schemas/auth.schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
-import SpinnerLoader from '@/components/common/SpinnerLoader';
+import SpinnerLoader from '@/components/ui/SpinnerLoader';
 import { getErrorMessage } from '@/api/api.utils';
 import { toast } from 'sonner';
 import { useAuth } from '@/hooks/useAuth';
 
 export const LoginPage = () => {
   const  {
-    register, 
-    handleSubmit, 
+    register,
+    handleSubmit,
     formState: { errors, isSubmitting },
     reset
   } = useForm<LoginFormData>({
@@ -46,41 +46,41 @@ export const LoginPage = () => {
         <span className='uppercase font-bold text-inactive tracking-widest text-center'>Event venue booking platform</span>
       </div>
       <Container>
-        <form 
-          onSubmit={handleSubmit(onSubmit)} 
-          className='flex flex-col gap-5' 
-          aria-label='Login form' 
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className='flex flex-col gap-5'
+          aria-label='Login form'
           noValidate
         >
           <FormField label='username' required error={errors.username}>
             {(id) => (
-              <Input 
-                id={id} 
+              <Input
+                id={id}
                 required
-                iconName='user' 
-                placeholder='John Doe' 
+                iconName='user'
+                placeholder='John Doe'
                 intention={errors.username ? 'danger' : 'brand'}
-                {...register('username')} 
+                {...register('username')}
                 {...(errors.username ? { 'aria-invalid': true, 'aria-errormessage': `${id}-error` } : {})}
               />)
             }
           </FormField>
-          
+
           <FormField label='password' required error={errors.password}>
             {(id) => (
-              <Input 
-                id={id} 
+              <Input
+                id={id}
                 required
-                type='password' 
-                iconName='lock' 
-                placeholder='••••••••' 
+                type='password'
+                iconName='lock'
+                placeholder='••••••••'
                 intention={errors.password ? 'danger' : 'brand'}
-                {...register('password')} 
+                {...register('password')}
                 {...(errors.password ? { 'aria-invalid': true, 'aria-errormessage': `${id}-error` } : {})}
               />
             )}
           </FormField>
-          
+
           <Button className='mt-3' type='submit' disabled={isSubmitting}>
             {isSubmitting ? <SpinnerLoader /> : (
               <>

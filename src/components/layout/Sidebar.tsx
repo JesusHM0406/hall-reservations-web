@@ -1,6 +1,6 @@
 import { useRef, useState, type HTMLAttributes } from 'react';
 import { SIDEBAR_ITEMS } from '@/config/sidebar-config';
-import Button from '../common/Button';
+import Button from '../ui/Button';
 import SidebarItem from '../ui/SidebarItem';
 import { NavLink } from 'react-router';
 import { PATHS } from '@/paths';
@@ -30,9 +30,9 @@ const Sidebar = ({ isSidebarOpen, closeMethod, isDesktop, className, ...props }:
 
   return (
     <>
-      <aside 
-        {...props} 
-        ref={asideRef} 
+      <aside
+        {...props}
+        ref={asideRef}
         className={cn(
           'shrink-0 w-60 px-4 py-8 flex transition-[margin] overflow-hidden text-sm',
           isSidebarOpen ? 'ml-0' : '-ml-60',
@@ -41,11 +41,11 @@ const Sidebar = ({ isSidebarOpen, closeMethod, isDesktop, className, ...props }:
         )}
       >
         <nav className='grow flex flex-col' aria-label='Main navigation sidebar'>
-          <button 
-            ref={closeBtnRef} 
+          <button
+            ref={closeBtnRef}
             aria-label='Close main navigation sidebar'
             type='button'
-            className='cursor-pointer p-2.5 w-fit rounded-xl border-2 border-brand text-inactive mb-6 self-end transition-colors duration-150 hover:bg-brand hover:text-white md:hidden' 
+            className='cursor-pointer p-2.5 w-fit rounded-xl border-2 border-brand text-inactive mb-6 self-end transition-colors duration-150 hover:bg-brand hover:text-white md:hidden'
             onClick={closeMethod}
           >
             <X size={ICON_SIZE.SM} aria-hidden='true' />
@@ -83,7 +83,7 @@ const Sidebar = ({ isSidebarOpen, closeMethod, isDesktop, className, ...props }:
                 <span>Register</span>
               </NavLink>
             </Button>
-            
+
             <Button asChild onClick={closeMethod} filled={false} intent='gray' >
               <NavLink to={`/${PATHS.auth.root}/${PATHS.auth.login}`}>
                 <LogIn size={ICON_SIZE.MD} aria-hidden='true' />

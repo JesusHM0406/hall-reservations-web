@@ -1,4 +1,4 @@
-import Button from '@/components/common/Button';
+import Button from '@/components/ui/Button';
 import { PlusCircle } from 'lucide-react';
 import { ICON_SIZE } from '@/constants/ui.constants';
 import { FilterContainer } from '@/components/ui/FilterContainer';
@@ -11,7 +11,7 @@ import { getErrorMessage } from '@/api/api.utils';
 import { toast } from 'sonner';
 import { HallCard } from '@/components/ui/HallCard';
 import { useSearchParams } from 'react-router';
-import SpinnerLoader from '@/components/common/SpinnerLoader';
+import SpinnerLoader from '@/components/ui/SpinnerLoader';
 import { Pagination } from '@/components/ui/Pagination';
 import { CreateHallDrawer } from '@/components/ui/CreateHallDrawer';
 

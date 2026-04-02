@@ -8,8 +8,11 @@ const badgeVariants = cva(
   {
     variants: {
       intent: {
-        success: 'bg-green-200/80 text-green-700 dark:bg-green-950 dark:text-green-300',
-        danger: 'bg-red-200/60 text-red-700 dark:bg-red-950 dark:text-red-300'
+        success: 'bg-success-light text-green-800 dark:bg-success-dark dark:text-success-light',
+        danger: 'bg-danger-light text-red-800 dark:bg-danger-dark dark:text-danger-light',
+        info: 'bg-info-light text-sky-800 dark:bg-info-dark dark:text-info-light',
+        warning: 'bg-warning-light text-amber-800 dark:bg-warning-dark dark:text-warning-light',
+        brand: 'bg-brand-light text-indigo-800 dark:bg-brand-dark dark:text-brand-light'
       }
     }
   }

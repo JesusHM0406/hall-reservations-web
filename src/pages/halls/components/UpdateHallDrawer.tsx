@@ -110,7 +110,7 @@ export const UpdateHallDrawer = ({ children, onSuccess, hallId }: UpdateHallDraw
             onSubmit={form.handleSubmit(onValidSubmit)}
             id='update-hall-form'
             className='flex flex-col gap-5 grow'
-            aria-label='Form to update a new hall'
+            aria-label='Form to update a hall'
             noValidate
           >
             <Controller

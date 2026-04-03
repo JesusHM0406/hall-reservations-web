@@ -10,6 +10,7 @@ import { ArrowLeft, Calendar, Edit2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { toast } from 'sonner';
+import { UpdateHallDrawer } from './components/UpdateHallDrawer';
 
 export const HallDetailPage = () => {
   const hallId = useParams().hallId;
@@ -88,14 +89,17 @@ export const HallDetailPage = () => {
                   </span>
                   <span className='uppercase text-xs'>Reserve hall</span>
                 </Button>
-                <Button
-                  filled={false}
-                  intent='hall'
-                  className='text-hall hover:text-hall-light dark:text-hall-light'
-                  aria-label='Edit this hall'
-                >
-                  <Edit2 size={ICON_SIZE.SM} aria-hidden />
-                </Button>
+
+                <UpdateHallDrawer onSuccess={() => {}} hallId={numericId}>
+                  <Button
+                    filled={false}
+                    intent='hall'
+                    className='text-hall hover:text-hall-light dark:text-hall-light'
+                    aria-label='Edit this hall'
+                  >
+                    <Edit2 size={ICON_SIZE.SM} aria-hidden />
+                  </Button>
+                </UpdateHallDrawer>
               </footer>
             </>
           )}

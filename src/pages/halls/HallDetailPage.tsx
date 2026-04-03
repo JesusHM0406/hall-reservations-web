@@ -12,6 +12,7 @@ import { useNavigate, useParams } from 'react-router';
 import { toast } from 'sonner';
 import { UpdateHallDrawer } from './components/UpdateHallDrawer';
 import { BookHallDrawer } from './components/BookHallDrawer';
+import { AllowTo } from '@/components/common/AllowTo';
 
 export const HallDetailPage = () => {
   const hallId = useParams().hallId;
@@ -86,25 +87,29 @@ export const HallDetailPage = () => {
               </section>
 
               <footer className='flex gap-2 mt-3'>
-                <BookHallDrawer hallId={numericId} hallName={hallDetail.name}>
-                  <Button className='grow' disabled={!isAva}>
-                    <span>
-                      <Calendar size={ICON_SIZE.SM} aria-hidden />
-                    </span>
-                    <span className='uppercase text-xs'>Reserve hall</span>
-                  </Button>
-                </BookHallDrawer>
+                <AllowTo roles={['admin', 'superadmin', 'user']}>
+                  <BookHallDrawer hallId={numericId} hallName={hallDetail.name}>
+                    <Button className='grow' disabled={!isAva}>
+                      <span>
+                        <Calendar size={ICON_SIZE.SM} aria-hidden />
+                      </span>
+                      <span className='uppercase text-xs'>Reserve hall</span>
+                    </Button>
+                  </BookHallDrawer>
+                </AllowTo>
 
-                <UpdateHallDrawer onSuccess={() => setRefreshCount((prev) => prev + 1)} hallId={numericId}>
-                  <Button
-                    filled={false}
-                    intent='hall'
-                    className='text-hall hover:text-hall-light dark:text-hall-light'
-                    aria-label='Edit this hall'
-                  >
-                    <Edit2 size={ICON_SIZE.SM} aria-hidden />
-                  </Button>
-                </UpdateHallDrawer>
+                <AllowTo roles={['admin', 'superadmin']}>
+                  <UpdateHallDrawer onSuccess={() => setRefreshCount((prev) => prev + 1)} hallId={numericId}>
+                    <Button
+                      filled={false}
+                      intent='hall'
+                      className='text-hall hover:text-hall-light dark:text-hall-light'
+                      aria-label='Edit this hall'
+                    >
+                      <Edit2 size={ICON_SIZE.SM} aria-hidden />
+                    </Button>
+                  </UpdateHallDrawer>
+                </AllowTo>
               </footer>
             </>
           )}

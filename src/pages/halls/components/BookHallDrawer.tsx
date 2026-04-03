@@ -34,6 +34,7 @@ interface BookHallDrawerProps {
 export const BookHallDrawer = ({ children, hallId, hallName }: BookHallDrawerProps) => {
   const [date, setDate] = useState<Date>();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const makeReservation = async () => {
     if (!date) {
@@ -63,6 +64,7 @@ export const BookHallDrawer = ({ children, hallId, hallName }: BookHallDrawerPro
       });
 
       toast.success('The reservation has been successfully created.');
+      setIsOpen(false);
     } catch(e) {
       const msg = getErrorMessage(e);
       if (msg) toast.error(msg);
@@ -72,7 +74,7 @@ export const BookHallDrawer = ({ children, hallId, hallName }: BookHallDrawerPro
   };
 
   return (
-    <Drawer direction='bottom'>
+    <Drawer open={isOpen} onOpenChange={setIsOpen} direction='bottom'>
       <DrawerTrigger asChild>
         {children}
       </DrawerTrigger>

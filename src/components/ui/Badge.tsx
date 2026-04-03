@@ -4,7 +4,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@utils';
 
 const badgeVariants = cva(
-  'text-[9px] leading-[14px] inline-flex gap-1 items-center font-bold uppercase tracking-wider py-1 px-2 rounded-full w-fit',
+  'text-[8px] inline-flex gap-1 items-center font-bold uppercase tracking-wider py-1 px-1.5 rounded-full w-fit',
   {
     variants: {
       intent: {
@@ -32,7 +32,7 @@ export const Badge = ({ label, iconName, intent, ariaLabel}: BadgeProps) => {
       className={cn(badgeVariants({ intent }))}
       aria-label={ariaLabel}
     >
-      {iconName ? <DynamicIcon name={iconName} size={ICON_SIZE.SM} aria-hidden /> : null}
+      {iconName ? <DynamicIcon name={iconName} size={ICON_SIZE.XS} aria-hidden /> : null}
       {label}
     </span>
   )

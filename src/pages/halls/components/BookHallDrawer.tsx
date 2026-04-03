@@ -60,7 +60,7 @@ export const BookHallDrawer = ({ children, hallId, hallName }: BookHallDrawerPro
     try {
       await reservationService.create({
         hall_id: hallId,
-        reservation_date: date.toISOString().split('T')[0]
+        reservation_date: format(date, 'yyyy-MM-dd')
       });
 
       toast.success('The reservation has been successfully created.');

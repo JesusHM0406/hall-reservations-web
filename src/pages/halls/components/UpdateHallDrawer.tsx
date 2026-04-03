@@ -20,7 +20,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
 import { hallService } from '@/api/services/hall.service';
 import { getErrorMessage } from '@/api/api.utils';
-import { CircleArrowUp } from 'lucide-react';
+import { CircleArrowDown, CircleArrowUp } from 'lucide-react';
 import { ICON_SIZE } from '@/constants/ui.constants';
 import SpinnerLoader from '@/components/ui/SpinnerLoader';
 
@@ -42,6 +42,8 @@ export const UpdateHallDrawer = ({ children, onSuccess, hallId }: UpdateHallDraw
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
+  const [isLoadingCurrData, setIsLoadingCurrData] = useState<boolean>(false);
+
   const onValidSubmit = async (updateData: HallUpdate) => {
     try {
       await hallService.update(hallId, {
@@ -61,6 +63,20 @@ export const UpdateHallDrawer = ({ children, onSuccess, hallId }: UpdateHallDraw
     }
   };
 
+  const loadCurrentData = async () => {
+    setIsLoadingCurrData(true);
+    try {
+      const currData = await hallService.byId(hallId);
+
+      form.reset(currData);
+    } catch(e) {
+      const msg = getErrorMessage(e);
+      if (msg) toast.error(msg);
+    } finally {
+      setIsLoadingCurrData(false);
+    }
+  };
+
   return (
     <Drawer open={isOpen} onOpenChange={setIsOpen} direction='right'>
       <DrawerTrigger asChild>
@@ -71,7 +87,25 @@ export const UpdateHallDrawer = ({ children, onSuccess, hallId }: UpdateHallDraw
           <DrawerTitle>Update a hall</DrawerTitle>
           <DrawerDescription>The fields below are optional.</DrawerDescription>
         </DrawerHeader>
-        <div className='p-4 h-full flex overflow-y-auto'>
+        <div className='p-4 h-full flex flex-col overflow-y-auto'>
+          <Button
+            className='mb-5 text-xs text-brand dark:text-brand-light'
+            filled={false}
+            onClick={loadCurrentData}
+            disabled={isLoadingCurrData}
+          >
+            {isLoadingCurrData ? (
+              <>
+                <span><SpinnerLoader size='xs' /></span>
+                <span>Loading current data...</span>
+              </>
+            ) : (
+              <>
+                <span><CircleArrowDown size={ICON_SIZE.MD} /></span>
+                <span>Load Current Data</span>
+              </>
+            )}
+          </Button>
           <form
             onSubmit={form.handleSubmit(onValidSubmit)}
             id='update-hall-form'
@@ -135,7 +169,7 @@ export const UpdateHallDrawer = ({ children, onSuccess, hallId }: UpdateHallDraw
         </div>
         <DrawerFooter className='flex flex-row'>
           <Button
-            className='grow px-2 transition w-0! overflow-hidden'
+            className='grow px-2 transition w-0! overflow-hidden text-xs'
             type='submit'
             form='update-hall-form'
             intent='hall'
@@ -154,7 +188,7 @@ export const UpdateHallDrawer = ({ children, onSuccess, hallId }: UpdateHallDraw
             )}
           </Button>
           <DrawerClose asChild>
-            <Button intent='danger' filled={false} className='text-danger hover:text-danger-light'>Cancel</Button>
+            <Button intent='danger' filled={false} className='text-danger text-xs hover:text-danger-light'>Cancel</Button>
           </DrawerClose>
         </DrawerFooter>
       </DrawerContent>

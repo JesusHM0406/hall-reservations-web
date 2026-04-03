@@ -125,7 +125,10 @@ export const UsersPage = () => {
       </section>
 
       <section className='flex flex-col grow'>
-        <h2 className='font-bold uppercase text-sm text-gray tracking-wider mb-3'>Showing all users</h2>
+        <h2 className='font-bold uppercase text-sm text-gray tracking-wider mb-3'>
+          Showing all users
+          {usersPag ? ` (${usersPag.total})` : ''}
+        </h2>
         {isLoading ? (
             <div className='grid place-content-center my-3 w-full grow'>
               <div className='flex flex-col items-center'>

@@ -128,7 +128,7 @@ export const BookHallDrawer = ({ children, hallId, hallName }: BookHallDrawerPro
               <SpinnerLoader size='xs' />
             ) : (
               <>
-                <span><CalendarIcon size={ICON_SIZE.SM} /></span>
+                <span><CalendarIcon size={ICON_SIZE.SM} aria-hidden /></span>
                 <span>Book now</span>
               </>
             )}

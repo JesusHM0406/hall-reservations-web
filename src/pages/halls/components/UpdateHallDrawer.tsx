@@ -101,7 +101,7 @@ export const UpdateHallDrawer = ({ children, onSuccess, hallId }: UpdateHallDraw
               </>
             ) : (
               <>
-                <span><CircleArrowDown size={ICON_SIZE.MD} /></span>
+                <span><CircleArrowDown size={ICON_SIZE.MD} aria-hidden /></span>
                 <span>Load Current Data</span>
               </>
             )}

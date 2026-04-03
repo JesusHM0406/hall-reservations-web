@@ -28,9 +28,10 @@ import SpinnerLoader from '@/components/ui/SpinnerLoader';
 interface BookHallDrawerProps {
   children: ReactNode;
   hallId: number;
+  hallName: string;
 }
 
-export const BookHallDrawer = ({ children, hallId }: BookHallDrawerProps) => {
+export const BookHallDrawer = ({ children, hallId, hallName }: BookHallDrawerProps) => {
   const [date, setDate] = useState<Date>();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
@@ -78,7 +79,8 @@ export const BookHallDrawer = ({ children, hallId }: BookHallDrawerProps) => {
       <DrawerContent>
         <DrawerHeader>
           <DrawerTitle>Create a new reservation</DrawerTitle>
-          <DrawerDescription>You are about to book hall x. Please select the date below.</DrawerDescription>
+          <DrawerDescription>
+            You are about to book the hall named {hallName}. Please select the date below.</DrawerDescription>
         </DrawerHeader>
         <div>
           <form

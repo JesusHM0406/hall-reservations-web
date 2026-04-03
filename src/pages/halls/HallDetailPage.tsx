@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { toast } from 'sonner';
 import { UpdateHallDrawer } from './components/UpdateHallDrawer';
+import { BookHallDrawer } from './components/BookHallDrawer';
 
 export const HallDetailPage = () => {
   const hallId = useParams().hallId;
@@ -85,12 +86,14 @@ export const HallDetailPage = () => {
               </section>
 
               <footer className='flex gap-2 mt-3'>
-                <Button className='grow' disabled={!isAva}>
-                  <span>
-                    <Calendar size={ICON_SIZE.SM} aria-hidden />
-                  </span>
-                  <span className='uppercase text-xs'>Reserve hall</span>
-                </Button>
+                <BookHallDrawer hallId={numericId} hallName={hallDetail.name}>
+                  <Button className='grow' disabled={!isAva}>
+                    <span>
+                      <Calendar size={ICON_SIZE.SM} aria-hidden />
+                    </span>
+                    <span className='uppercase text-xs'>Reserve hall</span>
+                  </Button>
+                </BookHallDrawer>
 
                 <UpdateHallDrawer onSuccess={() => setRefreshCount((prev) => prev + 1)} hallId={numericId}>
                   <Button

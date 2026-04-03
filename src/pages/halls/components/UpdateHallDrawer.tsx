@@ -169,7 +169,7 @@ export const UpdateHallDrawer = ({ children, onSuccess, hallId }: UpdateHallDraw
         </div>
         <DrawerFooter className='flex flex-row'>
           <Button
-            className='grow px-2 transition w-0! overflow-hidden text-xs'
+            className='grow px-2 text-xs'
             type='submit'
             form='update-hall-form'
             intent='hall'

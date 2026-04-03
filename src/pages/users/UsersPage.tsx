@@ -47,7 +47,10 @@ export const UsersPage = () => {
 
         if (isCurrent) {
           setUsersPag(data);
-          setSearchParams({ page: page.toString(), role: realRole, status: realStatus }, { replace:true });
+          setSearchParams(
+            { page: page.toString(), role: realRole, status: realStatus },
+            { replace:true }
+          );
         }
       } catch(e) {
         const msg = getErrorMessage(e);
@@ -65,6 +68,20 @@ export const UsersPage = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, realRole, realStatus]);
 
+  const handleRoleFilterClick = (value: UserRoleFilter) => {
+    setSearchParams(
+      { page: page.toString(), role: value, status: realStatus },
+      { replace:true }
+    );
+  };
+
+  const handleStatusFilterClick = (value:UserStatusFilter) => {
+    setSearchParams(
+      { page: page.toString(), role: realRole, status: value },
+      { replace:true }
+    );
+  };
+
   return (
     <div className='max-w-xl w-full mx-auto flex flex-col gap-7'>
       <header className='flex justify-between gap-3 items-center'>
@@ -78,9 +95,9 @@ export const UsersPage = () => {
             {(id) => (
               <FilterSelect
                 id={id}
-                value='all'
+                value={realRole}
                 items={USER_ROLE_FILTER_ITEMS}
-                onValueChange={() => {}}
+                onValueChange={handleRoleFilterClick}
                 placeholder='Select role'
               />
             )}
@@ -89,9 +106,9 @@ export const UsersPage = () => {
             {(id) => (
               <FilterSelect
                 id={id}
-                value='all'
+                value={realStatus}
                 items={USER_STATUS_FILTER_ITEMS}
-                onValueChange={() => {}}
+                onValueChange={handleStatusFilterClick}
                 placeholder='Select status'
               />
             )}

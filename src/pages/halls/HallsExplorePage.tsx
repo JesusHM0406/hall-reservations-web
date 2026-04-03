@@ -14,6 +14,7 @@ import { useSearchParams } from 'react-router';
 import SpinnerLoader from '@/components/ui/SpinnerLoader';
 import { Pagination } from '@/components/common/Pagination';
 import { CreateHallDrawer } from '@/pages/halls/components/CreateHallDrawer';
+import { AllowTo } from '@/components/common/AllowTo';
 
 export const HallsExplorePage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -77,12 +78,14 @@ export const HallsExplorePage = () => {
           <h1 className='font-bold text-lg xs:text-2xl uppercase'>Explore Halls</h1>
         </header>
 
-        <CreateHallDrawer onSuccess={() => setRefreshCount((prev) => prev + 1)}>
-          <Button className='text-2xs uppercase' intent='hall' filled shadow darkFocus >
-            <span><PlusCircle size={ICON_SIZE.MD} aria-hidden /></span>
-            <span className='w-min 2xs:w-auto'>New Hall</span>
-          </Button>
-        </CreateHallDrawer>
+        <AllowTo roles={['admin', 'superadmin']}>
+          <CreateHallDrawer onSuccess={() => setRefreshCount((prev) => prev + 1)}>
+            <Button className='text-2xs uppercase' intent='hall' filled shadow darkFocus >
+              <span><PlusCircle size={ICON_SIZE.MD} aria-hidden /></span>
+              <span className='w-min 2xs:w-auto'>New Hall</span>
+            </Button>
+          </CreateHallDrawer>
+        </AllowTo>
       </section>
 
       <section>

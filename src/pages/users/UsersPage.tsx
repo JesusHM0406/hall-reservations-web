@@ -15,6 +15,7 @@ import { getErrorMessage } from '@/api/api.utils';
 import { toast } from 'sonner';
 import { userService } from '@/api/services/user.service';
 import SpinnerLoader from '@/components/ui/SpinnerLoader';
+import { Pagination } from '@/components/common/Pagination';
 
 export const UsersPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -82,6 +83,13 @@ export const UsersPage = () => {
     );
   };
 
+  const handlePageClick = (num: number) => {
+    setSearchParams(
+      { page: num.toString(), role: realRole, status: realStatus },
+      { replace:true }
+    );
+  }
+
   return (
     <div className='max-w-xl w-full mx-auto flex flex-col gap-7'>
       <header className='flex justify-between gap-3 items-center'>
@@ -127,11 +135,22 @@ export const UsersPage = () => {
             </div>
           ) : (
             <ul className='flex flex-col gap-3 mb-5'>
-              {usersPag ? usersPag.items.map((user) => (
-                <li key={user.id}>
-                  <UserCard user={user} />
-                </li>
-              )) : null}
+              {usersPag ? (
+                <>
+                  {usersPag.items.map((user) => (
+                    <li key={user.id}>
+                      <UserCard user={user} />
+                    </li>
+                  ))}
+                  <Pagination
+                    pages={usersPag.pages}
+                    current_page={usersPag.current_page}
+                    has_next={usersPag.has_next}
+                    has_prev={usersPag.has_prev}
+                    onPageClick={handlePageClick}
+                  />
+                </>
+                ) : null}
             </ul>
           )}
       </section>

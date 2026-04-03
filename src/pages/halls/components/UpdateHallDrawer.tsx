@@ -89,7 +89,7 @@ export const UpdateHallDrawer = ({ children, onSuccess, hallId }: UpdateHallDraw
         </DrawerHeader>
         <div className='p-4 h-full flex flex-col overflow-y-auto'>
           <Button
-            className='mb-5 text-xs text-brand dark:text-brand-light'
+            className='mb-5 text-xs text-brand hover:text-brand-light dark:text-brand-light'
             filled={false}
             onClick={loadCurrentData}
             disabled={isLoadingCurrData}

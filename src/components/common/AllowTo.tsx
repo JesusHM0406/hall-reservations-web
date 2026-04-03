@@ -10,7 +10,7 @@ interface AllowToProps {
 export const AllowTo = ({ roles, children }: AllowToProps) => {
   const { user } = useAuth();
 
-  if (!user || user && !roles.includes(user.role)) return null;
+  if (!user || !roles.includes(user.role)) return null;
 
   return children;
 };

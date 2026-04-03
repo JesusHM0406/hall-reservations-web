@@ -63,7 +63,11 @@ export type UserUpdate = z.infer<typeof userUpdateSchema>;
 export type UserAdminUpdate = z.infer<typeof userAdminUpdateSchema>;
 
 export type UserPagination = z.infer<typeof userPaginationSchema>;
-export type UserRoleFilter = 'user' | 'admin' | 'superadmin' | 'all';
+
+export const userRoleFilterEnum = z.enum([...userRoles, 'all']);
+export type UserRoleFilter = z.infer<typeof userRoleFilterEnum>;
+
+export const userStatusFilterEnum = z.enum(['active', 'inactive', 'deleted', 'not_deleted', 'all']);
 export type UserStatusFilter = 'active' | 'inactive' | 'deleted' | 'not_deleted' | 'all';
 
 export interface UserPaginationParams {

@@ -45,6 +45,11 @@ export const UpdateHallDrawer = ({ children, onSuccess, hallId }: UpdateHallDraw
   const [isLoadingCurrData, setIsLoadingCurrData] = useState<boolean>(false);
 
   const onValidSubmit = async (updateData: HallUpdate) => {
+    if (!form.formState.isDirty) {
+      toast.info("The data hasn't changed.");
+      return;
+    }
+
     try {
       await hallService.update(hallId, {
         ...(updateData.name && updateData.name !== '' ? { name: updateData.name } : {}),

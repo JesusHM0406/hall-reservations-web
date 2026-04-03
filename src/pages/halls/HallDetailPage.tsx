@@ -20,6 +20,8 @@ export const HallDetailPage = () => {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  const [refreshCount, setRefreshCount] = useState<number>(0);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -47,7 +49,7 @@ export const HallDetailPage = () => {
       isCurrent = false;
       controller.abort();
     }
-  }, [numericId]);
+  }, [numericId, refreshCount]);
 
   const isAva = hallDetail?.is_available;
 
@@ -90,7 +92,7 @@ export const HallDetailPage = () => {
                   <span className='uppercase text-xs'>Reserve hall</span>
                 </Button>
 
-                <UpdateHallDrawer onSuccess={() => {}} hallId={numericId}>
+                <UpdateHallDrawer onSuccess={() => setRefreshCount((prev) => prev + 1)} hallId={numericId}>
                   <Button
                     filled={false}
                     intent='hall'

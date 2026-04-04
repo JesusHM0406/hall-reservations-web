@@ -97,7 +97,7 @@ export const HallsSearchPage = () => {
                 setSearchParams({ q: 'party' });
                 setSearch('party');
               }}
-              className='mx-auto uppercase text-xs font-bold tracking-wider hover:-translate-y-1'
+              className='mx-auto uppercase text-xs font-bold tracking-wider text-hall hover:text-hall-light hover:-translate-y-1 dark:text-hall-light'
             >
               <span>
                 <ArrowUp size={ICON_SIZE.SM} aria-hidden />

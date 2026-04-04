@@ -57,17 +57,19 @@ export const UpdateUserDrawer = ({ isOpen, onClose, user, returnFocusTargetId, o
   const onValid = async (data: UserAdminUpdate) => {
     if (!user) return;
 
-    if (!form.formState.isDirty) {
+    const payload: UserAdminUpdate = {
+      ...(form.formState.dirtyFields.name && data.name?.trim() ? { name: data.name } : {}),
+      ...(auth.user?.role === 'superadmin' && form.formState.dirtyFields.role && data.role ? { role: data.role } : {}),
+      ...(form.formState.dirtyFields.is_active ? { is_active: data.is_active } : {})
+    };
+
+    if (Object.keys(payload).length === 0) {
       toast.info("The data hasn't changed.");
       return;
     }
 
     try {
-      await userService.update(user.id, {
-        name: data.name,
-        ...(auth.user?.role === 'superadmin' ? { role: data.role } : {}),
-        is_active: data.is_active
-      });
+      await userService.update(user.id, payload);
 
       toast.success('The user has been updated successfully');
       onSuccess();

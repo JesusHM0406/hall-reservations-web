@@ -1,4 +1,6 @@
+import { getErrorMessage } from '@/api/api.utils';
 import { userAdminUpdateSchema, type User, type UserAdminUpdate } from '@/api/schemas/user.schemas';
+import { userService } from '@/api/services/user.service';
 import { AllowTo } from '@/components/common/AllowTo';
 import { FilterSelect } from '@/components/common/FilterSelect';
 import FormField from '@/components/common/FormField';
@@ -13,13 +15,16 @@ import {
   DrawerTitle
 } from '@/components/ui/drawer';
 import Input from '@/components/ui/Input';
+import SpinnerLoader from '@/components/ui/SpinnerLoader';
 import { Switch } from '@/components/ui/switch';
 import { ICON_SIZE } from '@/constants/ui.constants';
 import { USER_ROLE_OPTIONS_ITEMS } from '@/constants/user.constants';
+import { useAuth } from '@/hooks/useAuth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CircleArrowDown, CircleArrowUp } from 'lucide-react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 
 interface UpdateUserDrawerProps {
   isOpen: boolean;
@@ -44,7 +49,30 @@ export const UpdateUserDrawer = ({ isOpen, onClose, user, returnFocusTargetId }:
     form.reset(getFormValues(user));
   }, [user, form]);
 
-  const onValid = (_data: UserAdminUpdate) => {
+  const auth = useAuth();
+
+  const onValid = async (data: UserAdminUpdate) => {
+    if (!user) return;
+
+    if (!form.formState.isDirty) {
+      toast.info("The data hasn't changed.");
+      return;
+    }
+
+    try {
+      await userService.update(user.id, {
+        name: data.name,
+        ...(auth.user?.role === 'superadmin' ? { role: data.role } : {}),
+        is_active: data.is_active
+      });
+
+      toast.success('The user has been updated successfully');
+      onClose();
+      form.reset();
+    } catch(e) {
+      const msg = getErrorMessage(e);
+      if (msg) toast.error(msg);
+    }
   };
 
   return (
@@ -147,9 +175,19 @@ export const UpdateUserDrawer = ({ isOpen, onClose, user, returnFocusTargetId }:
             type='submit'
             form='update-user-form'
             intent='brand'
+            disabled={form.formState.isSubmitting}
           >
-            <span><CircleArrowUp size={ICON_SIZE.MD} aria-hidden /></span>
-            <span>Update</span>
+            {form.formState.isSubmitting ? (
+              <>
+                <SpinnerLoader size='xs' />
+                <span>Updating</span>
+              </>
+            ) : (
+              <>
+                <span><CircleArrowUp size={ICON_SIZE.MD} aria-hidden /></span>
+                <span>Update</span>
+              </>
+            )}
           </CustomButton>
           <DrawerClose asChild>
             <CustomButton intent='danger' filled={false} className='text-danger text-xs hover:text-danger-light'>Cancel</CustomButton>

@@ -36,8 +36,8 @@ interface UpdateUserDrawerProps {
 
 const getFormValues = (selectedUser: User | null): UserAdminUpdate => ({
   name: selectedUser?.name ?? '',
-  role: selectedUser?.role,
-  is_active: selectedUser?.is_active
+  role: selectedUser?.role ?? 'user',
+  is_active: selectedUser?.is_active ?? true
 });
 
 export const UpdateUserDrawer = ({ isOpen, onClose, user, returnFocusTargetId, onSuccess }: UpdateUserDrawerProps) =>{

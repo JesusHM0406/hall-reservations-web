@@ -21,7 +21,7 @@ interface UpdateUserDrawerProps {
 
 export const UpdateUserDrawer = ({ isOpen, onClose, user, returnFocusTargetId }: UpdateUserDrawerProps) =>{
   return (
-    <Drawer open={isOpen} onClose={onClose}>
+    <Drawer open={isOpen} onClose={onClose} direction='right'>
       <DrawerContent
         id='update-user-drawer'
         onOpenAutoFocus={(e) => {
@@ -43,15 +43,15 @@ export const UpdateUserDrawer = ({ isOpen, onClose, user, returnFocusTargetId }:
         <div className='p-4 h-full flex flex-col overflow-y-auto'>
           <CustomButton
             id='update-user-load-data-button'
-            className='mb-5 text-xs text-brand hover:text-brand-light dark:text-brand-light'
+            className='mb-5 text-xs text-brand dark:text-brand-light hover:bg-transparent'
             filled={false}
             onClick={() => {}}
           >
             <span><CircleArrowDown size={ICON_SIZE.MD} aria-hidden /></span>
-            <span>Load Current Data</span>
+            <span>Refresh User Data</span>
           </CustomButton >
           <form
-            onSubmit={() => {}}
+            onSubmit={(e) => {e.preventDefault()}}
             id='update-user-form'
             className='flex flex-col gap-5 grow'
             aria-label='Form to update a user'
@@ -64,8 +64,8 @@ export const UpdateUserDrawer = ({ isOpen, onClose, user, returnFocusTargetId }:
           <CustomButton
             className='grow px-2 text-xs'
             type='submit'
-            form='update-hall-form'
-            intent='hall'
+            form='update-user-form'
+            intent='brand'
           >
             <span><CircleArrowUp size={ICON_SIZE.MD} aria-hidden /></span>
             <span>Update</span>

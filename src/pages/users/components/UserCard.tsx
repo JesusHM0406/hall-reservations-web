@@ -28,7 +28,7 @@ export const UserCard = ({user}: {user: User}) => {
               ariaLabel={`The user ${user.is_deleted ? 'was deleted' : 'is not deleted'}`}
             />
           </div>
-          <h2 className='font-bold text-sm mt-2'>{user.name}</h2>
+          <h3 className='font-bold text-sm mt-2'>{user.name}</h3>
         </header>
         <button
           type='button'

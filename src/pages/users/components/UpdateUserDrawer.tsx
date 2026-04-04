@@ -1,4 +1,5 @@
 import { userAdminUpdateSchema, type User, type UserAdminUpdate } from '@/api/schemas/user.schemas';
+import { AllowTo } from '@/components/common/AllowTo';
 import { FilterSelect } from '@/components/common/FilterSelect';
 import FormField from '@/components/common/FormField';
 import CustomButton from '@/components/ui/Button';
@@ -102,23 +103,26 @@ export const UpdateUserDrawer = ({ isOpen, onClose, user, returnFocusTargetId }:
               )}
             />
 
-            <Controller
-              name='role'
-              control={form.control}
-              render={({ field, fieldState }) => (
-                <FormField label='role' error={fieldState.error}>
-                  {(id) => (
-                    <FilterSelect
-                      id={id}
-                      items={USER_ROLE_OPTIONS_ITEMS}
-                      onValueChange={field.onChange}
-                      placeholder='Select role'
-                      value={field.value}
-                    />
-                  )}
-                </FormField>
-              )}
-            />
+            <AllowTo roles={['superadmin']}>
+              <Controller
+                name='role'
+                control={form.control}
+                render={({ field, fieldState }) => (
+                  <FormField label='role' error={fieldState.error}>
+                    {(id) => (
+                      <FilterSelect
+                        id={id}
+                        items={USER_ROLE_OPTIONS_ITEMS}
+                        onValueChange={field.onChange}
+                        placeholder='Select role'
+                        value={field.value}
+                      />
+                    )}
+                  </FormField>
+                )}
+              />
+            </AllowTo>
+
 
             <Controller
               name='is_active'

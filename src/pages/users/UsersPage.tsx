@@ -137,24 +137,26 @@ export const UsersPage = () => {
               </div>
             </div>
           ) : (
-            <ul className='flex flex-col gap-3 mb-5'>
+            <>
               {usersPag ? (
-                <>
+              <>
+                <ul className='flex flex-col gap-3 mb-5'>
                   {usersPag.items.map((user) => (
                     <li key={user.id}>
                       <UserCard user={user} />
                     </li>
                   ))}
-                  <Pagination
-                    pages={usersPag.pages}
-                    current_page={usersPag.current_page}
-                    has_next={usersPag.has_next}
-                    has_prev={usersPag.has_prev}
-                    onPageClick={handlePageClick}
-                  />
-                </>
-                ) : null}
-            </ul>
+                </ul>
+                <Pagination
+                  pages={usersPag.pages}
+                  current_page={usersPag.current_page}
+                  has_next={usersPag.has_next}
+                  has_prev={usersPag.has_prev}
+                  onPageClick={handlePageClick}
+                />
+              </>
+              ) : null}
+            </>
           )}
       </section>
     </div>

@@ -174,6 +174,7 @@ export const UpdateUserDrawer = ({ isOpen, onClose, user, returnFocusTargetId, o
                         onValueChange={field.onChange}
                         placeholder='Select role'
                         value={field.value}
+                        {...(fieldState.invalid ? { 'aria-invalid': true, 'aria-errormessage': `${id}-error` } : {})}
                       />
                     )}
                   </FormField>

@@ -7,6 +7,7 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
 import { ICON_SIZE } from '@/constants/ui.constants';
+import type { UserActions } from '@/constants/user.constants';
 import { useAuth } from '@/hooks/useAuth';
 import {
   MoreVertical,
@@ -15,8 +16,14 @@ import {
   UserRoundPen
 } from 'lucide-react';
 
-export const UserCard = ({user}: {user: User}) => {
+interface UserCardProps {
+  user: User;
+  setAction: (action: UserActions) => void;
+}
+
+export const UserCard = ({ user, setAction }: UserCardProps) => {
   const auth = useAuth();
+  const triggerId = `dropdown-trigger-${user.id}`;
 
   return (
     <article className='border border-inactive/25 p-3 gap-2 bg-subtle-white/30 dark:bg-dark-gray rounded-lg hover:bg-inactive/10 dark:hover:bg-inactive/15 transition-colors duration-150 flex flex-col'>
@@ -49,6 +56,7 @@ export const UserCard = ({user}: {user: User}) => {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <button
+                id={triggerId}
                 type='button'
                 className='p-1.5 border border-inactive/25 rounded-md transition-colors hover:border-brand hover:text-brand'
                 aria-label='Show actions for this user'
@@ -57,18 +65,20 @@ export const UserCard = ({user}: {user: User}) => {
               </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align='end'>
-              <DropdownMenuItem>
+              <DropdownMenuItem
+                onSelect={() => setAction({ type: 'update', user, triggerId })}
+              >
                 <UserRoundPen aria-hidden />
                 Edit
               </DropdownMenuItem>
 
               {user.is_deleted ? (
-                <DropdownMenuItem>
+                <DropdownMenuItem onSelect={() => {}}>
                   <Undo2 aria-hidden />
                   Restore
                 </DropdownMenuItem>
               ) : (
-                <DropdownMenuItem variant='destructive'>
+                <DropdownMenuItem variant='destructive' onSelect={() => {}}>
                   <UserRoundMinus aria-hidden />
                   Delete
                 </DropdownMenuItem>

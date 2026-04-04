@@ -57,15 +57,18 @@ export const UserCard = ({user}: {user: User}) => {
               Edit
             </DropdownMenuItem>
 
-            <DropdownMenuItem>
-              <Undo2 aria-hidden />
-              Restore
-            </DropdownMenuItem>
+            {user.is_deleted ? (
+              <DropdownMenuItem>
+                <Undo2 aria-hidden />
+                Restore
+              </DropdownMenuItem>
+            ) : (
+              <DropdownMenuItem variant='destructive'>
+                <UserRoundMinus aria-hidden />
+                Delete
+              </DropdownMenuItem>
+            )}
 
-            <DropdownMenuItem variant='destructive'>
-              <UserRoundMinus aria-hidden />
-              Delete
-            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

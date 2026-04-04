@@ -51,6 +51,8 @@ export const UpdateUserDrawer = ({ isOpen, onClose, user, returnFocusTargetId }:
 
   const auth = useAuth();
 
+  const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
+
   const onValid = async (data: UserAdminUpdate) => {
     if (!user) return;
 
@@ -74,6 +76,22 @@ export const UpdateUserDrawer = ({ isOpen, onClose, user, returnFocusTargetId }:
       if (msg) toast.error(msg);
     }
   };
+
+  const refreshUserData = async () => {
+    if (!user) return;
+
+    setIsRefreshing(true);
+    try {
+      const data = await userService.byId(user.id);
+
+      form.reset(data);
+    } catch(e) {
+      const msg = getErrorMessage(e);
+      if (msg) toast.error(msg);
+    } finally {
+      setIsRefreshing(false);
+    }
+  }
 
   return (
     <Drawer open={isOpen} onClose={onClose} direction='right'>
@@ -100,10 +118,20 @@ export const UpdateUserDrawer = ({ isOpen, onClose, user, returnFocusTargetId }:
             id='update-user-load-data-button'
             className='mb-5 text-xs text-brand dark:text-brand-light hover:bg-transparent'
             filled={false}
-            onClick={() => form.reset(getFormValues(user))}
+            onClick={refreshUserData}
+            disabled={isRefreshing}
           >
-            <span><CircleArrowDown size={ICON_SIZE.MD} aria-hidden /></span>
-            <span>Refresh User Data</span>
+            {isRefreshing ? (
+              <>
+                <SpinnerLoader size='xs' />
+                <span>Loading</span>
+              </>
+            ) : (
+              <>
+                <span><CircleArrowDown size={ICON_SIZE.MD} aria-hidden /></span>
+                <span>Refresh User Data</span>
+              </>
+            )}
           </CustomButton >
           <form
             onSubmit={form.handleSubmit(onValid)}

@@ -1,4 +1,6 @@
-import type { User } from '@/api/schemas/user.schemas';
+import { userAdminUpdateSchema, type User, type UserAdminUpdate } from '@/api/schemas/user.schemas';
+import { FilterSelect } from '@/components/common/FilterSelect';
+import FormField from '@/components/common/FormField';
 import CustomButton from '@/components/ui/Button';
 import {
   Drawer,
@@ -9,8 +11,14 @@ import {
   DrawerHeader,
   DrawerTitle
 } from '@/components/ui/drawer';
+import Input from '@/components/ui/Input';
+import { Switch } from '@/components/ui/switch';
 import { ICON_SIZE } from '@/constants/ui.constants';
+import { USER_ROLE_OPTIONS_ITEMS } from '@/constants/user.constants';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { CircleArrowDown, CircleArrowUp } from 'lucide-react';
+import { useEffect } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 
 interface UpdateUserDrawerProps {
   isOpen: boolean;
@@ -19,7 +27,25 @@ interface UpdateUserDrawerProps {
   returnFocusTargetId?: string;
 }
 
+const getFormValues = (selectedUser: User | null): UserAdminUpdate => ({
+  name: selectedUser?.name ?? '',
+  role: selectedUser?.role,
+  is_active: selectedUser?.is_active
+});
+
 export const UpdateUserDrawer = ({ isOpen, onClose, user, returnFocusTargetId }: UpdateUserDrawerProps) =>{
+  const form = useForm<UserAdminUpdate>({
+    resolver: zodResolver(userAdminUpdateSchema),
+    defaultValues: getFormValues(user),
+  });
+
+  useEffect(() => {
+    form.reset(getFormValues(user));
+  }, [user, form]);
+
+  const onValid = (_data: UserAdminUpdate) => {
+  };
+
   return (
     <Drawer open={isOpen} onClose={onClose} direction='right'>
       <DrawerContent
@@ -45,19 +71,70 @@ export const UpdateUserDrawer = ({ isOpen, onClose, user, returnFocusTargetId }:
             id='update-user-load-data-button'
             className='mb-5 text-xs text-brand dark:text-brand-light hover:bg-transparent'
             filled={false}
-            onClick={() => {}}
+            onClick={() => form.reset(getFormValues(user))}
           >
             <span><CircleArrowDown size={ICON_SIZE.MD} aria-hidden /></span>
             <span>Refresh User Data</span>
           </CustomButton >
           <form
-            onSubmit={(e) => {e.preventDefault()}}
+            onSubmit={form.handleSubmit(onValid)}
             id='update-user-form'
             className='flex flex-col gap-5 grow'
             aria-label='Form to update a user'
             noValidate
           >
+            <Controller
+              name='name'
+              control={form.control}
+              render={({ field, fieldState }) => (
+                <FormField label='name' error={fieldState.error}>
+                  {(id) => (
+                    <Input
+                    {...field}
+                      id={id}
+                      iconName='user-round'
+                      placeholder='John Doe'
+                      intention={fieldState.invalid ? 'danger' : 'brand'}
+                      {...(fieldState.invalid ? { 'aria-invalid': true, 'aria-errormessage': `${id}-error` } : {})}
+                    />
+                  )}
+                </FormField>
+              )}
+            />
 
+            <Controller
+              name='role'
+              control={form.control}
+              render={({ field, fieldState }) => (
+                <FormField label='role' error={fieldState.error}>
+                  {(id) => (
+                    <FilterSelect
+                      id={id}
+                      items={USER_ROLE_OPTIONS_ITEMS}
+                      onValueChange={field.onChange}
+                      placeholder='Select role'
+                      value={field.value}
+                    />
+                  )}
+                </FormField>
+              )}
+            />
+
+            <Controller
+              name='is_active'
+              control={form.control}
+              render={({ field }) => (
+                <FormField label='Active'>
+                  {(id) => (
+                    <Switch
+                      id={id}
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  )}
+                </FormField>
+              )}
+            />
           </form>
         </div>
         <DrawerFooter className='flex flex-row'>

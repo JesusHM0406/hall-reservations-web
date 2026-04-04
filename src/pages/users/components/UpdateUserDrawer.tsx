@@ -31,6 +31,7 @@ interface UpdateUserDrawerProps {
   onClose: () => void;
   user: User | null;
   returnFocusTargetId?: string;
+  onSuccess: () => void;
 }
 
 const getFormValues = (selectedUser: User | null): UserAdminUpdate => ({
@@ -39,7 +40,7 @@ const getFormValues = (selectedUser: User | null): UserAdminUpdate => ({
   is_active: selectedUser?.is_active
 });
 
-export const UpdateUserDrawer = ({ isOpen, onClose, user, returnFocusTargetId }: UpdateUserDrawerProps) =>{
+export const UpdateUserDrawer = ({ isOpen, onClose, user, returnFocusTargetId, onSuccess }: UpdateUserDrawerProps) =>{
   const form = useForm<UserAdminUpdate>({
     resolver: zodResolver(userAdminUpdateSchema),
     defaultValues: getFormValues(user),
@@ -69,6 +70,7 @@ export const UpdateUserDrawer = ({ isOpen, onClose, user, returnFocusTargetId }:
       });
 
       toast.success('The user has been updated successfully');
+      onSuccess();
       onClose();
       form.reset();
     } catch(e) {

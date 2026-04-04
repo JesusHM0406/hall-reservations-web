@@ -37,6 +37,7 @@ export const UsersPage = () => {
 
   const [usersPag, setUsersPag] = useState<UserPagination | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [refreshCount, setRefreshCount] = useState<number>(0);
 
   const [action, setAction] = useState<UserActions>(null);
   const lastTriggerIdRef = useRef<string | undefined>(undefined);
@@ -82,7 +83,7 @@ export const UsersPage = () => {
       controller.abort();
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, realRole, realStatus]);
+  }, [page, realRole, realStatus, refreshCount]);
 
   const handleRoleFilterClick = (value: UserRoleFilter) => {
     setSearchParams(
@@ -170,6 +171,7 @@ export const UsersPage = () => {
                   onPageClick={handlePageClick}
                 />
                 <UpdateUserDrawer
+                  onSuccess={() => setRefreshCount((prev) => prev + 1)}
                   isOpen={action?.type === 'update'}
                   onClose={() => setAction(null)}
                   user={action?.user ? action.user : null}

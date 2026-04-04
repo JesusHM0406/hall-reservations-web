@@ -1,6 +1,9 @@
 import { FilterSelect } from '@/components/common/FilterSelect';
 import { FilterContainer } from '@/components/ui/FilterContainer';
-import { USER_ROLE_FILTER_ITEMS, USER_STATUS_FILTER_ITEMS } from '@/constants/user.constants';
+import {
+  USER_ROLE_FILTER_ITEMS, USER_STATUS_FILTER_ITEMS,
+  type UserActions
+} from '@/constants/user.constants';
 import { UserCard } from './components/UserCard';
 import { useSearchParams } from 'react-router';
 import {
@@ -10,12 +13,13 @@ import {
   type UserRoleFilter,
   type UserStatusFilter
 } from '@/api/schemas/user.schemas';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { getErrorMessage } from '@/api/api.utils';
 import { toast } from 'sonner';
 import { userService } from '@/api/services/user.service';
 import SpinnerLoader from '@/components/ui/SpinnerLoader';
 import { Pagination } from '@/components/common/Pagination';
+import { UpdateUserDrawer } from './components/UpdateUserDrawer';
 
 export const UsersPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -33,6 +37,18 @@ export const UsersPage = () => {
 
   const [usersPag, setUsersPag] = useState<UserPagination | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [refreshCount, setRefreshCount] = useState<number>(0);
+
+  const [action, setAction] = useState<UserActions>(null);
+  const lastTriggerIdRef = useRef<string | undefined>(undefined);
+
+  const handleActionChange = (nextAction: UserActions) => {
+    if (nextAction !== null) {
+      lastTriggerIdRef.current = nextAction.triggerId;
+    }
+
+    setAction(nextAction);
+  };
 
   useEffect(() => {
     let isCurrent = true;
@@ -67,7 +83,7 @@ export const UsersPage = () => {
       controller.abort();
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, realRole, realStatus]);
+  }, [page, realRole, realStatus, refreshCount]);
 
   const handleRoleFilterClick = (value: UserRoleFilter) => {
     setSearchParams(
@@ -88,7 +104,7 @@ export const UsersPage = () => {
       { page: num.toString(), role: realRole, status: realStatus },
       { replace:true }
     );
-  }
+  };
 
   return (
     <div className='max-w-xl w-full mx-auto flex flex-col gap-7'>
@@ -143,7 +159,7 @@ export const UsersPage = () => {
                 <ul className='flex flex-col gap-3 mb-5'>
                   {usersPag.items.map((user) => (
                     <li key={user.id}>
-                      <UserCard user={user} />
+                      <UserCard user={user} setAction={handleActionChange} />
                     </li>
                   ))}
                 </ul>
@@ -153,6 +169,13 @@ export const UsersPage = () => {
                   has_next={usersPag.has_next}
                   has_prev={usersPag.has_prev}
                   onPageClick={handlePageClick}
+                />
+                <UpdateUserDrawer
+                  onSuccess={() => setRefreshCount((prev) => prev + 1)}
+                  isOpen={action?.type === 'update'}
+                  onClose={() => setAction(null)}
+                  user={action?.user ? action.user : null}
+                  returnFocusTargetId={lastTriggerIdRef.current}
                 />
               </>
               ) : null}

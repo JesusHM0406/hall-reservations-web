@@ -1,5 +1,5 @@
 import type { FilterItem } from '@/components/common/FilterSelect';
-import { userRoleFilterEnum, userStatusFilterEnum, type UserRoleFilter, type UserStatusFilter } from '@/api/schemas/user.schemas';
+import { userRoleFilterEnum, userStatusFilterEnum, type User, type UserRoleFilter, type UserStatusFilter } from '@/api/schemas/user.schemas';
 
 const USER_ROLE_MAP: Record<UserRoleFilter, FilterItem<UserRoleFilter>> = {
   [userRoleFilterEnum.enum.all]: {
@@ -46,3 +46,7 @@ const USER_STATUS_MAP: Record<UserStatusFilter, FilterItem<UserStatusFilter>> = 
 };
 
 export const USER_STATUS_FILTER_ITEMS = Object.values(USER_STATUS_MAP);
+
+export type UserActions =
+  | { type: 'update', user: User, triggerId: string }
+  | null;

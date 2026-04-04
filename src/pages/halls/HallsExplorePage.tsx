@@ -92,12 +92,15 @@ export const HallsExplorePage = () => {
         <h2 className='font-bold uppercase text-sm text-gray tracking-wider'>Filters</h2>
         <div>
           <FilterContainer label='Status'>
+            {(id) => (
               <FilterSelect
+                id={id}
                 value={status}
                 items={HALL_AVAILABILITY_FILTER_ITEMS}
                 onValueChange={handleFilterClick}
                 placeholder='Select status'
               />
+            )}
           </FilterContainer>
         </div>
       </section>

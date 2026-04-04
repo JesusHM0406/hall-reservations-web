@@ -7,8 +7,13 @@ export const userService = {
     return await apiRequest(API_ENDPOINTS.USERS.READ_CURRENT());
   },
 
-  async getAll(filters: UserPaginationParams) {
-    return await apiRequest(API_ENDPOINTS.USERS.ALL(filters));
+  async getAll(filters: UserPaginationParams, controller?: AbortController) {
+    return await apiRequest(
+      API_ENDPOINTS.USERS.ALL(filters),
+      {
+        signal: controller?.signal
+      }
+    );
   },
 
   async deleteCurrent() {

@@ -5,7 +5,7 @@ import { MoreVertical } from "lucide-react";
 
 export const UserCard = ({user}: {user: User}) => {
   return (
-    <article className='border border-inactive/25 p-3 gap-2 bg-subtle-white/30 dark:bg-dark-gray rounded-lg hover:bg-inactive/10 dark:hover:bg-inactive/15 transition-[background-color_scale] duration-150 flex flex-col'>
+    <article className='border border-inactive/25 p-3 gap-2 bg-subtle-white/30 dark:bg-dark-gray rounded-lg hover:bg-inactive/10 dark:hover:bg-inactive/15 transition-colors duration-150 flex flex-col'>
       <div className='flex items-center gap-2'>
         <header className='flex flex-col gap-1 grow'>
           <div className='flex gap-2 flex-wrap'>

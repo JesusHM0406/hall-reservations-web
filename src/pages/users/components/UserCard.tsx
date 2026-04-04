@@ -1,9 +1,23 @@
-import type { User } from "@/api/schemas/user.schemas";
-import { Badge } from "@/components/ui/Badge";
-import { ICON_SIZE } from "@/constants/ui.constants";
-import { MoreVertical } from "lucide-react";
+import type { User } from '@/api/schemas/user.schemas';
+import { Badge } from '@/components/ui/Badge';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu';
+import { ICON_SIZE } from '@/constants/ui.constants';
+import { useAuth } from '@/hooks/useAuth';
+import {
+  MoreVertical,
+  Undo2,
+  UserRoundMinus,
+  UserRoundPen
+} from 'lucide-react';
 
 export const UserCard = ({user}: {user: User}) => {
+  const auth = useAuth();
+
   return (
     <article className='border border-inactive/25 p-3 gap-2 bg-subtle-white/30 dark:bg-dark-gray rounded-lg hover:bg-inactive/10 dark:hover:bg-inactive/15 transition-colors duration-150 flex flex-col'>
       <div className='flex items-center gap-2'>
@@ -30,13 +44,39 @@ export const UserCard = ({user}: {user: User}) => {
           </div>
           <h3 className='font-bold text-sm mt-2'>{user.name}</h3>
         </header>
-        <button
-          type='button'
-          className='p-1.5 border border-inactive/25 rounded-md transition-colors hover:border-brand hover:text-brand'
-          aria-label='Show actions for this user'
-        >
-          <MoreVertical size={ICON_SIZE.SM} aria-hidden />
-        </button>
+        {(user.role === 'admin' || user.role === 'superadmin')
+        && auth.user?.role !== 'superadmin' ? null : (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button
+                type='button'
+                className='p-1.5 border border-inactive/25 rounded-md transition-colors hover:border-brand hover:text-brand'
+                aria-label='Show actions for this user'
+              >
+                <MoreVertical size={ICON_SIZE.SM} aria-hidden />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align='end'>
+              <DropdownMenuItem>
+                <UserRoundPen aria-hidden />
+                Edit
+              </DropdownMenuItem>
+
+              {user.is_deleted ? (
+                <DropdownMenuItem>
+                  <Undo2 aria-hidden />
+                  Restore
+                </DropdownMenuItem>
+              ) : (
+                <DropdownMenuItem variant='destructive'>
+                  <UserRoundMinus aria-hidden />
+                  Delete
+                </DropdownMenuItem>
+              )}
+
+            </DropdownMenuContent>
+          </DropdownMenu>
+        )}
       </div>
     </article>
   );

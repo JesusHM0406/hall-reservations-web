@@ -88,7 +88,6 @@ export const RestoreUserDialog = ({
         <form
           onSubmit={form.handleSubmit(onValid)}
           id='restore-user-form'
-          className='flex flex-col gap-5 grow'
           aria-label='Form to restore a user account'
           noValidate
         >
@@ -133,7 +132,7 @@ export const RestoreUserDialog = ({
             <CustomButton
               intent='gray'
               filled={false}
-              className='w-fit text-gray hover:text-light-gray dark:text-light-gray'
+              className='text-gray hover:text-light-gray dark:text-light-gray'
             >
               Close
             </CustomButton>

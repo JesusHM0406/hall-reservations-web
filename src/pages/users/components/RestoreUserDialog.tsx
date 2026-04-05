@@ -14,6 +14,7 @@ import Input from '@/components/ui/Input';
 import { ICON_SIZE } from '@/constants/ui.constants';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Undo2 } from 'lucide-react';
+import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
 interface RestoreUserDialogProps {
@@ -24,6 +25,10 @@ interface RestoreUserDialogProps {
   onSuccess: () => void;
 }
 
+const getFormValues = (selectedUser: User | null): UserUpdate => ({
+  name: selectedUser?.name ?? ''
+});
+
 export const RestoreUserDialog = ({
   isOpen,
   onClose,
@@ -32,10 +37,12 @@ export const RestoreUserDialog = ({
 }: RestoreUserDialogProps) => {
   const form = useForm<UserUpdate>({
     resolver: zodResolver(userUpdateSchema),
-    defaultValues: {
-      name: ''
-    }
+    defaultValues: getFormValues(user)
   });
+
+  useEffect(() => {
+    form.reset(getFormValues(user));
+  }, [form, user]);
 
   return (
     <Dialog

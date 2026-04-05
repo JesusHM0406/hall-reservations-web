@@ -119,7 +119,7 @@ export const RestoreUserDialog = ({
             {form.formState.isSubmitting ? (
               <>
                 <SpinnerLoader size='xs' />
-                <span>Updating</span>
+                <span>Restoring...</span>
               </>
             ) : (
               <>

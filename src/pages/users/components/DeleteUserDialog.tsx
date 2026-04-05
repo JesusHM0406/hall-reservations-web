@@ -1,4 +1,6 @@
+import { getErrorMessage } from '@/api/api.utils';
 import type { User } from '@/api/schemas/user.schemas';
+import { userService } from '@/api/services/user.service';
 import CustomButton from '@/components/ui/Button';
 import {
   Dialog,
@@ -9,6 +11,9 @@ import {
   DialogHeader,
   DialogTitle
 } from '@/components/ui/dialog';
+import SpinnerLoader from '@/components/ui/SpinnerLoader';
+import { useState } from 'react';
+import { toast } from 'sonner';
 
 interface DeleteUserDialogProps {
   isOpen: boolean;
@@ -18,8 +23,28 @@ interface DeleteUserDialogProps {
   onSuccess: () => void;
 }
 
-export const DeleteUserDialog = ({ isOpen, onClose, user, returnFocusTargetId }: DeleteUserDialogProps) => {
+export const DeleteUserDialog = ({ isOpen, onClose, user, returnFocusTargetId, onSuccess }: DeleteUserDialogProps) => {
   const cancelDeleteBtnID = 'cancel-user-delete-button';
+
+  const [isDeleting, setIsDeleting] = useState<boolean>(false);
+
+  const deleteUser = async () => {
+    if (!user) return;
+
+    setIsDeleting(true);
+    try {
+      await userService.delete(user.id);
+
+      toast.success('The user has been deleted successfully.');
+      onSuccess();
+      onClose();
+    } catch(e) {
+      const msg = getErrorMessage(e);
+      if (msg) toast.error(msg);
+    } finally {
+      setIsDeleting(false);
+    }
+  };
 
   return (
     <Dialog
@@ -45,14 +70,23 @@ export const DeleteUserDialog = ({ isOpen, onClose, user, returnFocusTargetId }:
         <DialogHeader>
           <DialogTitle>Delete a user</DialogTitle>
           <DialogDescription>
-            You are about to delete a user. Are you sure you want to perform this action?
+            You are about to delete {user ? `the user ${user.name}` : 'a user'}. Are you sure you want to perform this action?
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className='flex-row justify-end items-center'>
           <CustomButton
             intent='danger'
+            onClick={deleteUser}
+            disabled={isDeleting}
           >
-            <span>I'm sure I want to delete this user</span>
+            {isDeleting ? (
+              <>
+                <SpinnerLoader size='xs' />
+                <span>Deleting user...</span>
+              </>
+            ) : (
+              <span>I'm sure I want to delete this user</span>
+            )}
           </CustomButton>
           <DialogClose asChild>
             <CustomButton

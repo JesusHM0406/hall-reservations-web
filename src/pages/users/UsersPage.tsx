@@ -178,7 +178,13 @@ export const UsersPage = () => {
                   user={action?.user ? action.user : null}
                   returnFocusTargetId={lastTriggerIdRef.current}
                 />
-                <RestoreUserDialog />
+                <RestoreUserDialog
+                  onSuccess={() => setRefreshCount((prev) => prev + 1)}
+                  isOpen={action?.type === 'restore'}
+                  onClose={() => setAction(null)}
+                  user={action?.user ? action.user : null}
+                  returnFocusTargetId={lastTriggerIdRef.current}
+                />
               </>
               ) : null}
             </>

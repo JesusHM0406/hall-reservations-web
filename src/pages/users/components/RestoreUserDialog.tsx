@@ -1,4 +1,4 @@
-import { userUpdateSchema, type UserUpdate } from '@/api/schemas/user.schemas';
+import { userUpdateSchema, type User, type UserUpdate } from '@/api/schemas/user.schemas';
 import FormField from '@/components/common/FormField';
 import CustomButton from '@/components/ui/Button';
 import {
@@ -16,7 +16,20 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Undo2 } from 'lucide-react';
 import { Controller, useForm } from 'react-hook-form';
 
-export const RestoreUserDialog = () => {
+interface RestoreUserDialogProps {
+  isOpen: boolean;
+  onClose: () => void;
+  user: User | null;
+  returnFocusTargetId?: string;
+  onSuccess: () => void;
+}
+
+export const RestoreUserDialog = ({
+  isOpen,
+  onClose,
+  user,
+  returnFocusTargetId
+}: RestoreUserDialogProps) => {
   const form = useForm<UserUpdate>({
     resolver: zodResolver(userUpdateSchema),
     defaultValues: {
@@ -25,8 +38,21 @@ export const RestoreUserDialog = () => {
   });
 
   return (
-    <Dialog open={true}>
-      <DialogContent showCloseButton={false}>
+    <Dialog
+      open={isOpen}
+      onOpenChange={(open) => {
+        if (!open) onClose();
+      }}
+    >
+      <DialogContent
+        showCloseButton={false}
+        onCloseAutoFocus={(e) => {
+          e.preventDefault();
+          const triggerId = returnFocusTargetId ?? (user ? `dropdown-trigger-${user.id}` : null);
+          const trigger = triggerId ? document.getElementById(triggerId) : null;
+          if (trigger) trigger.focus();
+        }}
+      >
         <DialogHeader>
           <DialogTitle>Restore user account</DialogTitle>
           <DialogDescription>To restore a user account you need to provide a new name.</DialogDescription>

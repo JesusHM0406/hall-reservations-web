@@ -20,6 +20,7 @@ import { userService } from '@/api/services/user.service';
 import SpinnerLoader from '@/components/ui/SpinnerLoader';
 import { Pagination } from '@/components/common/Pagination';
 import { UpdateUserDrawer } from './components/UpdateUserDrawer';
+import { RestoreUserDialog } from './components/RestoreUserDialog';
 
 export const UsersPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -177,6 +178,7 @@ export const UsersPage = () => {
                   user={action?.user ? action.user : null}
                   returnFocusTargetId={lastTriggerIdRef.current}
                 />
+                <RestoreUserDialog />
               </>
               ) : null}
             </>

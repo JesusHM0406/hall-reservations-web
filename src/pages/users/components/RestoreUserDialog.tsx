@@ -1,4 +1,6 @@
+import { getErrorMessage } from '@/api/api.utils';
 import { userUpdateSchema, type User, type UserUpdate } from '@/api/schemas/user.schemas';
+import { userService } from '@/api/services/user.service';
 import FormField from '@/components/common/FormField';
 import CustomButton from '@/components/ui/Button';
 import {
@@ -11,11 +13,13 @@ import {
   DialogTitle
 } from '@/components/ui/dialog';
 import Input from '@/components/ui/Input';
+import SpinnerLoader from '@/components/ui/SpinnerLoader';
 import { ICON_SIZE } from '@/constants/ui.constants';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Undo2 } from 'lucide-react';
 import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 
 interface RestoreUserDialogProps {
   isOpen: boolean;
@@ -33,7 +37,8 @@ export const RestoreUserDialog = ({
   isOpen,
   onClose,
   user,
-  returnFocusTargetId
+  returnFocusTargetId,
+  onSuccess
 }: RestoreUserDialogProps) => {
   const form = useForm<UserUpdate>({
     resolver: zodResolver(userUpdateSchema),
@@ -43,6 +48,22 @@ export const RestoreUserDialog = ({
   useEffect(() => {
     form.reset(getFormValues(user));
   }, [form, user]);
+
+  const onValid = async (payload: UserUpdate) => {
+    if (!user) return;
+
+    try {
+      await userService.restore(user.id, payload);
+
+      toast.success('The user account has been restored successfully.');
+      onSuccess();
+      onClose();
+      form.reset();
+    } catch(e) {
+      const msg = getErrorMessage(e);
+      if (msg) toast.error(msg);
+    }
+  };
 
   return (
     <Dialog
@@ -62,10 +83,10 @@ export const RestoreUserDialog = ({
       >
         <DialogHeader>
           <DialogTitle>Restore user account</DialogTitle>
-          <DialogDescription>To restore a user account you need to provide a new name.</DialogDescription>
+          <DialogDescription>To restore a user account you need to provide a new name in case the name has already been taken.</DialogDescription>
         </DialogHeader>
         <form
-          onSubmit={form.handleSubmit(() => {})}
+          onSubmit={form.handleSubmit(onValid)}
           id='restore-user-form'
           className='flex flex-col gap-5 grow'
           aria-label='Form to restore a user account'
@@ -94,9 +115,19 @@ export const RestoreUserDialog = ({
           <CustomButton
             type='submit'
             form='restore-user-form'
+            disabled={form.formState.isSubmitting}
           >
-            <Undo2 size={ICON_SIZE.SM} aria-hidden />
-            Restore user
+            {form.formState.isSubmitting ? (
+              <>
+                <SpinnerLoader size='xs' />
+                <span>Updating</span>
+              </>
+            ) : (
+              <>
+                <Undo2 size={ICON_SIZE.SM} aria-hidden />
+                <span>Restore user</span>
+              </>
+            )}
           </CustomButton>
           <DialogClose asChild>
             <CustomButton

@@ -1,7 +1,7 @@
-import type { FilterItem } from '@/components/common/FilterSelect';
+import type { CustomSelectItem } from '@/components/common/CustomSelect';
 import { userRoleFilterEnum, userStatusFilterEnum, type User, type UserRole, type UserRoleFilter, type UserStatusFilter } from '@/api/schemas/user.schemas';
 
-const USER_ROLE_MAP: Record<UserRoleFilter, FilterItem<UserRoleFilter>> = {
+const USER_ROLE_MAP: Record<UserRoleFilter, CustomSelectItem<UserRoleFilter>> = {
   [userRoleFilterEnum.enum.all]: {
     value: 'all',
     label: 'All'
@@ -22,7 +22,7 @@ const USER_ROLE_MAP: Record<UserRoleFilter, FilterItem<UserRoleFilter>> = {
 
 export const USER_ROLE_FILTER_ITEMS = Object.values(USER_ROLE_MAP);
 
-const USER_STATUS_MAP: Record<UserStatusFilter, FilterItem<UserStatusFilter>> = {
+const USER_STATUS_MAP: Record<UserStatusFilter, CustomSelectItem<UserStatusFilter>> = {
   [userStatusFilterEnum.enum.all]: {
     value: 'all',
     label: 'All'
@@ -47,7 +47,7 @@ const USER_STATUS_MAP: Record<UserStatusFilter, FilterItem<UserStatusFilter>> = 
 
 export const USER_STATUS_FILTER_ITEMS = Object.values(USER_STATUS_MAP);
 
-export const USER_ROLE_UPDATE_MAP: Record<UserRole, FilterItem<UserRole>> = {
+export const USER_ROLE_UPDATE_MAP: Record<UserRole, CustomSelectItem<UserRole>> = {
   'user': {
     value: 'user',
     label: 'User'

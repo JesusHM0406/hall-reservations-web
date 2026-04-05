@@ -6,20 +6,20 @@ import {
   SelectValue
 } from '@/components/ui/select';
 
-export interface FilterItem<T extends string> {
+export interface CustomSelectItem<T extends string> {
   value: T;
   label: string;
 }
 
-interface FilterSelectProps<T extends string> {
-  items: FilterItem<T>[];
+interface CustomSelectProps<T extends string> {
+  items: CustomSelectItem<T>[];
   onValueChange: (value: T) => void;
   placeholder: string;
   value: T;
   id: string;
 }
 
-export const FilterSelect = <T extends string>({ items, onValueChange, placeholder, value, id }: FilterSelectProps<T>) => {
+export const CustomSelect = <T extends string>({ items, onValueChange, placeholder, value, id }: CustomSelectProps<T>) => {
 
   return (
     <Select onValueChange={onValueChange} value={value} >

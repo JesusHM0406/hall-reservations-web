@@ -11,7 +11,7 @@ export interface SelectItem<T extends string> {
   label: string;
 }
 
-interface FilterSelectProps<T extends string> {
+interface CustomSelectProps<T extends string> {
   items: SelectItem<T>[];
   onValueChange: (value: T) => void;
   placeholder: string;
@@ -19,7 +19,7 @@ interface FilterSelectProps<T extends string> {
   id: string;
 }
 
-export const CustomSelect = <T extends string>({ items, onValueChange, placeholder, value, id }: FilterSelectProps<T>) => {
+export const CustomSelect = <T extends string>({ items, onValueChange, placeholder, value, id }: CustomSelectProps<T>) => {
 
   return (
     <Select onValueChange={onValueChange} value={value} >

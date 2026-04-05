@@ -1,7 +1,7 @@
-import type { FilterItem } from '@/components/common/FilterSelect';
+import type { SelectItem } from '@/components/common/FilterSelect';
 import { hallAvailabilityFilterEnum, type HallAvailabilityFilter } from '@/api/schemas/hall.schemas';
 
-const HALL_AVAILABILITY_MAP: Record<HallAvailabilityFilter, FilterItem<HallAvailabilityFilter>> = {
+const HALL_AVAILABILITY_MAP: Record<HallAvailabilityFilter, SelectItem<HallAvailabilityFilter>> = {
   [hallAvailabilityFilterEnum.enum.all]: {
     value: 'all',
     label: 'All'

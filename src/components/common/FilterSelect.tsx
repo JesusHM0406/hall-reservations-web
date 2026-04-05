@@ -6,13 +6,13 @@ import {
   SelectValue
 } from '@/components/ui/select';
 
-export interface FilterItem<T extends string> {
+export interface SelectItem<T extends string> {
   value: T;
   label: string;
 }
 
 interface FilterSelectProps<T extends string> {
-  items: FilterItem<T>[];
+  items: SelectItem<T>[];
   onValueChange: (value: T) => void;
   placeholder: string;
   value: T;

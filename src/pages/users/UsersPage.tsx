@@ -186,7 +186,13 @@ export const UsersPage = () => {
                   user={action?.user ? action.user : null}
                   returnFocusTargetId={lastTriggerIdRef.current}
                 />
-                <DeleteUserDialog />
+                <DeleteUserDialog
+                  onSuccess={() => setRefreshCount((prev) => prev + 1)}
+                  isOpen={action?.type === 'delete'}
+                  onClose={() => setAction(null)}
+                  user={action?.user ? action.user : null}
+                  returnFocusTargetId={lastTriggerIdRef.current}
+                />
               </>
               ) : null}
             </>

@@ -78,7 +78,7 @@ export const UserCard = ({ user, setAction }: UserCardProps) => {
                   Restore
                 </DropdownMenuItem>
               ) : (
-                <DropdownMenuItem variant='destructive' onSelect={() => {}}>
+                <DropdownMenuItem variant='destructive' onSelect={() => setAction({ type: 'delete', user, triggerId })}>
                   <UserRoundMinus aria-hidden />
                   Delete
                 </DropdownMenuItem>

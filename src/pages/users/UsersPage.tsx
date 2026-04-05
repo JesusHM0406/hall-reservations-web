@@ -1,4 +1,4 @@
-import { FilterSelect } from '@/components/common/FilterSelect';
+import { CustomSelect } from '@/components/common/FilterSelect';
 import { FilterContainer } from '@/components/ui/FilterContainer';
 import {
   USER_ROLE_FILTER_ITEMS, USER_STATUS_FILTER_ITEMS,
@@ -117,7 +117,7 @@ export const UsersPage = () => {
         <div className='flex gap-3 mt-3'>
           <FilterContainer label='Role'>
             {(id) => (
-              <FilterSelect
+              <CustomSelect
                 id={id}
                 value={realRole}
                 items={USER_ROLE_FILTER_ITEMS}
@@ -128,7 +128,7 @@ export const UsersPage = () => {
           </FilterContainer>
           <FilterContainer label='Status'>
             {(id) => (
-              <FilterSelect
+              <CustomSelect
                 id={id}
                 value={realStatus}
                 items={USER_STATUS_FILTER_ITEMS}

@@ -2,7 +2,7 @@ import { getErrorMessage } from '@/api/api.utils';
 import { userAdminUpdateSchema, type User, type UserAdminUpdate } from '@/api/schemas/user.schemas';
 import { userService } from '@/api/services/user.service';
 import { AllowTo } from '@/components/common/AllowTo';
-import { FilterSelect } from '@/components/common/FilterSelect';
+import { CustomSelect } from '@/components/common/FilterSelect';
 import FormField from '@/components/common/FormField';
 import CustomButton from '@/components/ui/Button';
 import {
@@ -170,7 +170,7 @@ export const UpdateUserDrawer = ({ isOpen, onClose, user, returnFocusTargetId, o
                 render={({ field, fieldState }) => (
                   <FormField label='role' error={fieldState.error}>
                     {(id) => (
-                      <FilterSelect
+                      <CustomSelect
                         id={id}
                         items={USER_ROLE_OPTIONS_ITEMS}
                         onValueChange={field.onChange}

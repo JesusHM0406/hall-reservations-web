@@ -21,6 +21,7 @@ import SpinnerLoader from '@/components/ui/SpinnerLoader';
 import { Pagination } from '@/components/common/Pagination';
 import { UpdateUserDrawer } from './components/UpdateUserDrawer';
 import { RestoreUserDialog } from './components/RestoreUserDialog';
+import { DeleteUserDialog } from './components/DeleteUserDialog';
 
 export const UsersPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -181,6 +182,13 @@ export const UsersPage = () => {
                 <RestoreUserDialog
                   onSuccess={() => setRefreshCount((prev) => prev + 1)}
                   isOpen={action?.type === 'restore'}
+                  onClose={() => setAction(null)}
+                  user={action?.user ? action.user : null}
+                  returnFocusTargetId={lastTriggerIdRef.current}
+                />
+                <DeleteUserDialog
+                  onSuccess={() => setRefreshCount((prev) => prev + 1)}
+                  isOpen={action?.type === 'delete'}
                   onClose={() => setAction(null)}
                   user={action?.user ? action.user : null}
                   returnFocusTargetId={lastTriggerIdRef.current}

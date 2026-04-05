@@ -67,4 +67,5 @@ export const USER_ROLE_OPTIONS_ITEMS = Object.values(USER_ROLE_UPDATE_MAP);
 export type UserActions =
   | { type: 'update', user: User, triggerId: string }
   | { type: 'restore', user: User, triggerId: string }
+  | { type: 'delete', user: User, triggerId: string }
   | null;

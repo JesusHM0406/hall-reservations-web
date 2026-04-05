@@ -1,4 +1,4 @@
-import type { SelectItem } from '@/components/common/FilterSelect';
+import type { SelectItem } from '@/components/common/CustomSelect';
 import { userRoleFilterEnum, userStatusFilterEnum, type User, type UserRole, type UserRoleFilter, type UserStatusFilter } from '@/api/schemas/user.schemas';
 
 const USER_ROLE_MAP: Record<UserRoleFilter, SelectItem<UserRoleFilter>> = {

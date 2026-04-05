@@ -1,4 +1,4 @@
-import { CustomSelect } from '@/components/common/FilterSelect';
+import { CustomSelect } from '@/components/common/CustomSelect';
 import { FilterContainer } from '@/components/ui/FilterContainer';
 import {
   USER_ROLE_FILTER_ITEMS, USER_STATUS_FILTER_ITEMS,

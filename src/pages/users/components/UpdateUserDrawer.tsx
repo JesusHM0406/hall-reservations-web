@@ -2,7 +2,7 @@ import { getErrorMessage } from '@/api/api.utils';
 import { userAdminUpdateSchema, type User, type UserAdminUpdate } from '@/api/schemas/user.schemas';
 import { userService } from '@/api/services/user.service';
 import { AllowTo } from '@/components/common/AllowTo';
-import { CustomSelect } from '@/components/common/FilterSelect';
+import { CustomSelect } from '@/components/common/CustomSelect';
 import FormField from '@/components/common/FormField';
 import CustomButton from '@/components/ui/Button';
 import {

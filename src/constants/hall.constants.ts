@@ -1,4 +1,4 @@
-import type { SelectItem } from '@/components/common/FilterSelect';
+import type { SelectItem } from '@/components/common/CustomSelect';
 import { hallAvailabilityFilterEnum, type HallAvailabilityFilter } from '@/api/schemas/hall.schemas';
 
 const HALL_AVAILABILITY_MAP: Record<HallAvailabilityFilter, SelectItem<HallAvailabilityFilter>> = {

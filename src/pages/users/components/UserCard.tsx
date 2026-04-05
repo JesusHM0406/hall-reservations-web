@@ -73,7 +73,7 @@ export const UserCard = ({ user, setAction }: UserCardProps) => {
               </DropdownMenuItem>
 
               {user.is_deleted ? (
-                <DropdownMenuItem onSelect={() => {}}>
+                <DropdownMenuItem onSelect={() =>  setAction({ type: 'restore', user, triggerId })}>
                   <Undo2 aria-hidden />
                   Restore
                 </DropdownMenuItem>

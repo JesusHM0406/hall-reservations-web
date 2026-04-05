@@ -20,6 +20,7 @@ import { userService } from '@/api/services/user.service';
 import SpinnerLoader from '@/components/ui/SpinnerLoader';
 import { Pagination } from '@/components/common/Pagination';
 import { UpdateUserDrawer } from './components/UpdateUserDrawer';
+import { RestoreUserDialog } from './components/RestoreUserDialog';
 
 export const UsersPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -173,6 +174,13 @@ export const UsersPage = () => {
                 <UpdateUserDrawer
                   onSuccess={() => setRefreshCount((prev) => prev + 1)}
                   isOpen={action?.type === 'update'}
+                  onClose={() => setAction(null)}
+                  user={action?.user ? action.user : null}
+                  returnFocusTargetId={lastTriggerIdRef.current}
+                />
+                <RestoreUserDialog
+                  onSuccess={() => setRefreshCount((prev) => prev + 1)}
+                  isOpen={action?.type === 'restore'}
                   onClose={() => setAction(null)}
                   user={action?.user ? action.user : null}
                   returnFocusTargetId={lastTriggerIdRef.current}

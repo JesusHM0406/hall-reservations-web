@@ -1,3 +1,5 @@
+import { getErrorMessage } from '@/api/api.utils';
+import { userService } from '@/api/services/user.service';
 import CustomButton from '@/components/ui/Button';
 import {
   Dialog,
@@ -9,9 +11,31 @@ import {
   DialogTitle,
   DialogTrigger
 } from '@/components/ui/dialog';
+import SpinnerLoader from '@/components/ui/SpinnerLoader';
+import { useAuth } from '@/hooks/useAuth';
+import { useState } from 'react';
+import { toast } from 'sonner';
 
 export const DeleteAccountDialog = () => {
   const cancelBtnId = 'cancel-delete-self-account-button';
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const { logOut } = useAuth();
+
+  const deleteAccount = async () => {
+    setIsLoading(true);
+    try {
+      await userService.deleteCurrent();
+
+      logOut();
+    } catch(e) {
+      const msg = getErrorMessage(e);
+      if (msg) toast.error(msg);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <Dialog>
@@ -38,8 +62,17 @@ export const DeleteAccountDialog = () => {
         <DialogFooter className='flex-row justify-end'>
           <CustomButton
             intent='danger'
+            disabled={isLoading}
+            onClick={deleteAccount}
           >
-            Delete account
+            {isLoading ? (
+              <>
+                <SpinnerLoader size='xs' />
+                <span>Deleting...</span>
+              </>
+            ) : (
+              <span>Delete account</span>
+            )}
           </CustomButton>
           <DialogClose asChild>
             <CustomButton id={cancelBtnId} intent='gray'>

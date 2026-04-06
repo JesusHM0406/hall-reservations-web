@@ -27,9 +27,14 @@ interface UpdateNameDrawerProps {
 }
 
 export const UpdateNameDrawer = ({ children, user }: UpdateNameDrawerProps) => {
-  const form = useForm<UserUpdate>({
+  const {
+    control,
+    formState: { isDirty, isSubmitting },
+    reset,
+    handleSubmit
+  } = useForm<UserUpdate>({
     resolver: zodResolver(userUpdateSchema),
-    defaultValues: {
+    values: {
       name: user.name
     }
   });
@@ -39,7 +44,7 @@ export const UpdateNameDrawer = ({ children, user }: UpdateNameDrawerProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const onValid = async (payload: UserUpdate) => {
-    if (!form.formState.isDirty) {
+    if (!isDirty) {
       toast.info("Your name hasn't changed");
       return;
     }
@@ -57,7 +62,7 @@ export const UpdateNameDrawer = ({ children, user }: UpdateNameDrawerProps) => {
   };
 
   return (
-    <Drawer open={isOpen} onOpenChange={setIsOpen} onClose={() => {form.reset()}}>
+    <Drawer open={isOpen} onOpenChange={setIsOpen} onClose={() => {reset()}}>
       <DrawerTrigger asChild>
         {children}
       </DrawerTrigger>
@@ -68,14 +73,14 @@ export const UpdateNameDrawer = ({ children, user }: UpdateNameDrawerProps) => {
             <DrawerDescription>Please enter your new name below.</DrawerDescription>
           </DrawerHeader>
           <form
-            onSubmit={form.handleSubmit(onValid)}
+            onSubmit={handleSubmit(onValid)}
             id='update-name-form'
             className='flex flex-col gap-5 grow'
             aria-label='Form to update your name'
             noValidate
           >
             <Controller
-              control={form.control}
+              control={control}
               name='name'
               render={({ field, fieldState }) => (
                 <FormField label='New name' required error={fieldState.error}>
@@ -99,9 +104,9 @@ export const UpdateNameDrawer = ({ children, user }: UpdateNameDrawerProps) => {
               type='submit'
               form='update-name-form'
               className='grow'
-              disabled={form.formState.isSubmitting}
+              disabled={isSubmitting}
             >
-              {form.formState.isSubmitting ? (
+              {isSubmitting ? (
                 <>
                   <SpinnerLoader size='xs' />
                   <span>Updating...</span>

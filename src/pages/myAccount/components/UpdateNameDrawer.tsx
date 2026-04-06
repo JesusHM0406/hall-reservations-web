@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/drawer';
 import Input from '@/components/ui/Input';
 import SpinnerLoader from '@/components/ui/SpinnerLoader';
+import { useAuth } from '@/hooks/useAuth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState, type ReactNode } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -33,6 +34,8 @@ export const UpdateNameDrawer = ({ children, user }: UpdateNameDrawerProps) => {
     }
   });
 
+  const { updateCurrUser } = useAuth();
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const onValid = async (payload: UserUpdate) => {
@@ -42,10 +45,11 @@ export const UpdateNameDrawer = ({ children, user }: UpdateNameDrawerProps) => {
     }
 
     try {
-      await userService.updateCurrent(payload);
+      const data = await userService.updateCurrent(payload);
 
       toast.success('Your name has been updated successfully.');
       setIsOpen(false);
+      updateCurrUser(data);
     } catch(e) {
       const msg = getErrorMessage(e);
       if (msg) toast.error(msg);

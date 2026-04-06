@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState, type ReactNode } from 'react';
 import type { LoginFormData } from '@/api/schemas/auth.schemas';
 import { authService } from '@/api/services/auth.service';
-import type { User } from '@/api/schemas/user.schemas';
+import type { User, UserUpdate } from '@/api/schemas/user.schemas';
 import { AuthContext, type AuthContextType } from './AuthContext';
 import { userService } from '@/api/services/user.service';
 import { eventBus } from '@/lib/events';
@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     localStorage.setItem('token', response.access_token);
     const userResponse = await userService.getCurrent();
     setUser(userResponse);
-    
+
     eventBus.dispatch('auth:login-success');
   }, []);
 
@@ -29,12 +29,20 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     eventBus.dispatch('auth:logout');
   }, []);
 
+  const updateCurrUser = useCallback((payload: UserUpdate) => {
+    setUser((prev) => {
+      if (!prev) return null;
+      return {...prev, name: payload.name}
+    })
+  }, []);
+
   const value: AuthContextType = useMemo(() => ({
     user,
     isAuthenticated: user !== null,
     logIn,
-    logOut
-  }), [user, logIn, logOut]);
+    logOut,
+    updateCurrUser
+  }), [user, logIn, logOut, updateCurrUser]);
 
   return <AuthContext value={value}>{children}</AuthContext>
 };

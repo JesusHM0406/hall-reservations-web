@@ -3,14 +3,16 @@ import CustomButton from '@/components/ui/Button';
 import { Avatar } from './components/Avatar';
 import { useAuth } from '@/hooks/useAuth';
 import { eventBus } from '@/lib/events';
+import { useEffect } from 'react';
 
 export const MyAccountPage = () => {
   const { user, logOut } = useAuth();
 
-  if (!user) {
-    eventBus.dispatch('auth:unauthorized');
-    return;
-  }
+  useEffect(() => {
+    if (!user) eventBus.dispatch('auth:unauthorized');
+  }, [user])
+
+  if (!user) return null;
 
   return (
     <div className='max-w-xl w-full mx-auto flex flex-col gap-7'>

@@ -56,6 +56,7 @@ export const UpdateNameDrawer = ({ children, user }: UpdateNameDrawerProps) => {
       toast.success('Your name has been updated successfully.');
       setIsOpen(false);
       updateCurrUser(data);
+      reset();
     } catch(e) {
       const msg = getErrorMessage(e);
       if (msg) toast.error(msg);
@@ -97,7 +98,6 @@ export const UpdateNameDrawer = ({ children, user }: UpdateNameDrawerProps) => {
                         inptRef.current = e;
                       }}
                       id={id}
-                      value={field.value}
                       iconName='user-round'
                       placeholder='John Doe'
                       intention={fieldState.invalid ? 'danger' : 'brand'}

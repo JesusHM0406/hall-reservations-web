@@ -1,5 +1,5 @@
 import type { Endpoint } from './types';
-import { userPaginationSchema, userSchema, type User, type UserAdminUpdate, type UserCreate, type UserPagination, type UserPaginationParams, type UserUpdate } from './schemas/user.schemas';
+import { userPaginationSchema, userReadSchema, userSchema, type User, type UserAdminUpdate, type UserCreate, type UserPagination, type UserPaginationParams, type UserRead, type UserUpdate } from './schemas/user.schemas';
 import { hallPaginationSchema, hallSchema, hallSearchResponseSchema, type Hall, type HallCreate, type HallPagination, type HallPaginationParams, type HallSearchParams, type HallSearchResponse, type HallUpdate } from './schemas/hall.schemas';
 import { reservationPaginationSchema, reservationSchema, type Reservation, type ReservationCreate, type ReservationPagination, type ReservationPaginationParams } from './schemas/reservation.schemas';
 import { loginResponseSchema, type LoginResponse } from './schemas/auth.schemas';
@@ -35,10 +35,11 @@ export const API_ENDPOINTS = {
       path: '/users/me',
       method: 'DELETE'
     }),
-    UPDATE_CURRENT: (payload: UserUpdate): Endpoint<undefined, undefined, UserUpdate> => ({
+    UPDATE_CURRENT: (payload: UserUpdate): Endpoint<UserRead, undefined, UserUpdate> => ({
       path: '/users/me',
       method: 'PATCH',
-      data: payload
+      data: payload,
+      schema: userReadSchema
     }),
     BY_ID:  (id: number | string): Endpoint<User> =>  ({
       path: `/users/${id}`,

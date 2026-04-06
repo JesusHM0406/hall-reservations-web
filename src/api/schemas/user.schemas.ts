@@ -42,6 +42,11 @@ export const userUpdateSchema = z.object({
   .max(30, 'The name cannot contain more than 30 characters.')
 });
 
+export const userReadSchema = z.object({
+  id: z.number(),
+  name: z.string().min(3)
+});
+
 export const userAdminUpdateSchema = z.object({
   name: z
     .string()
@@ -60,6 +65,7 @@ export const userPaginationSchema = createPaginatedSchema(userSchema);
 export type User = z.infer<typeof userSchema>;
 export type UserCreate = z.infer<typeof userCreateSchema>;
 export type UserUpdate = z.infer<typeof userUpdateSchema>;
+export type UserRead = z.infer<typeof userReadSchema>;
 export type UserAdminUpdate = z.infer<typeof userAdminUpdateSchema>;
 
 export type UserPagination = z.infer<typeof userPaginationSchema>;

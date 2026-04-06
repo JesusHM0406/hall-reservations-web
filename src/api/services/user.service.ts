@@ -21,7 +21,7 @@ export const userService = {
   },
 
   async updateCurrent(payload: UserUpdate) {
-    await apiRequest(API_ENDPOINTS.USERS.UPDATE_CURRENT(payload));
+    return await apiRequest(API_ENDPOINTS.USERS.UPDATE_CURRENT(payload));
   },
 
   async byId(id: number | string) {

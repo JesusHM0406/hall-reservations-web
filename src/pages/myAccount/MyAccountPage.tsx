@@ -5,9 +5,10 @@ import { useAuth } from '@/hooks/useAuth';
 import { eventBus } from '@/lib/events';
 import { useEffect } from 'react';
 import { UpdateNameDrawer } from './components/UpdateNameDrawer';
+import { LogoutDialog } from './components/LogoutDialog';
 
 export const MyAccountPage = () => {
-  const { user, logOut } = useAuth();
+  const { user } = useAuth();
 
   useEffect(() => {
     if (!user) eventBus.dispatch('auth:unauthorized');
@@ -58,14 +59,15 @@ export const MyAccountPage = () => {
           <UpdateNameDrawer user={user}>
             <CustomButton className='uppercase text-2xs font-bold tracking-wide grow'>Update name</CustomButton>
           </UpdateNameDrawer>
-          <CustomButton
-            intent='danger'
-            filled={false}
-            className='text-danger uppercase text-2xs font-bold tracking-wide grow hover:text-white dark:text-white'
-            onClick={logOut}
-          >
-            Logout
-          </CustomButton>
+          <LogoutDialog>
+            <CustomButton
+              intent='danger'
+              filled={false}
+              className='text-danger uppercase text-2xs font-bold tracking-wide grow hover:text-white dark:text-white'
+            >
+              Log Out
+            </CustomButton>
+          </LogoutDialog>
         </div>
       </section>
 

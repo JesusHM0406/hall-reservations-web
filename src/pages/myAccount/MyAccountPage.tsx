@@ -6,6 +6,7 @@ import { eventBus } from '@/lib/events';
 import { useEffect } from 'react';
 import { UpdateNameDrawer } from './components/UpdateNameDrawer';
 import { LogoutDialog } from './components/LogoutDialog';
+import { DeleteAccountDialog } from './components/DeleteAccountDialog';
 
 export const MyAccountPage = () => {
   const { user } = useAuth();
@@ -73,12 +74,7 @@ export const MyAccountPage = () => {
 
       <section className='flex flex-col gap-3 font-bold rounded-2xl p-6 border border-danger/25 transition-transform hover:scale-101 dark:bg-dark-gray'>
         <h2 className='font-bold uppercase text-sm text-danger/70 tracking-wider'>Danger zone</h2>
-        <CustomButton
-          intent='danger'
-          className='uppercase text-2xs font-bold tracking-wide'
-        >
-          Delete account
-        </CustomButton>
+        <DeleteAccountDialog />
       </section>
     </div>
   );

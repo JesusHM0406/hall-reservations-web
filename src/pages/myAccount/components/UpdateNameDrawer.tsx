@@ -1,4 +1,6 @@
+import { getErrorMessage } from '@/api/api.utils';
 import { userUpdateSchema, type User, type UserUpdate } from '@/api/schemas/user.schemas';
+import { userService } from '@/api/services/user.service';
 import FormField from '@/components/common/FormField';
 import CustomButton from '@/components/ui/Button';
 import {
@@ -12,9 +14,11 @@ import {
   DrawerTrigger
 } from '@/components/ui/drawer';
 import Input from '@/components/ui/Input';
+import SpinnerLoader from '@/components/ui/SpinnerLoader';
 import { zodResolver } from '@hookform/resolvers/zod';
-import type { ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 
 interface UpdateNameDrawerProps {
   children: ReactNode;
@@ -29,8 +33,27 @@ export const UpdateNameDrawer = ({ children, user }: UpdateNameDrawerProps) => {
     }
   });
 
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const onValid = async (payload: UserUpdate) => {
+    if (!form.formState.isDirty) {
+      toast.info("Your name hasn't changed");
+      return;
+    }
+
+    try {
+      await userService.updateCurrent(payload);
+
+      toast.success('Your name has been updated successfully.');
+      setIsOpen(false);
+    } catch(e) {
+      const msg = getErrorMessage(e);
+      if (msg) toast.error(msg);
+    }
+  };
+
   return (
-    <Drawer onClose={() => {form.reset()}}>
+    <Drawer open={isOpen} onOpenChange={setIsOpen} onClose={() => {form.reset()}}>
       <DrawerTrigger asChild>
         {children}
       </DrawerTrigger>
@@ -41,7 +64,7 @@ export const UpdateNameDrawer = ({ children, user }: UpdateNameDrawerProps) => {
             <DrawerDescription>Please enter your new name below.</DrawerDescription>
           </DrawerHeader>
           <form
-            onSubmit={form.handleSubmit(() => {})}
+            onSubmit={form.handleSubmit(onValid)}
             id='update-name-form'
             className='flex flex-col gap-5 grow'
             aria-label='Form to update your name'
@@ -72,8 +95,16 @@ export const UpdateNameDrawer = ({ children, user }: UpdateNameDrawerProps) => {
               type='submit'
               form='update-name-form'
               className='grow'
+              disabled={form.formState.isSubmitting}
             >
-              Update name
+              {form.formState.isSubmitting ? (
+                <>
+                  <SpinnerLoader size='xs' />
+                  <span>Updating...</span>
+                </>
+              ) : (
+                <span>Update name</span>
+              )}
             </CustomButton>
             <DrawerClose asChild>
               <CustomButton

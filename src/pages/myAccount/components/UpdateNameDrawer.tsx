@@ -81,7 +81,6 @@ export const UpdateNameDrawer = ({ children, user }: UpdateNameDrawerProps) => {
           <form
             onSubmit={handleSubmit(onValid)}
             id='update-name-form'
-            className='flex flex-col gap-5 grow'
             aria-label='Form to update your name'
             noValidate
           >

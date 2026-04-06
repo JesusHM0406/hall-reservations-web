@@ -44,12 +44,8 @@ export const userUpdateSchema = z.object({
 
 export const userReadSchema = z.object({
   id: z.number(),
-  name: z
-  .string()
-  .trim()
-  .min(3, 'The name must contain at least 3 characters.')
-  .max(30, 'The name cannot contain more than 30 characters.')
-})
+  name: z.string().min(3)
+});
 
 export const userAdminUpdateSchema = z.object({
   name: z

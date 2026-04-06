@@ -65,7 +65,7 @@ export const MyAccountPage = () => {
               filled={false}
               className='text-danger uppercase text-2xs font-bold tracking-wide grow hover:text-white dark:text-white'
             >
-              Logout
+              Log Out
             </CustomButton>
           </LogoutDialog>
         </div>

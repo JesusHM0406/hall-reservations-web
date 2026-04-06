@@ -1,4 +1,4 @@
-import { MyAccountPage } from './MyAccountPage';
+import { MyAccountPage } from './myAccount/MyAccountPage';
 import { RegisterPage } from './auth/RegisterPage';
 import { LoginPage } from './auth/LoginPage';
 import { ReservationsPage } from './ReservationsPage';

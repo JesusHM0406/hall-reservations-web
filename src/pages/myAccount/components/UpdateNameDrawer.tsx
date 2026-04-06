@@ -17,7 +17,7 @@ import Input from '@/components/ui/Input';
 import SpinnerLoader from '@/components/ui/SpinnerLoader';
 import { useAuth } from '@/hooks/useAuth';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState, type ReactNode } from 'react';
+import { useRef, useState, type ReactNode } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
@@ -42,6 +42,7 @@ export const UpdateNameDrawer = ({ children, user }: UpdateNameDrawerProps) => {
   const { updateCurrUser } = useAuth();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const inptRef = useRef<HTMLInputElement | null>(null);
 
   const onValid = async (payload: UserUpdate) => {
     if (!isDirty) {
@@ -66,7 +67,12 @@ export const UpdateNameDrawer = ({ children, user }: UpdateNameDrawerProps) => {
       <DrawerTrigger asChild>
         {children}
       </DrawerTrigger>
-      <DrawerContent>
+      <DrawerContent
+        onOpenAutoFocus={(e) => {
+          e.preventDefault();
+          inptRef.current?.focus();
+        }}
+      >
         <div className='max-w-md w-full mx-auto pb-4 px-4 flex flex-col gap-5'>
           <DrawerHeader className='pb-0'>
             <DrawerTitle>Update name</DrawerTitle>
@@ -87,6 +93,10 @@ export const UpdateNameDrawer = ({ children, user }: UpdateNameDrawerProps) => {
                   {(id) => (
                     <Input
                       {...field}
+                      ref={(e) => {
+                        field.ref(e);
+                        inptRef.current = e;
+                      }}
                       id={id}
                       value={field.value}
                       iconName='user-round'

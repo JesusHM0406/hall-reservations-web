@@ -57,7 +57,7 @@ export const DeleteAccountDialog = () => {
       >
         <DialogHeader>
           <DialogTitle>Delete account</DialogTitle>
-          <DialogDescription>Are you sure you want to delete you account?</DialogDescription>
+          <DialogDescription>Are you sure you want to delete your account?</DialogDescription>
         </DialogHeader>
         <DialogFooter className='flex-row justify-end'>
           <CustomButton

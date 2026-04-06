@@ -1,5 +1,6 @@
 import { Badge } from "@/components/ui/Badge";
 import CustomButton from "@/components/ui/Button";
+import { Avatar } from "./components/Avatar";
 
 export const MyAccountPage = () => {
   return (
@@ -11,7 +12,7 @@ export const MyAccountPage = () => {
       <div className='hover:scale-101'>
         <section>
           <article className='flex flex-col gap-3 items-center bg-brand text-white font-bold text-center rounded-ss-2xl rounded-se-2xl p-6'>
-            <span className='w-20 h-20 bg-gray block shrink-0'></span>
+            <Avatar id={6} name='Here goes the username Here goes the username Here' />
             <h2>Here goes the username Here goes the username Here</h2>
           </article>
         </section>

@@ -4,6 +4,7 @@ import { Avatar } from './components/Avatar';
 import { useAuth } from '@/hooks/useAuth';
 import { eventBus } from '@/lib/events';
 import { useEffect } from 'react';
+import { UpdateNameDrawer } from './components/UpdateNameDrawer';
 
 export const MyAccountPage = () => {
   const { user, logOut } = useAuth();
@@ -54,7 +55,9 @@ export const MyAccountPage = () => {
       <section className='flex flex-col gap-3 font-bold rounded-2xl p-6 border border-inactive/25 transition-transform hover:scale-101 dark:bg-dark-gray dark:border-slate-gray'>
         <h2 className='font-bold uppercase text-sm text-gray tracking-wider'>Actions</h2>
         <div className='flex w-full gap-2'>
-          <CustomButton className='uppercase text-2xs font-bold tracking-wide grow'>Update name</CustomButton>
+          <UpdateNameDrawer user={user}>
+            <CustomButton className='uppercase text-2xs font-bold tracking-wide grow'>Update name</CustomButton>
+          </UpdateNameDrawer>
           <CustomButton
             intent='danger'
             filled={false}

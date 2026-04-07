@@ -24,7 +24,7 @@ export const ReservationsPage = () => {
   const statusParse = reservationStatusFilterEnum.safeParse(rawStatus);
   const status: ReservationStatusFilter = statusParse.success ? statusParse.data : 'all';
 
-  const [usersPag, setUsersPag] = useState<ReservationPagination | null>(null);
+  const [resPag, setResPag] = useState<ReservationPagination | null>(null);
 
   useEffect(() => {
     let isCurrent = true;
@@ -38,7 +38,7 @@ export const ReservationsPage = () => {
         );
 
         if (isCurrent) {
-          setUsersPag(data);
+          setResPag(data);
           setSearchParams(
             { page: page.toString(), ...(status ? { status: status } : {}) }
           );
@@ -59,6 +59,10 @@ export const ReservationsPage = () => {
 
   const handleStatusFilterClick = (value: ReservationStatusFilter) => {
     setSearchParams({ page: page.toString(), status: value});
+  };
+
+  const handlePageClick = (num: number) => {
+    setSearchParams({ page: num.toString(), status});
   };
 
   return (
@@ -87,29 +91,27 @@ export const ReservationsPage = () => {
       </section>
 
       <section className='flex flex-col grow'>
-        <h2 className='font-bold uppercase text-sm text-gray tracking-wider mb-3'>Showing all reservations (23)</h2>
-          <ul className='flex flex-col gap-3 mb-5'>
-            <li>
-              <ReservationCard
-                res={{
-                  id: 8845,
-                  user_id: 32,
-                  user_name: 'John Doe',
-                  hall_id: 41,
-                  hall_name: 'Princess Dream Palace',
-                  reservation_date: 'Oct 24, 2025',
-                  status: 'confirmed'
-                }}
+        <h2 className='font-bold uppercase text-sm text-gray tracking-wider mb-3'>
+          Showing all reservations {resPag ? ` (${resPag.total})` : ''}
+        </h2>
+          {resPag ? (
+            <>
+              <ul className='flex flex-col gap-3 mb-5'>
+                {resPag.items.map((res) => (
+                  <li key={res.id}>
+                    <ReservationCard res={res} />
+                  </li>
+                ))}
+              </ul>
+              <Pagination
+                pages={resPag.pages}
+                current_page={resPag.current_page}
+                has_next={resPag.has_next}
+                has_prev={resPag.has_prev}
+                onPageClick={handlePageClick}
               />
-            </li>
-          </ul>
-          <Pagination
-            pages={23}
-            current_page={3}
-            has_next={true}
-            has_prev={true}
-            onPageClick={() => {}}
-          />
+            </>
+          ) : null}
       </section>
     </div>
   );

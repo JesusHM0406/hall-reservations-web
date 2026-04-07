@@ -7,8 +7,11 @@ export const reservationService = {
     await apiRequest(API_ENDPOINTS.RESERVATIONS.ADD(payload));
   },
 
-  async all(filters: ReservationPaginationParams) {
-    return await apiRequest(API_ENDPOINTS.RESERVATIONS.ALL(filters));
+  async all(filters: ReservationPaginationParams, controller?: AbortController) {
+    return await apiRequest(
+      API_ENDPOINTS.RESERVATIONS.ALL(filters),
+      { signal: controller?.signal }
+    );
   },
 
   async allCurrentUser(filters: ReservationPaginationParams) {

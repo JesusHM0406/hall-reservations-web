@@ -2,6 +2,7 @@ import { CustomSelect } from '@/components/common/CustomSelect';
 import { Pagination } from '@/components/common/Pagination';
 import { FilterContainer } from '@/components/ui/FilterContainer';
 import { RES_STATUS_FILTER_ITEMS } from '@/constants/reservations.constants';
+import { ReservationCard } from './components/ReservationCard';
 
 export const ReservationsPage = () => {
   return (
@@ -32,7 +33,19 @@ export const ReservationsPage = () => {
       <section className='flex flex-col grow'>
         <h2 className='font-bold uppercase text-sm text-gray tracking-wider mb-3'>Showing all reservations (23)</h2>
           <ul className='flex flex-col gap-3 mb-5'>
-            <li>Hi</li>
+            <li>
+              <ReservationCard
+                res={{
+                  id: 8845,
+                  user_id: 32,
+                  user_name: 'John Doe',
+                  hall_id: 41,
+                  hall_name: 'Princess Dream Palace',
+                  reservation_date: 'Oct 24, 2025',
+                  status: 'confirmed'
+                }}
+              />
+            </li>
           </ul>
           <Pagination
             pages={23}

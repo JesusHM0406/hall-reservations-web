@@ -2,6 +2,7 @@ import type { Reservation } from '@/api/schemas/reservation.schemas';
 import { Badge } from '@/components/ui/Badge';
 import { ICON_SIZE } from '@/constants/ui.constants';
 import { PATHS } from '@/paths';
+import { format, isValid, parseISO } from 'date-fns';
 import { Calendar, MoreVertical, UserRound } from 'lucide-react';
 import { Link } from 'react-router';
 
@@ -10,6 +11,10 @@ interface ReservationCardProps {
 }
 
 export const ReservationCard = ({ res }: ReservationCardProps) => {
+  const parsedDate = parseISO(res.reservation_date);
+
+  const date = isValid(parsedDate) ? format(parsedDate, 'MMM dd, yyyy') : 'An error occurred while reading the date';
+
   return (
     <article className='border border-inactive/25 gap-2 bg-subtle-white/30 dark:bg-dark-gray rounded-xl hover:bg-inactive/10 dark:hover:bg-inactive/15 transition-colors duration-150 flex flex-col overflow-hidden'>
       <div className='p-3'>
@@ -35,7 +40,7 @@ export const ReservationCard = ({ res }: ReservationCardProps) => {
         <section>
           <div>
             <Link to={`/${PATHS.halls.root}/${PATHS.halls.detail}/${res.hall_id}`}>
-              <h3 className='text-xl font-semibold tracking-tight leading-tight'>
+              <h3 className='text-lg font-semibold tracking-tight leading-tight'>
                 {res.hall_name}
               </h3>
             </Link>
@@ -44,7 +49,7 @@ export const ReservationCard = ({ res }: ReservationCardProps) => {
           <div className='flex flex-col gap-2 mt-4'>
             <div className='flex items-center gap-3 text-inactive dark:text-gray'>
               <Calendar size={ICON_SIZE.SM} className='text-blue-500' />
-              <span className='text-sm'>{res.reservation_date}</span>
+              <span className='text-sm'>{date}</span>
             </div>
 
             <div className='flex items-center gap-3 text-inactive'>

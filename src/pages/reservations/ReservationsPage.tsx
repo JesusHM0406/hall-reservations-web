@@ -69,7 +69,7 @@ export const ReservationsPage = () => {
     <div className='max-w-xl w-full mx-auto flex flex-col gap-7 grow'>
       <section className='flex justify-between gap-3 items-center'>
         <header>
-          <h1 className='font-bold text-lg xs:text-2xl uppercase'>Manage Reservations</h1>
+          <h1 className='font-bold text-lg xs:text-2xl uppercase'>Reservations</h1>
         </header>
       </section>
 
@@ -92,11 +92,11 @@ export const ReservationsPage = () => {
 
       <section className='flex flex-col grow'>
         <h2 className='font-bold uppercase text-sm text-gray tracking-wider mb-3'>
-          Showing all reservations {resPag ? ` (${resPag.total})` : ''}
+          Results {resPag ? ` (${resPag.total})` : ''}
         </h2>
           {resPag ? (
             <>
-              <ul className='flex flex-col gap-3 mb-5'>
+              <ul className='flex flex-col gap-5 mb-5'>
                 {resPag.items.map((res) => (
                   <li key={res.id}>
                     <ReservationCard res={res} />

@@ -61,7 +61,7 @@ export const ReservationCard = ({ res }: ReservationCardProps) => {
           </div>
         </section>
       </div>
-      <footer className='p-4 border-t border-transparent flex justify-between items-center bg-inactive/25 dark:bg-dark dark:border-inactive/25'>
+      <footer className='p-4 border-t border-transparent flex justify-between items-center bg-inactive/10 dark:bg-neutral-950 dark:border-inactive/25'>
         <span className='text-[10px] text-gray dark:text-inactive font-mono tracking-tighter uppercase'>
           RESERVATION_REF: {res.id}
         </span>

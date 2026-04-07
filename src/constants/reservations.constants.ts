@@ -1,7 +1,11 @@
-import type { ReservationStatus } from '@/api/schemas/reservation.schemas';
+import type {ReservationStatusFilter } from '@/api/schemas/reservation.schemas';
 import type { CustomSelectItem } from '@/components/common/CustomSelect';
 
-const RES_STATUS_MAP: Record<ReservationStatus, CustomSelectItem<ReservationStatus>> = {
+const RES_STATUS_MAP: Record<ReservationStatusFilter, CustomSelectItem<ReservationStatusFilter>> = {
+  'all': {
+    value: 'all',
+    label: 'All'
+  },
   'cancelled': {
     value: 'cancelled',
     label: 'Cancelled'

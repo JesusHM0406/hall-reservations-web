@@ -29,6 +29,10 @@ export type ReservationCreate = z.infer<typeof reservationCreateSchema>;
 
 export type ReservationPagination = z.infer<typeof reservationPaginationSchema>;
 
+export const reservationStatusFilterEnum = z.enum([...reservationStatus, 'all'] as const);
+
+export type ReservationStatusFilter = z.infer<typeof reservationStatusFilterEnum>;
+
 export interface ReservationPaginationParams {
   page?: number;
   user_name?: string;

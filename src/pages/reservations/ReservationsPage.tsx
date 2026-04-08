@@ -15,6 +15,7 @@ import { getErrorMessage } from '@/api/api.utils';
 import { toast } from 'sonner';
 import { SearchInput } from '@/components/common/SearchInput';
 import { useDebounce } from '@/hooks/useDebounce';
+import SpinnerLoader from '@/components/ui/SpinnerLoader';
 
 export const ReservationsPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -30,6 +31,7 @@ export const ReservationsPage = () => {
   const hallname = searchParams.get('hall_name') ?? '';
 
   const [resPag, setResPag] = useState<ReservationPagination | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [usernameVal, setUsernameVal] = useState<string>(username);
   const [hallnameVal, setHallnameVal] = useState <string>(hallname);
@@ -47,6 +49,7 @@ export const ReservationsPage = () => {
     const controller = new AbortController();
 
     const fetchData = async () => {
+      setIsLoading(true);
       try {
         const data = await reservationService.all(
           {
@@ -72,6 +75,7 @@ export const ReservationsPage = () => {
         const msg = getErrorMessage(e);
         if (isCurrent && msg) toast.error(msg);
       }
+      if (isCurrent) setIsLoading(false);
     };
 
     fetchData();
@@ -163,24 +167,35 @@ export const ReservationsPage = () => {
         <h2 className='font-bold uppercase text-sm text-gray tracking-wider mb-3'>
           Results {resPag ? ` (${resPag.total})` : ''}
         </h2>
-          {resPag ? (
-            <>
-              <ul className='flex flex-col gap-5 mb-5'>
-                {resPag.items.map((res) => (
-                  <li key={res.id}>
-                    <ReservationCard res={res} />
-                  </li>
-                ))}
-              </ul>
-              <Pagination
-                pages={resPag.pages}
-                current_page={resPag.current_page}
-                has_next={resPag.has_next}
-                has_prev={resPag.has_prev}
-                onPageClick={handlePageClick}
-              />
-            </>
-          ) : null}
+        {isLoading ? (
+          <div className='my-3'>
+            <div className='flex flex-col items-center'>
+              <SpinnerLoader size='xxl' intent='gray' />
+              <span className='uppercase text-xs text-gray font-bold mt-3'>Loading data</span>
+            </div>
+          </div>
+        ) : (
+          <>
+            {resPag ? (
+              <>
+                <ul className='flex flex-col gap-5 mb-5'>
+                  {resPag.items.map((res) => (
+                    <li key={res.id}>
+                      <ReservationCard res={res} />
+                    </li>
+                  ))}
+                </ul>
+                <Pagination
+                  pages={resPag.pages}
+                  current_page={resPag.current_page}
+                  has_next={resPag.has_next}
+                  has_prev={resPag.has_prev}
+                  onPageClick={handlePageClick}
+                />
+              </>
+            ) : null}
+          </>
+        )}
       </section>
     </div>
   );

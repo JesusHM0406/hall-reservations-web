@@ -64,7 +64,8 @@ export const ReservationsPage = () => {
               page: page.toString(),
               ...(status ? { status: status } : {}),
               ...(getNameSearch())
-            }
+            },
+            { replace: true }
           );
         }
       } catch(e) {
@@ -83,19 +84,25 @@ export const ReservationsPage = () => {
   }, [page, status, debouncedUser, debouncedHall]);
 
   const handleStatusFilterClick = (value: ReservationStatusFilter) => {
-    setSearchParams({
-      page: page.toString(),
-      status: value,
-      ...(getNameSearch())
-    });
+    setSearchParams(
+      {
+        page: page.toString(),
+        status: value,
+        ...(getNameSearch())
+      },
+      { replace: true }
+    );
   };
 
   const handlePageClick = (num: number) => {
-    setSearchParams({
-      page: num.toString(),
-      status,
-      ...(getNameSearch())
-    });
+    setSearchParams(
+      {
+        page: num.toString(),
+        status,
+        ...(getNameSearch())
+      },
+      { replace: true }
+    );
   };
 
   return (

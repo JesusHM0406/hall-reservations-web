@@ -1,16 +1,18 @@
 import type { Reservation } from '@/api/schemas/reservation.schemas';
 import { Badge } from '@/components/ui/Badge';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { ICON_SIZE } from '@/constants/ui.constants';
 import { PATHS } from '@/paths';
 import { format, isValid, parseISO } from 'date-fns';
-import { Calendar, MoreVertical, UserRound } from 'lucide-react';
+import { Calendar, CircleCheck, CircleX, MoreVertical, UserRound } from 'lucide-react';
 import { Link } from 'react-router';
 
 interface ReservationCardProps {
   res: Reservation;
+  isSelf: boolean;
 }
 
-export const ReservationCard = ({ res }: ReservationCardProps) => {
+export const ReservationCard = ({ res, isSelf }: ReservationCardProps) => {
   const parsedDate = parseISO(res.reservation_date);
 
   const date = isValid(parsedDate) ? format(parsedDate, 'MMM dd, yyyy') : 'Invalid date';
@@ -28,13 +30,47 @@ export const ReservationCard = ({ res }: ReservationCardProps) => {
             />
           </div>
 
-          <button
-            type='button'
-            className='p-1.5 border border-inactive/25 rounded-md transition-colors hover:border-res hover:text-res'
-            aria-label='Show actions for this reservation'
-          >
-            <MoreVertical size={ICON_SIZE.SM} aria-hidden />
-          </button>
+          {isSelf && res.status === 'confirmed' ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button
+                  type='button'
+                  className='p-1.5 border border-inactive/25 rounded-md transition-colors hover:border-res hover:text-res'
+                  aria-label='Show actions for this reservation'
+                >
+                  <MoreVertical size={ICON_SIZE.SM} aria-hidden />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align='end' className='w-42'>
+                <DropdownMenuItem>
+                  <span><CircleCheck aria-hidden /></span>
+                  <span>Finish reservation</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem variant='destructive'>
+                  <span><CircleX aria-hidden /></span>
+                  <span>Cancel reservation</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (!isSelf ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button
+                  type='button'
+                  className='p-1.5 border border-inactive/25 rounded-md transition-colors hover:border-res hover:text-res'
+                  aria-label='Show actions for this reservation'
+                >
+                  <MoreVertical size={ICON_SIZE.SM} aria-hidden />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent  align='end' className='w-36'>
+                <DropdownMenuItem>
+                  <span><UserRound aria-hidden /> </span>
+                  <span>Show user info</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : null)}
         </header>
 
         <section>
@@ -48,16 +84,18 @@ export const ReservationCard = ({ res }: ReservationCardProps) => {
 
           <div className='flex flex-col gap-2 mt-4'>
             <div className='flex items-center gap-3 text-inactive dark:text-gray'>
-              <Calendar size={ICON_SIZE.SM} className='text-blue-500' />
+              <Calendar size={ICON_SIZE.SM} className='text-blue-500' aria-hidden />
               <span className='text-sm'>{date}</span>
             </div>
 
-            <div className='flex items-center gap-3 text-inactive'>
-              <UserRound size={ICON_SIZE.SM} />
-              <div className='text-sm'>
-                <span className='font-medium'>{res.user_name}</span>
+            {!isSelf ? (
+              <div className='flex items-center gap-3 text-inactive'>
+                <UserRound size={ICON_SIZE.SM} aria-hidden />
+                <div className='text-sm'>
+                  <span className='font-medium'>{res.user_name}</span>
+                </div>
               </div>
-            </div>
+            ) : null}
           </div>
         </section>
       </div>
@@ -66,7 +104,6 @@ export const ReservationCard = ({ res }: ReservationCardProps) => {
           RESERVATION_REF: {res.id}
         </span>
       </footer>
-
     </article>
   );
 };

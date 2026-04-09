@@ -129,7 +129,7 @@ export const ReservationsLayout = ({
                 <ul className='flex flex-col gap-5 mb-5'>
                   {resPag.items.map((res) => (
                     <li key={res.id}>
-                      <ReservationCard res={res} />
+                      <ReservationCard res={res} isSelf={props.type === 'self'} />
                     </li>
                   ))}
                 </ul>

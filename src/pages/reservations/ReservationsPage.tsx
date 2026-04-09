@@ -8,7 +8,7 @@ export const ReservationsPage = () => {
   const { user } = useAuth();
 
   const [isSelf, setIsSelf] = useState<boolean>(user?.role === 'user');
-  const [_, setSearchParams] = useSearchParams();
+  const [, setSearchParams] = useSearchParams();
 
   const handleToggler = (val: boolean) => {
     setSearchParams({}, { replace: true });

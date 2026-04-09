@@ -9,6 +9,7 @@ import type { ReservationPagination, ReservationStatusFilter } from '@/api/schem
 import { Toggle } from '@/components/ui/toggle';
 import { UserRound } from 'lucide-react';
 import { ICON_SIZE } from '@/constants/ui.constants';
+import { AllowTo } from '@/components/common/AllowTo';
 
 interface ReservationsLayoutBase {
   status: ReservationStatusFilter;
@@ -47,15 +48,17 @@ export const ReservationsLayout = ({
       <section>
         <header className='flex justify-between gap-2 items-center'>
           <h1 className='font-bold text-lg xs:text-2xl uppercase'>Reservations</h1>
-          <Toggle
-            pressed={props.type === 'self'}
-            onPressedChange={setIsSelf}
-            variant='outline'
-            className='flex flex-wrap h-auto py-2'
-          >
-            <span><UserRound size={ICON_SIZE.XS} /></span>
-            <span className='text-2xs uppercase font-extrabold tracking-wider'>My reservations</span>
-          </Toggle>
+          <AllowTo roles={['admin', 'superadmin']}>
+            <Toggle
+              pressed={props.type === 'self'}
+              onPressedChange={setIsSelf}
+              variant='outline'
+              className='flex flex-wrap h-auto py-2'
+            >
+              <span><UserRound size={ICON_SIZE.XS} /></span>
+              <span className='text-2xs uppercase font-extrabold tracking-wider'>My reservations</span>
+            </Toggle>
+          </AllowTo>
         </header>
       </section>
 

@@ -54,8 +54,9 @@ export const ReservationsLayout = ({
               onPressedChange={setIsSelf}
               variant='outline'
               className='flex flex-wrap h-auto py-2'
+              aria-label='Toggle my reservations'
             >
-              <span><UserRound size={ICON_SIZE.XS} /></span>
+              <span><UserRound size={ICON_SIZE.XS} aria-hidden /></span>
               <span className='text-2xs uppercase font-extrabold tracking-wider'>My reservations</span>
             </Toggle>
           </AllowTo>

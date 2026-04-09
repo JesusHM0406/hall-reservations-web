@@ -84,13 +84,13 @@ export const ReservationCard = ({ res, isSelf }: ReservationCardProps) => {
 
           <div className='flex flex-col gap-2 mt-4'>
             <div className='flex items-center gap-3 text-inactive dark:text-gray'>
-              <Calendar size={ICON_SIZE.SM} className='text-blue-500' />
+              <Calendar size={ICON_SIZE.SM} className='text-blue-500' aria-hidden />
               <span className='text-sm'>{date}</span>
             </div>
 
             {!isSelf ? (
               <div className='flex items-center gap-3 text-inactive'>
-                <UserRound size={ICON_SIZE.SM} />
+                <UserRound size={ICON_SIZE.SM} aria-hidden />
                 <div className='text-sm'>
                   <span className='font-medium'>{res.user_name}</span>
                 </div>

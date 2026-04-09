@@ -1,9 +1,10 @@
 import type { Reservation } from '@/api/schemas/reservation.schemas';
 import { Badge } from '@/components/ui/Badge';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { ICON_SIZE } from '@/constants/ui.constants';
 import { PATHS } from '@/paths';
 import { format, isValid, parseISO } from 'date-fns';
-import { Calendar, MoreVertical, UserRound } from 'lucide-react';
+import { Calendar, CircleCheck, CircleX, MoreVertical, UserRound } from 'lucide-react';
 import { Link } from 'react-router';
 
 interface ReservationCardProps {
@@ -28,13 +29,31 @@ export const ReservationCard = ({ res }: ReservationCardProps) => {
             />
           </div>
 
-          <button
-            type='button'
-            className='p-1.5 border border-inactive/25 rounded-md transition-colors hover:border-res hover:text-res'
-            aria-label='Show actions for this reservation'
-          >
-            <MoreVertical size={ICON_SIZE.SM} aria-hidden />
-          </button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button
+                type='button'
+                className='p-1.5 border border-inactive/25 rounded-md transition-colors hover:border-res hover:text-res'
+                aria-label='Show actions for this reservation'
+              >
+                <MoreVertical size={ICON_SIZE.SM} aria-hidden />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align='end' className='w-42'>
+              <DropdownMenuItem>
+                <span><CircleCheck aria-hidden /></span>
+                <span>Finish reservation</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem variant='destructive'>
+                <span><CircleX aria-hidden /></span>
+                <span>Cancel reservation</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <span><UserRound aria-hidden /> </span>
+                <span>Show user info</span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </header>
 
         <section>

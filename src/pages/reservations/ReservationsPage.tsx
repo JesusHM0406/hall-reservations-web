@@ -9,7 +9,7 @@ import {
   type ReservationPagination,
   type ReservationStatusFilter
 } from '@/api/schemas/reservation.schemas';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { reservationService } from '@/api/services/reservation.service';
 import { getErrorMessage } from '@/api/api.utils';
 import { toast } from 'sonner';
@@ -34,17 +34,55 @@ export const ReservationsPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [usernameVal, setUsernameVal] = useState<string>(username);
-  const [hallnameVal, setHallnameVal] = useState <string>(hallname);
+  const [hallnameVal, setHallnameVal] = useState<string>(hallname);
 
   const debouncedUser = useDebounce(usernameVal, 400);
   const debouncedHall = useDebounce(hallnameVal, 400);
 
-  const getNameSearch = () => ({
-    ...(debouncedUser.length > 2 ? { user_name: debouncedUser } : {}),
-    ...(debouncedHall.length > 2 ? { hall_name: debouncedHall } : {})
-  });
+  const getNameSearch = useCallback((userVal: string, hallVal: string) => ({
+    ...(userVal.length > 2 ? { user_name: userVal } : {}),
+    ...(hallVal.length > 2 ? { hall_name: hallVal } : {})
+  }), []);
+
+  const lastUsernameVal = useRef<string>('');
+  const lastHallnameVal = useRef<string>('');
 
   useEffect(() => {
+    if (
+      debouncedHall === lastHallnameVal.current &&
+      debouncedUser === lastUsernameVal.current
+    ) return;
+
+    let userObj = {};
+    let hallObj = {};
+
+    if (debouncedHall.length > 2) {
+      lastHallnameVal.current = debouncedHall;
+      hallObj = { hall_name: debouncedHall };
+    } else if (!debouncedHall) {
+      lastHallnameVal.current = '';
+      hallObj = {};
+    }
+
+    if (debouncedUser.length > 2) {
+      lastUsernameVal.current = debouncedUser;
+      userObj = { user_name: debouncedUser };
+    } else if (!debouncedUser) {
+      lastUsernameVal.current = '';
+      userObj = {};
+    }
+
+    setSearchParams(
+      { page: page.toString(), ...(status ? { status: status } : {}), ...userObj, ...hallObj },
+      { replace: true }
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedHall, debouncedUser, page, status]);
+
+  useEffect(() => {
+    setHallnameVal(hallname);
+    setUsernameVal(username);
+
     let isCurrent = true;
     const controller = new AbortController();
 
@@ -52,25 +90,11 @@ export const ReservationsPage = () => {
       setIsLoading(true);
       try {
         const data = await reservationService.all(
-          {
-            page,
-            ...(status === 'all' ? {} : { status }),
-            ...(getNameSearch())
-          },
+          { page, ...(status === 'all' ? {} : { status }), ...(getNameSearch(username, hallname)) },
           controller
         );
 
-        if (isCurrent) {
-          setResPag(data);
-          setSearchParams(
-            {
-              page: page.toString(),
-              ...(status ? { status: status } : {}),
-              ...(getNameSearch())
-            },
-            { replace: true }
-          );
-        }
+        if (isCurrent) setResPag(data);
       } catch(e) {
         const msg = getErrorMessage(e);
         if (isCurrent && msg) toast.error(msg);
@@ -84,15 +108,14 @@ export const ReservationsPage = () => {
       isCurrent = false;
       controller.abort();
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, status, debouncedUser, debouncedHall]);
+  }, [page, status, hallname, username, getNameSearch]);
 
   const handleStatusFilterClick = (value: ReservationStatusFilter) => {
     setSearchParams(
       {
         page: page.toString(),
         status: value,
-        ...(getNameSearch())
+        ...(getNameSearch(username, hallname))
       },
       { replace: true }
     );
@@ -103,7 +126,7 @@ export const ReservationsPage = () => {
       {
         page: num.toString(),
         status,
-        ...(getNameSearch())
+        ...(getNameSearch(username, hallname))
       },
       { replace: true }
     );

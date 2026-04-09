@@ -13,7 +13,7 @@ interface ReservationCardProps {
 export const ReservationCard = ({ res }: ReservationCardProps) => {
   const parsedDate = parseISO(res.reservation_date);
 
-  const date = isValid(parsedDate) ? format(parsedDate, 'MMM dd, yyyy') : 'An error occurred while reading the date';
+  const date = isValid(parsedDate) ? format(parsedDate, 'MMM dd, yyyy') : 'Invalid date';
 
   return (
     <article className='border border-inactive/25 gap-2 bg-subtle-white/30 dark:bg-dark-gray rounded-xl hover:bg-inactive/10 dark:hover:bg-inactive/15 transition-colors duration-150 flex flex-col overflow-hidden'>

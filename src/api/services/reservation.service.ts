@@ -14,8 +14,11 @@ export const reservationService = {
     );
   },
 
-  async allCurrentUser(filters: ReservationPaginationParams) {
-    return await apiRequest(API_ENDPOINTS.RESERVATIONS.ALL_CURRENT_USER(filters));
+  async allCurrentUser(filters: ReservationPaginationParams, controller?: AbortController) {
+    return await apiRequest(
+      API_ENDPOINTS.RESERVATIONS.ALL_CURRENT_USER(filters),
+      { signal: controller?.signal }
+    );
   },
 
   async byId(id: number | string) {

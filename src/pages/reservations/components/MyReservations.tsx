@@ -74,7 +74,6 @@ export const MyReservations = ({ setIsSelf }: { setIsSelf: (val: boolean) => voi
       isLoading={isLoading}
       handlePageClick={handlePageClick}
       setIsSelf={setIsSelf}
-      isSelf
     />
   );
 };

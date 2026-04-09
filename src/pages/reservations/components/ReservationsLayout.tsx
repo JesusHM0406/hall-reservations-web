@@ -18,7 +18,6 @@ interface ReservationsLayoutBase {
   isLoading: boolean;
   handlePageClick: (num: number) => void;
   setIsSelf: (val: boolean) => void;
-  isSelf: boolean;
 }
 
 interface ReservationsLayoutSelf extends ReservationsLayoutBase {
@@ -42,7 +41,6 @@ export const ReservationsLayout = ({
   resPag,
   isLoading,
   setIsSelf,
-  isSelf,
   ...props
 }: ReservationsLayoutProps) => {
   return (
@@ -131,7 +129,7 @@ export const ReservationsLayout = ({
                 <ul className='flex flex-col gap-5 mb-5'>
                   {resPag.items.map((res) => (
                     <li key={res.id}>
-                      <ReservationCard res={res} isSelf={isSelf} />
+                      <ReservationCard res={res} isSelf={props.type === 'self'} />
                     </li>
                   ))}
                 </ul>

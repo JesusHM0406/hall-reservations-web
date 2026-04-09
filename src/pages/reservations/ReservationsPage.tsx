@@ -2,13 +2,20 @@ import { useState } from 'react';
 import { AllReservations } from './components/AllReservations';
 import { MyReservations } from './components/MyReservations';
 import { useAuth } from '@/hooks/useAuth';
+import { useSearchParams } from 'react-router';
 
 export const ReservationsPage = () => {
   const { user } = useAuth();
 
   const [isSelf, setIsSelf] = useState<boolean>(user?.role === 'user');
+  const [_, setSearchParams] = useSearchParams();
 
-  if (isSelf || user?.role === 'user') return <MyReservations setIsSelf={setIsSelf} />;
+  const handleToggler = (val: boolean) => {
+    setSearchParams({}, { replace: true });
+    setIsSelf(val);
+  };
 
-  return <AllReservations setIsSelf={setIsSelf} />;
+  if (isSelf || user?.role === 'user') return <MyReservations setIsSelf={handleToggler} />;
+
+  return <AllReservations setIsSelf={handleToggler} />;
 };

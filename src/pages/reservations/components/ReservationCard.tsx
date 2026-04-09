@@ -9,9 +9,10 @@ import { Link } from 'react-router';
 
 interface ReservationCardProps {
   res: Reservation;
+  isSelf: boolean;
 }
 
-export const ReservationCard = ({ res }: ReservationCardProps) => {
+export const ReservationCard = ({ res, isSelf }: ReservationCardProps) => {
   const parsedDate = parseISO(res.reservation_date);
 
   const date = isValid(parsedDate) ? format(parsedDate, 'MMM dd, yyyy') : 'Invalid date';
@@ -40,18 +41,23 @@ export const ReservationCard = ({ res }: ReservationCardProps) => {
               </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align='end' className='w-42'>
-              <DropdownMenuItem>
-                <span><CircleCheck aria-hidden /></span>
-                <span>Finish reservation</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem variant='destructive'>
-                <span><CircleX aria-hidden /></span>
-                <span>Cancel reservation</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <span><UserRound aria-hidden /> </span>
-                <span>Show user info</span>
-              </DropdownMenuItem>
+              {isSelf ? (
+                <>
+                  <DropdownMenuItem>
+                    <span><CircleCheck aria-hidden /></span>
+                    <span>Finish reservation</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem variant='destructive'>
+                    <span><CircleX aria-hidden /></span>
+                    <span>Cancel reservation</span>
+                  </DropdownMenuItem>
+                </>
+              ) : (
+                <DropdownMenuItem>
+                  <span><UserRound aria-hidden /> </span>
+                  <span>Show user info</span>
+                </DropdownMenuItem>
+              )}
             </DropdownMenuContent>
           </DropdownMenu>
         </header>
@@ -71,12 +77,14 @@ export const ReservationCard = ({ res }: ReservationCardProps) => {
               <span className='text-sm'>{date}</span>
             </div>
 
-            <div className='flex items-center gap-3 text-inactive'>
-              <UserRound size={ICON_SIZE.SM} />
-              <div className='text-sm'>
-                <span className='font-medium'>{res.user_name}</span>
+            {!isSelf ? (
+              <div className='flex items-center gap-3 text-inactive'>
+                <UserRound size={ICON_SIZE.SM} />
+                <div className='text-sm'>
+                  <span className='font-medium'>{res.user_name}</span>
+                </div>
               </div>
-            </div>
+            ) : null}
           </div>
         </section>
       </div>

@@ -139,6 +139,7 @@ export const AllReservations = ({ setIsSelf }: { setIsSelf: (val: boolean) => vo
       isLoading={isLoading}
       handlePageClick={handlePageClick}
       setIsSelf={setIsSelf}
+      isSelf={false}
     />
   );
 };

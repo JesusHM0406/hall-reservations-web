@@ -10,7 +10,7 @@ import { useSearchParams } from 'react-router';
 import { toast } from 'sonner';
 import { ReservationsLayout } from './ReservationsLayout';
 
-export const MyReservations = () => {
+export const MyReservations = ({ setIsSelf }: { setIsSelf: (val: boolean) => void }) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const rawPage = parseInt(searchParams.get('page') ?? '1', 10);
@@ -73,6 +73,7 @@ export const MyReservations = () => {
       resPag={resPag}
       isLoading={isLoading}
       handlePageClick={handlePageClick}
+      setIsSelf={setIsSelf}
     />
   );
 };

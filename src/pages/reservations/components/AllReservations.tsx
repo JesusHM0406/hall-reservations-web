@@ -11,7 +11,7 @@ import { toast } from 'sonner';
 import { useDebounce } from '@/hooks/useDebounce';
 import { ReservationsLayout } from './ReservationsLayout';
 
-export const AllReservations = () => {
+export const AllReservations = ({ setIsSelf }: { setIsSelf: (val: boolean) => void }) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const rawPage = parseInt(searchParams.get('page') ?? '1', 10);
@@ -138,6 +138,7 @@ export const AllReservations = () => {
       resPag={resPag}
       isLoading={isLoading}
       handlePageClick={handlePageClick}
+      setIsSelf={setIsSelf}
     />
   );
 };

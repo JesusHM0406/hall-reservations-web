@@ -16,6 +16,7 @@ interface ReservationsLayoutBase {
   resPag: ReservationPagination | null;
   isLoading: boolean;
   handlePageClick: (num: number) => void;
+  setIsSelf: (val: boolean) => void;
 }
 
 interface ReservationsLayoutSelf extends ReservationsLayoutBase {
@@ -38,6 +39,7 @@ export const ReservationsLayout = ({
   handlePageClick,
   resPag,
   isLoading,
+  setIsSelf,
   ...props
 }: ReservationsLayoutProps) => {
   return (
@@ -45,7 +47,12 @@ export const ReservationsLayout = ({
       <section>
         <header className='flex justify-between gap-2 items-center'>
           <h1 className='font-bold text-lg xs:text-2xl uppercase'>Reservations</h1>
-          <Toggle variant='outline' className='flex flex-wrap h-auto py-2'>
+          <Toggle
+            pressed={props.type === 'self'}
+            onPressedChange={setIsSelf}
+            variant='outline'
+            className='flex flex-wrap h-auto py-2'
+          >
             <span><UserRound size={ICON_SIZE.XS} /></span>
             <span className='text-2xs uppercase font-extrabold tracking-wider'>My reservations</span>
           </Toggle>

@@ -6,6 +6,9 @@ import { ReservationCard } from './ReservationCard';
 import { Pagination } from '@/components/common/Pagination';
 import { RES_STATUS_FILTER_ITEMS } from '@/constants/reservations.constants';
 import type { ReservationPagination, ReservationStatusFilter } from '@/api/schemas/reservation.schemas';
+import { Toggle } from '@/components/ui/toggle';
+import { UserRound } from 'lucide-react';
+import { ICON_SIZE } from '@/constants/ui.constants';
 
 interface ReservationsLayoutBase {
   status: ReservationStatusFilter;
@@ -39,9 +42,13 @@ export const ReservationsLayout = ({
 }: ReservationsLayoutProps) => {
   return (
     <div className='max-w-xl w-full mx-auto flex flex-col gap-7 grow'>
-      <section className='flex justify-between gap-3 items-center'>
-        <header>
+      <section>
+        <header className='flex justify-between gap-2 items-center'>
           <h1 className='font-bold text-lg xs:text-2xl uppercase'>Reservations</h1>
+          <Toggle variant='outline' className='flex flex-wrap h-auto py-2'>
+            <span><UserRound size={ICON_SIZE.XS} /></span>
+            <span className='text-2xs uppercase font-extrabold tracking-wider'>My reservations</span>
+          </Toggle>
         </header>
       </section>
 

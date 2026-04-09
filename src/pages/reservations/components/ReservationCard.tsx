@@ -30,36 +30,47 @@ export const ReservationCard = ({ res, isSelf }: ReservationCardProps) => {
             />
           </div>
 
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <button
-                type='button'
-                className='p-1.5 border border-inactive/25 rounded-md transition-colors hover:border-res hover:text-res'
-                aria-label='Show actions for this reservation'
-              >
-                <MoreVertical size={ICON_SIZE.SM} aria-hidden />
-              </button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align='end' className='w-42'>
-              {isSelf ? (
-                <>
-                  <DropdownMenuItem>
-                    <span><CircleCheck aria-hidden /></span>
-                    <span>Finish reservation</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem variant='destructive'>
-                    <span><CircleX aria-hidden /></span>
-                    <span>Cancel reservation</span>
-                  </DropdownMenuItem>
-                </>
-              ) : (
+          {isSelf && res.status === 'confirmed' ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button
+                  type='button'
+                  className='p-1.5 border border-inactive/25 rounded-md transition-colors hover:border-res hover:text-res'
+                  aria-label='Show actions for this reservation'
+                >
+                  <MoreVertical size={ICON_SIZE.SM} aria-hidden />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align='end' className='w-42'>
+                <DropdownMenuItem>
+                  <span><CircleCheck aria-hidden /></span>
+                  <span>Finish reservation</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem variant='destructive'>
+                  <span><CircleX aria-hidden /></span>
+                  <span>Cancel reservation</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (!isSelf ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button
+                  type='button'
+                  className='p-1.5 border border-inactive/25 rounded-md transition-colors hover:border-res hover:text-res'
+                  aria-label='Show actions for this reservation'
+                >
+                  <MoreVertical size={ICON_SIZE.SM} aria-hidden />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent  align='end' className='w-36'>
                 <DropdownMenuItem>
                   <span><UserRound aria-hidden /> </span>
                   <span>Show user info</span>
                 </DropdownMenuItem>
-              )}
-            </DropdownMenuContent>
-          </DropdownMenu>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : null)}
         </header>
 
         <section>
@@ -93,7 +104,6 @@ export const ReservationCard = ({ res, isSelf }: ReservationCardProps) => {
           RESERVATION_REF: {res.id}
         </span>
       </footer>
-
     </article>
   );
 };

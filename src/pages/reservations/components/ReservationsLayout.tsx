@@ -10,6 +10,7 @@ import { Toggle } from '@/components/ui/toggle';
 import { UserRound } from 'lucide-react';
 import { ICON_SIZE } from '@/constants/ui.constants';
 import { AllowTo } from '@/components/common/AllowTo';
+import { UserInfoDialog } from './UserInfoDialog';
 
 interface ReservationsLayoutBase {
   status: ReservationStatusFilter;
@@ -145,6 +146,8 @@ export const ReservationsLayout = ({
           </>
         )}
       </section>
+
+      <UserInfoDialog />
     </div>
   );
 };

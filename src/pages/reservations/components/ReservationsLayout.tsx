@@ -11,6 +11,8 @@ import { UserRound } from 'lucide-react';
 import { ICON_SIZE } from '@/constants/ui.constants';
 import { AllowTo } from '@/components/common/AllowTo';
 import { UserInfoDialog } from './UserInfoDialog';
+import { useState } from 'react';
+import type { ResAction } from '../res.types';
 
 interface ReservationsLayoutBase {
   status: ReservationStatusFilter;
@@ -44,6 +46,8 @@ export const ReservationsLayout = ({
   setIsSelf,
   ...props
 }: ReservationsLayoutProps) => {
+  const [action, setAction] = useState<ResAction>(null);
+
   return (
     <div className='max-w-xl w-full mx-auto flex flex-col gap-7 grow'>
       <section>
@@ -130,7 +134,11 @@ export const ReservationsLayout = ({
                 <ul className='flex flex-col gap-5 mb-5'>
                   {resPag.items.map((res) => (
                     <li key={res.id}>
-                      <ReservationCard res={res} isSelf={props.type === 'self'} />
+                      <ReservationCard
+                        res={res}
+                        isSelf={props.type === 'self'}
+                        setAction={setAction}
+                      />
                     </li>
                   ))}
                 </ul>
@@ -147,7 +155,14 @@ export const ReservationsLayout = ({
         )}
       </section>
 
-      <UserInfoDialog />
+      {action?.type === 'userInfo' ? (
+        <UserInfoDialog
+          res={action.res}
+          triggerId={action.triggerId}
+          isOpen={true}
+          onClose={() => {setAction(null)}}
+        />
+      ) : null}
     </div>
   );
 };

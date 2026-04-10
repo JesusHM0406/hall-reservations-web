@@ -1,9 +1,22 @@
+import type { Reservation } from '@/api/schemas/reservation.schemas';
 import { Badge } from '@/components/ui/Badge';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 
-export const UserInfoDialog = () => {
+interface UserInfoDialogProps {
+  res: Reservation;
+  triggerId: string;
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export const UserInfoDialog = ({ isOpen, onClose }: UserInfoDialogProps) => {
   return (
-    <Dialog open>
+    <Dialog
+      open={isOpen}
+      onOpenChange={(open) => {
+        if (!open) onClose();
+      }}
+    >
       <DialogContent>
         <DialogHeader>
           <DialogTitle>User detail</DialogTitle>

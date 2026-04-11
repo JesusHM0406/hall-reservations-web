@@ -22,6 +22,7 @@ export const MyReservations = ({ setIsSelf }: { setIsSelf: (val: boolean) => voi
 
   const [resPag, setResPag] = useState<ReservationPagination | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [refreshCount, setRefreshCount] = useState<number>(0);
 
   useEffect(() => {
     let isCurrent = true;
@@ -49,7 +50,7 @@ export const MyReservations = ({ setIsSelf }: { setIsSelf: (val: boolean) => voi
       isCurrent = false;
       controller.abort();
     };
-  }, [page, status]);
+  }, [page, status, refreshCount]);
 
   const handleStatusFilterClick = (value: ReservationStatusFilter) => {
     setSearchParams(
@@ -74,6 +75,7 @@ export const MyReservations = ({ setIsSelf }: { setIsSelf: (val: boolean) => voi
       isLoading={isLoading}
       handlePageClick={handlePageClick}
       setIsSelf={setIsSelf}
+      onRefresh={() => {setRefreshCount((prev) => prev + 1)}}
     />
   );
 };

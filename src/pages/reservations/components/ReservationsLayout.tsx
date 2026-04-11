@@ -10,9 +10,9 @@ import { Toggle } from '@/components/ui/toggle';
 import { UserRound } from 'lucide-react';
 import { ICON_SIZE } from '@/constants/ui.constants';
 import { AllowTo } from '@/components/common/AllowTo';
-import { UserInfoDialog } from './UserInfoDialog';
 import { useCallback, useState } from 'react';
 import type { ResAction } from '../res.types';
+import { ResActionView } from './ResActionView';
 
 interface ReservationsLayoutBase {
   status: ReservationStatusFilter;
@@ -25,6 +25,7 @@ interface ReservationsLayoutBase {
 
 interface ReservationsLayoutSelf extends ReservationsLayoutBase {
   type: 'self';
+  onRefresh: () => void;
 }
 
 interface ReservationsLayoutAll extends ReservationsLayoutBase {
@@ -160,20 +161,17 @@ export const ReservationsLayout = ({
                   has_prev={resPag.has_prev}
                   onPageClick={handlePageClick}
                 />
-                {action?.type === 'userInfo' ? (
-                  <UserInfoDialog
-                    res={action.res}
-                    returnFocusTargetId={lastTriggerId}
-                    isOpen={true}
-                    onClose={onClose}
-                  />
-                ) : null}
+                <ResActionView
+                  action={action}
+                  lastTriggerId={lastTriggerId}
+                  onClose={onClose}
+                  onSuccess={props.type === 'self' ? props.onRefresh : undefined}
+                />
               </>
             ) : null}
           </>
         )}
       </section>
-
     </div>
   );
 };

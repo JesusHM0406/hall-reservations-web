@@ -47,6 +47,15 @@ export const ReservationsLayout = ({
   ...props
 }: ReservationsLayoutProps) => {
   const [action, setAction] = useState<ResAction>(null);
+  const [lastTriggerId, setLastTriggerId] = useState<string | undefined>(undefined);
+
+  const handleActionChange = (nextAction: ResAction) => {
+    if (nextAction !== null) {
+      setLastTriggerId(nextAction.triggerId);
+    }
+
+    setAction(nextAction);
+  };
 
   return (
     <div className='max-w-xl w-full mx-auto flex flex-col gap-7 grow'>
@@ -137,7 +146,7 @@ export const ReservationsLayout = ({
                       <ReservationCard
                         res={res}
                         isSelf={props.type === 'self'}
-                        setAction={setAction}
+                        setAction={handleActionChange}
                       />
                     </li>
                   ))}
@@ -149,20 +158,20 @@ export const ReservationsLayout = ({
                   has_prev={resPag.has_prev}
                   onPageClick={handlePageClick}
                 />
+                {action?.type === 'userInfo' ? (
+                  <UserInfoDialog
+                    res={action.res}
+                    returnFocusTargetId={lastTriggerId}
+                    isOpen={true}
+                    onClose={() => {setAction(null)}}
+                  />
+                ) : null}
               </>
             ) : null}
           </>
         )}
       </section>
 
-      {action?.type === 'userInfo' ? (
-        <UserInfoDialog
-          res={action.res}
-          triggerId={action.triggerId}
-          isOpen={true}
-          onClose={() => {setAction(null)}}
-        />
-      ) : null}
     </div>
   );
 };

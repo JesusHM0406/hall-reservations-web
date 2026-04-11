@@ -3,13 +3,13 @@ import { Badge } from '@/components/ui/Badge';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 
 interface UserInfoDialogProps {
-  res: Reservation;
-  triggerId: string;
+  res: Reservation
+  returnFocusTargetId?: string;
   isOpen: boolean;
   onClose: () => void;
 }
 
-export const UserInfoDialog = ({ isOpen, onClose }: UserInfoDialogProps) => {
+export const UserInfoDialog = ({ isOpen, onClose, returnFocusTargetId, res }: UserInfoDialogProps) => {
   return (
     <Dialog
       open={isOpen}
@@ -17,7 +17,14 @@ export const UserInfoDialog = ({ isOpen, onClose }: UserInfoDialogProps) => {
         if (!open) onClose();
       }}
     >
-      <DialogContent>
+      <DialogContent
+        onCloseAutoFocus={(e) => {
+          e.preventDefault();
+          const triggerId = returnFocusTargetId ?? `res-dropdown-trigger-${res.id}`;
+          const trigger = document.getElementById(triggerId);
+          trigger?.focus();
+        }}
+      >
         <DialogHeader>
           <DialogTitle>User detail</DialogTitle>
           <DialogDescription>Here you can see user information, but you can't perform any actions directly. To do that, you must go to the users page.</DialogDescription>

@@ -38,6 +38,7 @@ export const ReservationCard = ({ res, isSelf, setAction }: ReservationCardProps
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button
+                  id={triggerId}
                   type='button'
                   className='p-1.5 border border-inactive/25 rounded-md transition-colors hover:border-res hover:text-res'
                   aria-label='Show actions for this reservation'
@@ -60,6 +61,7 @@ export const ReservationCard = ({ res, isSelf, setAction }: ReservationCardProps
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button
+                  id={triggerId}
                   type='button'
                   className='p-1.5 border border-inactive/25 rounded-md transition-colors hover:border-res hover:text-res'
                   aria-label='Show actions for this reservation'

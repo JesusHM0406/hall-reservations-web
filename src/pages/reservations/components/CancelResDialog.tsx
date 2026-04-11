@@ -15,6 +15,8 @@ interface CancelResDialogProps {
 }
 
 export const CancelResDialog = ({ isOpen, onClose }: CancelResDialogProps) => {
+  const closeBtnId = 'cancel-res-close-btn';
+
   return (
     <Dialog
       open={isOpen}
@@ -22,7 +24,14 @@ export const CancelResDialog = ({ isOpen, onClose }: CancelResDialogProps) => {
         if (!open) onClose();
       }}
     >
-      <DialogContent showCloseButton={false}>
+      <DialogContent
+        showCloseButton={false}
+        onOpenAutoFocus={(e) => {
+          e.preventDefault();
+          const closeBtn = document.getElementById(closeBtnId);
+          closeBtn?.focus();
+        }}
+      >
         <DialogHeader>
           <DialogTitle>Cancel reservation</DialogTitle>
           <DialogDescription>Reservations cannot be cancelled if today is the reservation date. Are you sure you want to do this?</DialogDescription>
@@ -32,7 +41,7 @@ export const CancelResDialog = ({ isOpen, onClose }: CancelResDialogProps) => {
             <span>Cancel reservation</span>
           </CustomButton>
           <DialogClose asChild>
-            <CustomButton intent='gray'>
+            <CustomButton id={closeBtnId} intent='gray'>
               <span>Close</span>
             </CustomButton>
           </DialogClose>

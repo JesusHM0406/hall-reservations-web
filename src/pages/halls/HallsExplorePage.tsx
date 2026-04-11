@@ -15,8 +15,10 @@ import SpinnerLoader from '@/components/ui/SpinnerLoader';
 import { Pagination } from '@/components/common/Pagination';
 import { CreateHallDrawer } from '@/pages/halls/components/CreateHallDrawer';
 import { AllowTo } from '@/components/common/AllowTo';
+import { useTitle } from '@/hooks/useTitle';
 
 export const HallsExplorePage = () => {
+  useTitle('Explore halls');
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);

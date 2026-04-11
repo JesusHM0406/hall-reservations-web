@@ -13,8 +13,10 @@ import { toast } from 'sonner';
 import { UpdateHallDrawer } from './components/UpdateHallDrawer';
 import { BookHallDrawer } from './components/BookHallDrawer';
 import { AllowTo } from '@/components/common/AllowTo';
+import { useTitle } from '@/hooks/useTitle';
 
 export const HallDetailPage = () => {
+  useTitle('Hall detail');
   const hallId = useParams().hallId;
   const numericId = parseInt(hallId || '', 10);
 

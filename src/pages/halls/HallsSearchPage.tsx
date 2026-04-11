@@ -11,8 +11,10 @@ import Button from '@/components/ui/Button';
 import { ArrowUp } from 'lucide-react';
 import { ICON_SIZE } from '@/constants/ui.constants';
 import SpinnerLoader from '@/components/ui/SpinnerLoader';
+import { useTitle } from '@/hooks/useTitle';
 
 export const HallsSearchPage = () => {
+  useTitle('Search halls');
   const [searchParams, setSearchParams] = useSearchParams();
 
   const query = searchParams.get('q') || '';

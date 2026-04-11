@@ -22,8 +22,10 @@ import { Pagination } from '@/components/common/Pagination';
 import { UpdateUserDrawer } from './components/UpdateUserDrawer';
 import { RestoreUserDialog } from './components/RestoreUserDialog';
 import { DeleteUserDialog } from './components/DeleteUserDialog';
+import { useTitle } from '@/hooks/useTitle';
 
 export const UsersPage = () => {
+  useTitle('Users');
   const [searchParams, setSearchParams] = useSearchParams();
 
   const rawPage = parseInt(searchParams.get('page') || '1', 10);

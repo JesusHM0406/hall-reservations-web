@@ -7,8 +7,10 @@ import { useEffect } from 'react';
 import { UpdateNameDrawer } from './components/UpdateNameDrawer';
 import { LogoutDialog } from './components/LogoutDialog';
 import { DeleteAccountDialog } from './components/DeleteAccountDialog';
+import { useTitle } from '@/hooks/useTitle';
 
 export const MyAccountPage = () => {
+  useTitle('My account');
   const { user } = useAuth();
 
   useEffect(() => {

@@ -3,8 +3,10 @@ import { AllReservations } from './components/AllReservations';
 import { MyReservations } from './components/MyReservations';
 import { useAuth } from '@/hooks/useAuth';
 import { useSearchParams } from 'react-router';
+import { useTitle } from '@/hooks/useTitle';
 
 export const ReservationsPage = () => {
+  useTitle('Reservations');
   const { user } = useAuth();
 
   const [isSelf, setIsSelf] = useState<boolean>(user?.role === 'user');

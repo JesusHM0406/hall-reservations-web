@@ -13,8 +13,10 @@ import SpinnerLoader from '@/components/ui/SpinnerLoader';
 import { getErrorMessage } from '@/api/api.utils';
 import { toast } from 'sonner';
 import { useAuth } from '@/hooks/useAuth';
+import { useTitle } from '@/hooks/useTitle';
 
 export const LoginPage = () => {
+  useTitle('Login');
   const  {
     register,
     handleSubmit,

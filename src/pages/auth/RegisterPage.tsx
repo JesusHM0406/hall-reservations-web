@@ -15,8 +15,10 @@ import { toast } from 'sonner';
 import { getErrorMessage } from '@/api/api.utils';
 import { useAuth } from '@/hooks/useAuth';
 import { userCreateSchema, type UserCreate } from '@/api/schemas/user.schemas';
+import { useTitle } from '@/hooks/useTitle';
 
 export const RegisterPage = () => {
+  useTitle('Register');
   const {
     register,
     handleSubmit,

@@ -61,7 +61,11 @@ const Sidebar = ({ isSidebarOpen, closeMethod, isDesktop, className, ...props }:
                   <AllowTo key={item.sectionLabel} requires={item.allowTo}>
                     <li>
                       <SidebarItem
-                        {...item}
+                        type={item.type}
+                        items={item.items}
+                        sectionLabel={item.sectionLabel}
+                        iconName={item.iconName}
+                        rootPath={item.rootPath}
                         sectionMethod={() => handleExpandableClick(item.sectionLabel)}
                         isExpanded={expandedOpt === item.sectionLabel}
                         closeMethod={closeMethod}
@@ -75,7 +79,10 @@ const Sidebar = ({ isSidebarOpen, closeMethod, isDesktop, className, ...props }:
                 <AllowTo key={item.sectionLabel} requires={item.allowTo}>
                   <li>
                     <SidebarItem
-                      {...item}
+                      type={item.type}
+                      sectionLabel={item.sectionLabel}
+                      iconName={item.iconName}
+                      rootPath={item.rootPath}
                       sectionMethod={closeMethod}
                     />
                   </li>

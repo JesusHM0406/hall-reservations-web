@@ -1,4 +1,5 @@
 import type { ResAction } from "../res.types";
+import { CancelResDialog } from "./CancelResDialog";
 import { FinishReservationDialog } from "./FinishReservationDialog";
 import { UserInfoDialog } from "./UserInfoDialog";
 
@@ -30,4 +31,11 @@ export const ResActionView = ({ action, lastTriggerId, onClose, onSuccess }: Res
       onSuccess={onSuccess}
     />
   );
+
+  if (action.type === 'cancel') return (
+    <CancelResDialog
+      isOpen={true}
+      onClose={onClose}
+    />
+  )
 };

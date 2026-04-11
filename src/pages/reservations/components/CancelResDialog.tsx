@@ -1,4 +1,6 @@
+import { getErrorMessage } from '@/api/api.utils';
 import type { Reservation } from '@/api/schemas/reservation.schemas';
+import { reservationService } from '@/api/services/reservation.service';
 import CustomButton from '@/components/ui/Button';
 import {
   Dialog,
@@ -9,27 +11,51 @@ import {
   DialogHeader,
   DialogTitle
 } from '@/components/ui/dialog';
+import SpinnerLoader from '@/components/ui/SpinnerLoader';
+import { useState } from 'react';
+import { toast } from 'sonner';
 
 interface CancelResDialogProps {
   isOpen: boolean;
   onClose: () => void;
   returnFocusTargetId?: string;
   res: Reservation;
+  onSuccess?: () => void;
 }
 
 export const CancelResDialog = ({
   isOpen,
   onClose,
   returnFocusTargetId,
-  res
+  res,
+  onSuccess
 }: CancelResDialogProps) => {
   const closeBtnId = 'cancel-res-close-btn';
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const cancelRes = async () => {
+    setIsLoading(true);
+    let isSuccess = false;
+    try {
+      await reservationService.cancel(res.id);
+      toast.success('The reservation has been finished successfully.');
+      if (onSuccess) onSuccess();
+      isSuccess = true;
+    } catch(e) {
+      const msg = getErrorMessage(e);
+      if (msg) toast.error(msg);
+    } finally {
+      setIsLoading(false);
+      if (isSuccess) onClose();
+    }
+  };
 
   return (
     <Dialog
       open={isOpen}
       onOpenChange={(open) => {
-        if (!open) onClose();
+        if (!open && !isLoading) onClose();
       }}
     >
       <DialogContent
@@ -51,10 +77,19 @@ export const CancelResDialog = ({
           <DialogDescription>Reservations cannot be cancelled if today is the reservation date. Are you sure you want to do this?</DialogDescription>
         </DialogHeader>
         <DialogFooter className='flex-row justify-end'>
-          <CustomButton intent='danger'>
-            <span>Cancel reservation</span>
+          <CustomButton
+            intent='danger'
+            onClick={cancelRes}
+            disabled={isLoading}
+            className='w-40'
+          >
+            {isLoading ? (
+              <SpinnerLoader size='xs' />
+            ) : (
+              <span>Cancel reservation</span>
+            )}
           </CustomButton>
-          <DialogClose asChild>
+          <DialogClose disabled={isLoading} asChild>
             <CustomButton id={closeBtnId} intent='gray'>
               <span>Close</span>
             </CustomButton>

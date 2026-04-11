@@ -38,6 +38,7 @@ export const ResActionView = ({ action, lastTriggerId, onClose, onSuccess }: Res
       returnFocusTargetId={lastTriggerId}
       isOpen={true}
       onClose={onClose}
+      onSuccess={onSuccess}
     />
   )
 };

@@ -20,13 +20,15 @@ interface FinishReservationDialogProps {
   isOpen: boolean;
   onClose: () => void;
   returnFocusTargetId?: string;
+  onSuccess?: () => void;
 }
 
 export const FinishReservationDialog = ({
   isOpen,
   onClose,
   returnFocusTargetId,
-  res
+  res,
+  onSuccess
 }: FinishReservationDialogProps) => {
   const cancelBtnId = 'cancel-finish-res-btn';
 
@@ -37,6 +39,8 @@ export const FinishReservationDialog = ({
     try {
       await reservationService.finish(res.id);
       toast.success('The reservation has been finished successfully.');
+      if (onSuccess) onSuccess();
+      onClose();
     } catch(e) {
       const msg = getErrorMessage(e);
       if (msg) toast.error(msg);

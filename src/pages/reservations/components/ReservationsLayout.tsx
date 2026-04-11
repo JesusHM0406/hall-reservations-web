@@ -26,6 +26,7 @@ interface ReservationsLayoutBase {
 
 interface ReservationsLayoutSelf extends ReservationsLayoutBase {
   type: 'self';
+  onRefresh: () => void;
 }
 
 interface ReservationsLayoutAll extends ReservationsLayoutBase {
@@ -175,6 +176,7 @@ export const ReservationsLayout = ({
                     returnFocusTargetId={lastTriggerId}
                     isOpen={true}
                     onClose={onClose}
+                    onSuccess={props.type === 'self' ? props.onRefresh : undefined}
                   />
                 ) : null}
               </>

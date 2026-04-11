@@ -11,6 +11,7 @@ import {
   HallsSearchPage,
   HallsExplorePage
 } from '@/pages';
+import { ProtectedRoute } from './pages/ProtectedRoute';
 
 const router = createBrowserRouter([
   {
@@ -29,7 +30,10 @@ const router = createBrowserRouter([
       },
       {
         path: PATHS.reservations,
-        Component: ReservationsPage
+        Component: () => <ProtectedRoute allowTo='auth' />,
+        children: [
+          { index: true, Component: ReservationsPage }
+        ]
       },
       {
         path: PATHS.auth.root,
@@ -41,11 +45,17 @@ const router = createBrowserRouter([
       },
       {
         path: PATHS.users,
-        Component: UsersPage
+        Component: () => <ProtectedRoute allowTo={['admin', 'superadmin']} />,
+        children: [
+          { index: true, Component: UsersPage }
+        ]
       },
       {
         path: PATHS.myAccount,
-        Component: MyAccountPage
+        Component: () => <ProtectedRoute allowTo='auth' />,
+        children: [
+          { index: true, Component: MyAccountPage }
+        ]
       }
     ]
   },

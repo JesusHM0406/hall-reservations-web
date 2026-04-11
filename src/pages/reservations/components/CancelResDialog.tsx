@@ -39,7 +39,7 @@ export const CancelResDialog = ({
     let isSuccess = false;
     try {
       await reservationService.cancel(res.id);
-      toast.success('The reservation has been finished successfully.');
+      toast.success('The reservation has been cancelled successfully.');
       isSuccess = true;
     } catch(e) {
       const msg = getErrorMessage(e);

@@ -11,7 +11,7 @@ import { UserRound } from 'lucide-react';
 import { ICON_SIZE } from '@/constants/ui.constants';
 import { AllowTo } from '@/components/common/AllowTo';
 import { UserInfoDialog } from './UserInfoDialog';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import type { ResAction } from '../res.types';
 
 interface ReservationsLayoutBase {
@@ -56,6 +56,8 @@ export const ReservationsLayout = ({
 
     setAction(nextAction);
   };
+
+  const onClose = useCallback(() => {setAction(null)}, []);
 
   return (
     <div className='max-w-xl w-full mx-auto flex flex-col gap-7 grow'>
@@ -163,7 +165,7 @@ export const ReservationsLayout = ({
                     res={action.res}
                     returnFocusTargetId={lastTriggerId}
                     isOpen={true}
-                    onClose={() => {setAction(null)}}
+                    onClose={onClose}
                   />
                 ) : null}
               </>

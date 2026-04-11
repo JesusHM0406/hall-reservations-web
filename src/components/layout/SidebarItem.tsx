@@ -54,7 +54,7 @@ const SidebarItem = (props: SidebarItemProps) => {
           className={`grid transition-[grid-template-rows] ${isExpanded ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}
           id={`${sectionLabel}-submenu`}
         >
-          <ul className='overflow-hidden'>
+          <ul className='overflow-hidden' inert={!isExpanded}>
             {items.map((item) => {
               return (
                 <li key={`/${rootPath}/${item.path}`}>

@@ -1,4 +1,5 @@
 import type { ResAction } from "../res.types";
+import { CancelResDialog } from "./CancelResDialog";
 import { FinishReservationDialog } from "./FinishReservationDialog";
 import { UserInfoDialog } from "./UserInfoDialog";
 
@@ -23,6 +24,16 @@ export const ResActionView = ({ action, lastTriggerId, onClose, onSuccess }: Res
 
   if (action.type === 'finish') return (
     <FinishReservationDialog
+      res={action.res}
+      returnFocusTargetId={lastTriggerId}
+      isOpen={true}
+      onClose={onClose}
+      onSuccess={onSuccess}
+    />
+  );
+
+  if (action.type === 'cancel') return (
+    <CancelResDialog
       res={action.res}
       returnFocusTargetId={lastTriggerId}
       isOpen={true}

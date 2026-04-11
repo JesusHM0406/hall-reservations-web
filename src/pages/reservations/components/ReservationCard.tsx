@@ -51,7 +51,10 @@ export const ReservationCard = ({ res, isSelf, setAction }: ReservationCardProps
                   <span><CircleCheck aria-hidden /></span>
                   <span>Finish reservation</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem variant='destructive'>
+                <DropdownMenuItem
+                  variant='destructive'
+                  onSelect={() => {setAction({ type: 'cancel', res, triggerId })}}
+                >
                   <span><CircleX aria-hidden /></span>
                   <span>Cancel reservation</span>
                 </DropdownMenuItem>

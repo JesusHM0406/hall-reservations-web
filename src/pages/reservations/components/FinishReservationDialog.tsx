@@ -15,6 +15,8 @@ interface FinishReservationDialogProps {
 }
 
 export const FinishReservationDialog = ({ isOpen, onClose }: FinishReservationDialogProps) => {
+  const cancelBtnId = 'cancel-finish-res-btn';
+
   return (
     <Dialog
       open={isOpen}
@@ -22,7 +24,14 @@ export const FinishReservationDialog = ({ isOpen, onClose }: FinishReservationDi
         if (!open) onClose();
       }}
     >
-      <DialogContent showCloseButton={false}>
+      <DialogContent
+        onOpenAutoFocus={(e) => {
+          e.preventDefault();
+          const cancelBtn = document.getElementById(cancelBtnId);
+          cancelBtn?.focus();
+        }}
+        showCloseButton={false}
+      >
         <DialogHeader>
           <DialogTitle>Finish reservation</DialogTitle>
           <DialogDescription>You can only finish the reservation if today is the day of the reservation.</DialogDescription>
@@ -32,7 +41,7 @@ export const FinishReservationDialog = ({ isOpen, onClose }: FinishReservationDi
             <span>Finish reservation</span>
           </CustomButton>
           <DialogClose asChild>
-            <CustomButton intent='gray'>
+            <CustomButton id={cancelBtnId} intent='gray'>
               <span>Cancel</span>
             </CustomButton>
           </DialogClose>

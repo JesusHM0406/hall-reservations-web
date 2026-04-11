@@ -34,6 +34,8 @@ export const ResActionView = ({ action, lastTriggerId, onClose, onSuccess }: Res
 
   if (action.type === 'cancel') return (
     <CancelResDialog
+      res={action.res}
+      returnFocusTargetId={lastTriggerId}
       isOpen={true}
       onClose={onClose}
     />

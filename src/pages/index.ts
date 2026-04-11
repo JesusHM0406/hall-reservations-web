@@ -6,6 +6,7 @@ import { UsersPage } from './users/UsersPage';
 import { HallDetailPage } from './halls/HallDetailPage';
 import { HallsSearchPage } from './halls/HallsSearchPage';
 import { HallsExplorePage } from './halls/HallsExplorePage';
+import { ProtectedRoute } from './ProtectedRoute';
 
 export {
   ReservationsPage,
@@ -15,5 +16,6 @@ export {
   LoginPage,
   HallDetailPage,
   HallsSearchPage,
-  HallsExplorePage
+  HallsExplorePage,
+  ProtectedRoute
 };

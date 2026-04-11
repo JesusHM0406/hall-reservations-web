@@ -9,9 +9,9 @@ import {
   UsersPage,
   HallDetailPage,
   HallsSearchPage,
-  HallsExplorePage
+  HallsExplorePage,
+  ProtectedRoute
 } from '@/pages';
-import { ProtectedRoute } from './pages/ProtectedRoute';
 
 const router = createBrowserRouter([
   {

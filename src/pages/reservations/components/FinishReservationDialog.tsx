@@ -1,4 +1,6 @@
+import { getErrorMessage } from '@/api/api.utils';
 import type { Reservation } from '@/api/schemas/reservation.schemas';
+import { reservationService } from '@/api/services/reservation.service';
 import CustomButton from '@/components/ui/Button';
 import {
   Dialog,
@@ -9,6 +11,9 @@ import {
   DialogHeader,
   DialogTitle
 } from '@/components/ui/dialog';
+import SpinnerLoader from '@/components/ui/SpinnerLoader';
+import { useState } from 'react';
+import { toast } from 'sonner';
 
 interface FinishReservationDialogProps {
   res: Reservation;
@@ -24,6 +29,21 @@ export const FinishReservationDialog = ({
   res
 }: FinishReservationDialogProps) => {
   const cancelBtnId = 'cancel-finish-res-btn';
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const finishRes = async () => {
+    setIsLoading(true);
+    try {
+      await reservationService.finish(res.id);
+      toast.success('The reservation has been finished successfully.');
+    } catch(e) {
+      const msg = getErrorMessage(e);
+      if (msg) toast.error(msg);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <Dialog
@@ -51,8 +71,17 @@ export const FinishReservationDialog = ({
           <DialogDescription>You can only finish the reservation if today is the day of the reservation.</DialogDescription>
         </DialogHeader>
         <DialogFooter className='flex-row justify-end'>
-          <CustomButton intent='res'>
-            <span>Finish reservation</span>
+          <CustomButton
+            intent='res'
+            onClick={finishRes}
+            disabled={isLoading}
+            className='w-36'
+          >
+            {isLoading ? (
+              <SpinnerLoader size='xs' />
+            ) : (
+              <span>Finish reservation</span>
+            )}
           </CustomButton>
           <DialogClose asChild>
             <CustomButton id={cancelBtnId} intent='gray'>

@@ -40,14 +40,16 @@ export const CancelResDialog = ({
     try {
       await reservationService.cancel(res.id);
       toast.success('The reservation has been finished successfully.');
-      if (onSuccess) onSuccess();
       isSuccess = true;
     } catch(e) {
       const msg = getErrorMessage(e);
       if (msg) toast.error(msg);
     } finally {
       setIsLoading(false);
-      if (isSuccess) onClose();
+      if (isSuccess) {
+        onClose();
+        if (onSuccess) onSuccess();
+      }
     }
   };
 

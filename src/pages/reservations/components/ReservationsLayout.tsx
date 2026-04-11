@@ -65,7 +65,7 @@ export const ReservationsLayout = ({
       <section>
         <header className='flex justify-between gap-2 items-center'>
           <h1 className='font-bold text-lg xs:text-2xl uppercase'>Reservations</h1>
-          <AllowTo roles={['admin', 'superadmin']}>
+          <AllowTo requires={['admin', 'superadmin']}>
             <Toggle
               pressed={props.type === 'self'}
               onPressedChange={setIsSelf}

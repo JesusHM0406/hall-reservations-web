@@ -9,6 +9,7 @@ import { ICON_SIZE } from '@/constants/ui.constants';
 import { cn } from '@utils';
 import { useFocusTrap } from '@/hooks/useFocusTrap';
 import { useAuth } from '@/hooks/useAuth';
+import { AllowTo } from '../common/AllowTo';
 
 interface SidebarProps extends HTMLAttributes<HTMLElement> {
   isSidebarOpen: boolean;
@@ -57,24 +58,35 @@ const Sidebar = ({ isSidebarOpen, closeMethod, isDesktop, className, ...props }:
             {SIDEBAR_ITEMS.map(item => {
               if (item.type === 'expandable') {
                 return (
-                  <li key={item.sectionLabel}>
-                    <SidebarItem
-                      {...item}
-                      sectionMethod={() => handleExpandableClick(item.sectionLabel)}
-                      isExpanded={expandedOpt === item.sectionLabel}
-                      closeMethod={closeMethod}
-                    />
-                  </li>
+                  <AllowTo key={item.sectionLabel} requires={item.allowTo}>
+                    <li>
+                      <SidebarItem
+                        type={item.type}
+                        items={item.items}
+                        sectionLabel={item.sectionLabel}
+                        iconName={item.iconName}
+                        rootPath={item.rootPath}
+                        sectionMethod={() => handleExpandableClick(item.sectionLabel)}
+                        isExpanded={expandedOpt === item.sectionLabel}
+                        closeMethod={closeMethod}
+                      />
+                    </li>
+                  </AllowTo>
                 )
               }
 
               return (
-                <li key={item.sectionLabel}>
-                  <SidebarItem
-                    {...item}
-                    sectionMethod={closeMethod}
-                  />
-                </li>
+                <AllowTo key={item.sectionLabel} requires={item.allowTo}>
+                  <li>
+                    <SidebarItem
+                      type={item.type}
+                      sectionLabel={item.sectionLabel}
+                      iconName={item.iconName}
+                      rootPath={item.rootPath}
+                      sectionMethod={closeMethod}
+                    />
+                  </li>
+                </AllowTo>
               )
 
             })}

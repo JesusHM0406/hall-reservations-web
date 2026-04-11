@@ -3,14 +3,17 @@ import { useAuth } from '@/hooks/useAuth';
 import type { ReactNode } from 'react';
 
 interface AllowToProps {
-  roles: UserRole[];
+  requires: 'auth' | 'any' | UserRole[];
   children: ReactNode;
 }
 
-export const AllowTo = ({ roles, children }: AllowToProps) => {
+export const AllowTo = ({ children, requires }: AllowToProps) => {
   const { user } = useAuth();
 
-  if (!user || !roles.includes(user.role)) return null;
+  if (requires === 'any') return children;
+  if (!user) return null;
+  if (requires === 'auth') return children;
+  if (!requires.includes(user.role)) return null;
 
   return children;
 };

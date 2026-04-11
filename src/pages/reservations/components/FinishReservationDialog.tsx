@@ -36,16 +36,18 @@ export const FinishReservationDialog = ({
 
   const finishRes = async () => {
     setIsLoading(true);
+    let isSuccess = false;
     try {
       await reservationService.finish(res.id);
       toast.success('The reservation has been finished successfully.');
       if (onSuccess) onSuccess();
-      onClose();
+      isSuccess = true;
     } catch(e) {
       const msg = getErrorMessage(e);
       if (msg) toast.error(msg);
     } finally {
       setIsLoading(false);
+      if (isSuccess) onClose();
     }
   };
 
@@ -53,7 +55,7 @@ export const FinishReservationDialog = ({
     <Dialog
       open={isOpen}
       onOpenChange={(open) => {
-        if (!open) onClose();
+        if (!open && !isLoading) onClose();
       }}
     >
       <DialogContent
@@ -87,7 +89,7 @@ export const FinishReservationDialog = ({
               <span>Finish reservation</span>
             )}
           </CustomButton>
-          <DialogClose asChild>
+          <DialogClose disabled={isLoading} asChild>
             <CustomButton id={cancelBtnId} intent='gray'>
               <span>Cancel</span>
             </CustomButton>

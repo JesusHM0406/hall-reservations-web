@@ -1,7 +1,7 @@
-import type { UserRole } from "@/api/schemas/user.schemas";
-import { useAuth } from "@/hooks/useAuth";
-import { PATHS } from "@/paths";
-import { Navigate, Outlet } from "react-router";
+import type { UserRole } from '@/api/schemas/user.schemas';
+import { useAuth } from '@/hooks/useAuth';
+import { PATHS } from '@/paths';
+import { Navigate, Outlet } from 'react-router';
 
 interface ProtectedRouteProps {
   allowTo: 'auth' | UserRole[];

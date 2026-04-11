@@ -20,21 +20,31 @@ export const UserInfoDialog = ({ isOpen, onClose, returnFocusTargetId, res }: Us
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
+    let isCurrent = true;
+    const controller = new AbortController();
+
     const fetchUser = async () => {
       setIsLoading(true);
       try {
-        const data = await userService.byId(res.user_id);
+        const data = await userService.byId(res.user_id, controller);
 
+        if (!isCurrent) return;
         setUser(data);
       } catch(e) {
+        if (!isCurrent) return;
         const msg = getErrorMessage(e);
         if (msg) toast.error(msg);
         onClose();
       }
-      setIsLoading(false);
+      if (isCurrent) setIsLoading(false);
     };
 
     fetchUser();
+
+    return () => {
+      isCurrent = false;
+      controller.abort();
+    }
   }, [res, onClose]);
 
   return (

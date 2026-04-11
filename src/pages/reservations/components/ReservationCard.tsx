@@ -47,7 +47,7 @@ export const ReservationCard = ({ res, isSelf, setAction }: ReservationCardProps
                 </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align='end' className='w-42'>
-                <DropdownMenuItem>
+                <DropdownMenuItem onSelect={() => {setAction({ type: 'finish', res, triggerId })}}>
                   <span><CircleCheck aria-hidden /></span>
                   <span>Finish reservation</span>
                 </DropdownMenuItem>

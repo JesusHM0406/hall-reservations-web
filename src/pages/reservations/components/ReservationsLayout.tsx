@@ -13,6 +13,7 @@ import { AllowTo } from '@/components/common/AllowTo';
 import { UserInfoDialog } from './UserInfoDialog';
 import { useCallback, useState } from 'react';
 import type { ResAction } from '../res.types';
+import { FinishReservationDialog } from './FinishReservationDialog';
 
 interface ReservationsLayoutBase {
   status: ReservationStatusFilter;
@@ -164,6 +165,12 @@ export const ReservationsLayout = ({
                   <UserInfoDialog
                     res={action.res}
                     returnFocusTargetId={lastTriggerId}
+                    isOpen={true}
+                    onClose={onClose}
+                  />
+                ) : null}
+                {action?.type === 'finish' ? (
+                  <FinishReservationDialog
                     isOpen={true}
                     onClose={onClose}
                   />

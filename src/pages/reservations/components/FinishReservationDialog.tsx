@@ -1,3 +1,4 @@
+import type { Reservation } from '@/api/schemas/reservation.schemas';
 import CustomButton from '@/components/ui/Button';
 import {
   Dialog,
@@ -10,11 +11,18 @@ import {
 } from '@/components/ui/dialog';
 
 interface FinishReservationDialogProps {
+  res: Reservation;
   isOpen: boolean;
   onClose: () => void;
+  returnFocusTargetId?: string;
 }
 
-export const FinishReservationDialog = ({ isOpen, onClose }: FinishReservationDialogProps) => {
+export const FinishReservationDialog = ({
+  isOpen,
+  onClose,
+  returnFocusTargetId,
+  res
+}: FinishReservationDialogProps) => {
   const cancelBtnId = 'cancel-finish-res-btn';
 
   return (
@@ -29,6 +37,12 @@ export const FinishReservationDialog = ({ isOpen, onClose }: FinishReservationDi
           e.preventDefault();
           const cancelBtn = document.getElementById(cancelBtnId);
           cancelBtn?.focus();
+        }}
+        onCloseAutoFocus={(e) => {
+          e.preventDefault();
+          const triggerId = returnFocusTargetId ?? `res-dropdown-trigger-${res.id}`;
+          const trigger = document.getElementById(triggerId);
+          trigger?.focus();
         }}
         showCloseButton={false}
       >

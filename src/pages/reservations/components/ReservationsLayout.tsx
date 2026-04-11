@@ -171,6 +171,8 @@ export const ReservationsLayout = ({
                 ) : null}
                 {action?.type === 'finish' ? (
                   <FinishReservationDialog
+                    res={action.res}
+                    returnFocusTargetId={lastTriggerId}
                     isOpen={true}
                     onClose={onClose}
                   />

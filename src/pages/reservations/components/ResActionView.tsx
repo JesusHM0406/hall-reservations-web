@@ -40,5 +40,5 @@ export const ResActionView = ({ action, lastTriggerId, onClose, onSuccess }: Res
       onClose={onClose}
       onSuccess={onSuccess}
     />
-  )
+  );
 };

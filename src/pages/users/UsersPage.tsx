@@ -13,7 +13,7 @@ import {
   type UserRoleFilter,
   type UserStatusFilter
 } from '@/api/schemas/user.schemas';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { getErrorMessage } from '@/api/api.utils';
 import { toast } from 'sonner';
 import { userService } from '@/api/services/user.service';
@@ -42,11 +42,11 @@ export const UsersPage = () => {
   const [refreshCount, setRefreshCount] = useState<number>(0);
 
   const [action, setAction] = useState<UserActions>(null);
-  const lastTriggerIdRef = useRef<string | undefined>(undefined);
+  const [lastTriggerId, setLastTriggerId] = useState<string | undefined>(undefined);
 
   const handleActionChange = (nextAction: UserActions) => {
     if (nextAction !== null) {
-      lastTriggerIdRef.current = nextAction.triggerId;
+      setLastTriggerId(nextAction.triggerId);
     }
 
     setAction(nextAction);
@@ -177,21 +177,21 @@ export const UsersPage = () => {
                   isOpen={action?.type === 'update'}
                   onClose={() => setAction(null)}
                   user={action?.user ? action.user : null}
-                  returnFocusTargetId={lastTriggerIdRef.current}
+                  returnFocusTargetId={lastTriggerId}
                 />
                 <RestoreUserDialog
                   onSuccess={() => setRefreshCount((prev) => prev + 1)}
                   isOpen={action?.type === 'restore'}
                   onClose={() => setAction(null)}
                   user={action?.user ? action.user : null}
-                  returnFocusTargetId={lastTriggerIdRef.current}
+                  returnFocusTargetId={lastTriggerId}
                 />
                 <DeleteUserDialog
                   onSuccess={() => setRefreshCount((prev) => prev + 1)}
                   isOpen={action?.type === 'delete'}
                   onClose={() => setAction(null)}
                   user={action?.user ? action.user : null}
-                  returnFocusTargetId={lastTriggerIdRef.current}
+                  returnFocusTargetId={lastTriggerId}
                 />
               </>
               ) : null}

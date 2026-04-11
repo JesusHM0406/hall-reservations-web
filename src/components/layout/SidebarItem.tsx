@@ -57,7 +57,10 @@ const SidebarItem = (props: SidebarItemProps) => {
           <ul className='overflow-hidden'>
             {items.map((item) => {
               return (
-                <li key={`/${rootPath}/${item.path}`}>
+                <li
+                  key={`/${rootPath}/${item.path}`}
+                  {...(isExpanded ? {} : { inert: true })}
+                >
                   <NavLink
                     to={`/${rootPath}/${item.path}`}
                     className={({ isActive }) => {

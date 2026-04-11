@@ -10,6 +10,9 @@ import { Toggle } from '@/components/ui/toggle';
 import { UserRound } from 'lucide-react';
 import { ICON_SIZE } from '@/constants/ui.constants';
 import { AllowTo } from '@/components/common/AllowTo';
+import { UserInfoDialog } from './UserInfoDialog';
+import { useCallback, useState } from 'react';
+import type { ResAction } from '../res.types';
 
 interface ReservationsLayoutBase {
   status: ReservationStatusFilter;
@@ -43,6 +46,19 @@ export const ReservationsLayout = ({
   setIsSelf,
   ...props
 }: ReservationsLayoutProps) => {
+  const [action, setAction] = useState<ResAction>(null);
+  const [lastTriggerId, setLastTriggerId] = useState<string | undefined>(undefined);
+
+  const handleActionChange = (nextAction: ResAction) => {
+    if (nextAction !== null) {
+      setLastTriggerId(nextAction.triggerId);
+    }
+
+    setAction(nextAction);
+  };
+
+  const onClose = useCallback(() => {setAction(null)}, []);
+
   return (
     <div className='max-w-xl w-full mx-auto flex flex-col gap-7 grow'>
       <section>
@@ -129,7 +145,11 @@ export const ReservationsLayout = ({
                 <ul className='flex flex-col gap-5 mb-5'>
                   {resPag.items.map((res) => (
                     <li key={res.id}>
-                      <ReservationCard res={res} isSelf={props.type === 'self'} />
+                      <ReservationCard
+                        res={res}
+                        isSelf={props.type === 'self'}
+                        setAction={handleActionChange}
+                      />
                     </li>
                   ))}
                 </ul>
@@ -140,11 +160,20 @@ export const ReservationsLayout = ({
                   has_prev={resPag.has_prev}
                   onPageClick={handlePageClick}
                 />
+                {action?.type === 'userInfo' ? (
+                  <UserInfoDialog
+                    res={action.res}
+                    returnFocusTargetId={lastTriggerId}
+                    isOpen={true}
+                    onClose={onClose}
+                  />
+                ) : null}
               </>
             ) : null}
           </>
         )}
       </section>
+
     </div>
   );
 };

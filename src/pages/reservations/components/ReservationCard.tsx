@@ -6,16 +6,20 @@ import { PATHS } from '@/paths';
 import { format, isValid, parseISO } from 'date-fns';
 import { Calendar, CircleCheck, CircleX, MoreVertical, UserRound } from 'lucide-react';
 import { Link } from 'react-router';
+import type { ResAction } from '../res.types';
 
 interface ReservationCardProps {
   res: Reservation;
   isSelf: boolean;
+  setAction: (action: ResAction) => void;
 }
 
-export const ReservationCard = ({ res, isSelf }: ReservationCardProps) => {
+export const ReservationCard = ({ res, isSelf, setAction }: ReservationCardProps) => {
   const parsedDate = parseISO(res.reservation_date);
 
   const date = isValid(parsedDate) ? format(parsedDate, 'MMM dd, yyyy') : 'Invalid date';
+
+  const triggerId = `res-dropdown-trigger-${res.id}`;
 
   return (
     <article className='border border-inactive/25 gap-2 bg-subtle-white/30 dark:bg-dark-gray rounded-xl hover:bg-inactive/10 dark:hover:bg-inactive/15 transition-colors duration-150 flex flex-col overflow-hidden'>
@@ -34,6 +38,7 @@ export const ReservationCard = ({ res, isSelf }: ReservationCardProps) => {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button
+                  id={triggerId}
                   type='button'
                   className='p-1.5 border border-inactive/25 rounded-md transition-colors hover:border-res hover:text-res'
                   aria-label='Show actions for this reservation'
@@ -56,6 +61,7 @@ export const ReservationCard = ({ res, isSelf }: ReservationCardProps) => {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button
+                  id={triggerId}
                   type='button'
                   className='p-1.5 border border-inactive/25 rounded-md transition-colors hover:border-res hover:text-res'
                   aria-label='Show actions for this reservation'
@@ -64,7 +70,7 @@ export const ReservationCard = ({ res, isSelf }: ReservationCardProps) => {
                 </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent  align='end' className='w-36'>
-                <DropdownMenuItem>
+                <DropdownMenuItem onSelect={() => {setAction({ type: 'userInfo', res, triggerId })}}>
                   <span><UserRound aria-hidden /> </span>
                   <span>Show user info</span>
                 </DropdownMenuItem>

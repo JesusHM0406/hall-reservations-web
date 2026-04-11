@@ -24,8 +24,11 @@ export const userService = {
     return await apiRequest(API_ENDPOINTS.USERS.UPDATE_CURRENT(payload));
   },
 
-  async byId(id: number | string) {
-    return await apiRequest(API_ENDPOINTS.USERS.BY_ID(id));
+  async byId(id: number | string, controller?: AbortController) {
+    return await apiRequest(
+      API_ENDPOINTS.USERS.BY_ID(id),
+      { signal: controller?.signal }
+    );
   },
 
   async update(id: string | number, payload: UserAdminUpdate) {

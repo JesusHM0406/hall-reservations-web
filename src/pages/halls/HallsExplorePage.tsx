@@ -78,7 +78,7 @@ export const HallsExplorePage = () => {
           <h1 className='font-bold text-lg xs:text-2xl uppercase'>Explore Halls</h1>
         </header>
 
-        <AllowTo roles={['admin', 'superadmin']}>
+        <AllowTo requires={['admin', 'superadmin']}>
           <CreateHallDrawer onSuccess={() => setRefreshCount((prev) => prev + 1)}>
             <Button className='text-2xs uppercase' intent='hall' filled shadow darkFocus >
               <span><PlusCircle size={ICON_SIZE.MD} aria-hidden /></span>

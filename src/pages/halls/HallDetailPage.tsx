@@ -87,7 +87,7 @@ export const HallDetailPage = () => {
               </section>
 
               <footer className='flex gap-2 mt-3'>
-                <AllowTo roles={['admin', 'superadmin', 'user']}>
+                <AllowTo requires='auth'>
                   <BookHallDrawer hallId={numericId} hallName={hallDetail.name}>
                     <Button className='grow' disabled={!isAva}>
                       <span>
@@ -98,7 +98,7 @@ export const HallDetailPage = () => {
                   </BookHallDrawer>
                 </AllowTo>
 
-                <AllowTo roles={['admin', 'superadmin']}>
+                <AllowTo requires={['admin', 'superadmin']}>
                   <UpdateHallDrawer onSuccess={() => setRefreshCount((prev) => prev + 1)} hallId={numericId}>
                     <Button
                       filled={false}

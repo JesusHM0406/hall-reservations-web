@@ -163,7 +163,7 @@ export const UpdateUserDrawer = ({ isOpen, onClose, user, returnFocusTargetId, o
               )}
             />
 
-            <AllowTo roles={['superadmin']}>
+            <AllowTo requires={['superadmin']}>
               <Controller
                 name='role'
                 control={form.control}
